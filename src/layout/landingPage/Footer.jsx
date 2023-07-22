@@ -1,43 +1,22 @@
+import Logo from "../../assets/logo.png";
+import { NavLink } from "react-router-dom";
+
 const Footer = () => {
+  const style = {
+    text: "text-white font-sans",
+  };
   return (
-    <footer className="footer p-10 bg-base-200 text-base-content">
-      <div>
-        <span className="footer-title">Services</span>
-        <a className="link link-hover">Branding</a>
-        <a className="link link-hover">Design</a>
-        <a className="link link-hover">Marketing</a>
-        <a className="link link-hover">Advertisement</a>
+    <footer className="mb-2 footer p-10 bg-cream1 rounded-md flex flex-col justify-center items-start">
+      <div className="flex justify-between items-center space-x-2 w-max border">
+        <img className="" src={Logo} />
+        <h1 className="text-2xl font-sans text-white font-semibold">E-verse</h1>
       </div>
-      <div>
-        <span className="footer-title">Company</span>
-        <a className="link link-hover">About us</a>
-        <a className="link link-hover">Contact</a>
-        <a className="link link-hover">Jobs</a>
-        <a className="link link-hover">Press kit</a>
+      <div className="flex justify-start items-center space-x-2">
+        <NavLink className={`${style.text}`}>Terms &amp; Policies</NavLink>
+        <NavLink className={`${style.text}`}>Privacy Policy</NavLink>
       </div>
-      <div>
-        <span className="footer-title">Legal</span>
-        <a className="link link-hover">Terms of use</a>
-        <a className="link link-hover">Privacy policy</a>
-        <a className="link link-hover">Cookie policy</a>
-      </div>
-      <div>
-        <span className="footer-title">Newsletter</span>
-        <div className="form-control w-80">
-          <label className="label">
-            <span className="label-text">Enter your email address</span>
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="username@site.com"
-              className="input input-bordered w-full pr-16"
-            />
-            <button className="btn btn-primary absolute top-0 right-0 rounded-l-none">
-              Subscribe
-            </button>
-          </div>
-        </div>
+      <div className="">
+        <h1 className="text-lg font-sans text-white font-semibold">&copy; 2023 <span className="text-blue1">E-Verse</span> All rights reserved</h1>
       </div>
     </footer>
   );

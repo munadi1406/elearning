@@ -1,35 +1,32 @@
-import world from "../../assets/world.png";
+// import './hero.css';
+import Polygon from "../../assets/polygon.svg";
+import Universe from "../../assets/universe.svg";
+import Elipse from "../../assets/elipse.svg";
 import Button from "../Button";
-import Image from "./../Image";
-import universe from "./../../assets/universe.jpg";
-import universe3 from "./../../assets/universe2.jpg";
-import universe2 from "./../../assets/universe3.jpg";
 
 export default function Hero() {
   return (
-    <div className="hero bg-base-200 w-full min-h-screen">
-      <div className="hero-content grid grid-cols-2 w-full">
-        <div>
-          <p className="text-4xl py-3 font-sans font-semibold">
-            Rasakan Era Baru Pendidikan <span className="text-primary italic">Digital</span>
-          </p>
-          <Button button="Get Started"  />
+    <div className="bg-cream1 p-2  rounded-md overflow-clip mt-2 min-h-[723px] flex justify-between items-center relative ">
+      <div className="flex px-10 flex-col text-3xl font-bold font-sans text-white space-y-2 relative z-20">
+        <span>
+          Rasakan Era Baru
+        </span>
+        <div >Pendidikan <span className="text-blue1">Digital</span></div>
+        <Button color={"bg-blue1"} to="#" text="Get Started" />
+      </div>
+      <div >
+        <div className="absolute left-0 top-0 z-0 w-full h-full">
+          <img className="w-full h-full" src={Polygon} />
         </div>
-        <div className="flex justify-center items-center relative h-80">
-          <div className="w-1/2 h-40 border-2 border-dashed block absolute top-0 left-0 z-0 ">
-            {" "}
-            <Image src={universe2} className="object-cover w-full h-full" />
+        <div className=" relative flex justify-center items-center">
+          <div className="h-max w-max absolute transform -translate-y-28">
+            <img className="" alt="Subtract" src={Elipse} />
           </div>
-          <Image src={world} className="relative z-10 w-56" />
-          <div className="w-1/2 h-40 border-2 border-dashed block absolute bottom-0 right-0 z-0 ">
-            {" "}
-            <Image src={universe3} className="object-cover w-full h-full" />
-          </div>
-          <div className="w-1/2 h-40 block absolute bottom-0 left-0 z-0 ">
-            <Image src={universe} className="object-cover w-full h-full" />
-          </div>
+          <img className="relative z-20" alt="Vectary texture" src={Universe} />
         </div>
+        <div className="block border-4 absolute -bottom-10 right-5 rounded-[50%] w-40 h-80 border-white " />
       </div>
     </div>
+
   );
 }
