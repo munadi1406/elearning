@@ -6,8 +6,8 @@ import Button from "../Button";
 
 export default function Hero() {
   return (
-    <div className="bg-cream1 p-2  rounded-md overflow-clip mt-2 min-h-[723px] flex justify-between items-center relative ">
-      <div className="flex px-10 flex-col text-3xl font-bold font-sans text-white space-y-2 relative z-20">
+    <div className="p-2  rounded-md overflow-clip mt-2 min-h-[723px] flex justify-between items-center relative ">
+      <div className="flex px-10 flex-col text-4xl font-bold font-sans text-blue2 space-y-2 relative z-10">
         <span>
           Rasakan Era Baru
         </span>
@@ -22,7 +22,7 @@ export default function Hero() {
           <div className="h-max w-max absolute transform -translate-y-28">
             <img className="" alt="Subtract" src={Elipse} />
           </div>
-          <img className="relative z-20" alt="Vectary texture" src={Universe} />
+          <img className="relative z-10" alt="Vectary texture" src={Universe} />
         </div>
         <div className="block border-4 absolute -bottom-10 right-5 rounded-[50%] w-40 h-80 border-white " />
       </div>

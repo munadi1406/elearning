@@ -3,6 +3,7 @@ import Button from "../Button";
 import { useState } from "react";
 import Logo from './../../assets/logo.png'
 import { NavLink } from "react-router-dom";
+import ButtonDropdown from "../ButtonDropdown";
 
 export default function Navbar() {
 
@@ -28,7 +29,7 @@ const style ={
 }
 
   return (
-    <div className={`bg-blue1 ${isScrolled ? 'bg-blue1/60 backdrop-blur-md backdrop-filter' :'bg-blue1'} rounded-md flex justify-between items-center px-4 py-4`}>
+    <nav className={`bg-blue1 ${isScrolled ? 'bg-blue1/60 backdrop-blur-md backdrop-filter' :'bg-blue1'} rounded-md flex justify-between items-center px-4 py-4 relative z-60`}>
         <div className="flex justify-center items-center space-x-2">
           <img className="w-8" alt="Group" src={Logo} />
           <h1 className="font-sans text-lg text-white font-bold">E-verse</h1>
@@ -37,7 +38,8 @@ const style ={
           <NavLink className={`${style.menu}`}>Home</NavLink>
           <NavLink className={`${style.menu}`}>{}About</NavLink>
           <Button to="#" text="Sign In"/>
+          <ButtonDropdown/>
         </div>
-    </div>
+    </nav>
   );
 }
