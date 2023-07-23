@@ -38,7 +38,6 @@ const style ={
           <NavLink className={`${style.menu}`}>Home</NavLink>
           <NavLink className={`${style.menu}`}>{}About</NavLink>
           <Button to="#" text="Sign In"/>
-          <ButtonDropdown/>
         </div>
     </nav>
   );

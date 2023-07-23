@@ -8,6 +8,8 @@ import Blob6 from "../../assets/Vector (5).svg";
 import QrCode from '../../assets/qrcode.svg';
 import Token from '../../assets/token.svg';
 import Button from '../../components/Button';
+import Universe from './../../assets/universe.jpg';
+import Search from '../../assets/search.svg';
 
 export default function Content() {
 
@@ -15,11 +17,11 @@ export default function Content() {
     text: 'text-white text-xl font-sans font-semibold'
   }
   return (
-    <div className="h-screen w-full flex justify-center items-center relative">
-      <div className="bg-cream1 w-full h-[60%] rounded-md block"></div>
-      <div className="absolute top-10 left-0  w-full py-2 flex justify-center items-center flex-col">
-        <div className="grid grid-cols-4 w-[90%] space-x-2 ">
-          <div className="bg-blue1 h-44 rounded-md p-2 relative col-span-2 justify-center items-center flex">
+    <div className="h-max w-full flex justify-center items-center relative">
+      <div className="bg-cream1 w-full h-[60%] rounded-md absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] transform z-0"></div>
+      <div className="h-max w-full py-2 flex justify-center items-center flex-col relative z-10">
+        <div className="grid  min-w-[90%] bg-red-500 h-max md:grid-cols-3 gap-2 sm:grid-cols-2  grid-cols-1 flex-wrap">
+          <div className="bg-blue1 h-44 rounded-md  p-2 relative   justify-center items-center flex">
             <div className="flex justify-center items-center h-full w-full">
               <img className="absolute w-10 top-1 left-2 z-0" alt="Vector" src={Blob1} />
               <div className=" grid grid-row-2 px-5 w-full h-max relative z-10">
@@ -34,7 +36,7 @@ export default function Content() {
               <img className="absolute w-10 top-0 right-2 z-0" alt="Vector" src={Blob2} />
             </div>
           </div>
-          <div className="bg-blue1 rounded-md p-2 relative col-span-1 justify-center items-center flex">
+          <div className="bg-blue1 h-44 rounded-md  p-2 relative  justify-center items-center flex">
             <div className="flex justify-center items-center h-full w-full">
               <img className="absolute top-20 w-16 left-2 z-0" alt="Vector" src={Blob4} />
               <div className="grid grid-row-2 px-5 w-full h-max relative z-10">
@@ -48,7 +50,7 @@ export default function Content() {
               <img className="absolute w-10 top-0 right-2 z-0" alt="Vector" src={Blob3} />
             </div>
           </div>
-          <div className="bg-blue1 rounded-md p-2 relative col-span-1 justify-center items-center flex">
+          <div className="bg-blue1 h-44 rounded-md  p-2 relative sm:col-span-full md:col-span-1 justify-center items-center flex">
             <div className="flex justify-center items-center h-full w-full">
               <img className="absolute top-20 w-16 right-2 z-0" alt="Vector" src={Blob5} />
               <div className="grid grid-row-2 px-5 w-full h-max relative z-10">
@@ -63,47 +65,37 @@ export default function Content() {
             </div>
           </div>
         </div>
-      <div className="w-full h-44 justify-center items-center flex flex-col">
-      <div className="text-2xl font-sans font-semibold  text-center text-blue1">
-        <h1 className="text-2xl font-sans font-semibold  text-center text-blue1">
-          Peningkatan Pembelajaran Modern dengan Fitur Absensi
-        </h1>
-        <h1 className="text-white ">Terbaru</h1>
-        <Button to="#" color={"bg-blue1"} text="Get Started"/>
-      </div>
-      </div>
-      </div>
-      {/* <div className="div-wrapper">
-        <div className="overlap-3">
-          <div className="text-wrapper-2">GET STARTED</div>
+        <div className="w-full h-44 justify-center items-center flex flex-col">
+          <div className="text-2xl font-sans font-semibold  text-center text-blue1">
+            <h1 className="text-2xl font-sans font-semibold  text-center text-blue1">
+              Peningkatan Pembelajaran Modern dengan Fitur Absensi
+            </h1>
+            <h1 className="text-white ">Terbaru</h1>
+            <Button to="#" color={"bg-blue1"} text="Get Started" />
+          </div>
         </div>
-      </div>
-      <div className="card-2">
-        <div className="overlap-4">
-          <div className="frame-2">
-            <div className="text-wrapper-3">Cari Kelas Anda...</div>
-            <div className="overlap-5">
-              <div className="group-2">
-                <div className="overlap-group-4">
-                  <div className="text-wrapper-4">Kode Kelas</div>
-                </div>
-              </div>
-              <div className="icon-magnifying-wrapper">
-                <img
-                  className="icon-magnifying"
-                  alt="Icon magnifying"
-                  src="icon-magnifying-glass.png"
-                />
+        <div className="w-full flex justify-center items-center px-2">
+          <div className="w-9/12 rounded-md relative h-72 flex justify-center items-center z-10">
+            <img className="w-full rounded-md h-full object-cover block absolute z-0 top-0 left-0" src={Universe} />
+            <h1 className="relative z-10 text-2xl px-10 text-white font-sans font-semibold w-full">
+              Akses kelas dan materi belajar kapan saja dan <br />
+              di mana saja sesuai dengan jadwal Anda.
+            </h1>
+          </div>
+          <div className="bg-blue1 p-3 rounded-md h-44 flex justify-center items-end flex-col w-3/12 -translate-x-2 transform">
+            <div className=" flex justify-center items-start flex-col space-y-1">
+              <div className="text-white text-lg font-sans font-semibold">Cari Kelas Anda...</div>
+              <div className="flex justify-center items-center bg-white p-1 rounded-md ">
+                <input type="search" placeholder="Kode Kelas" className="bg-transparent border-0 outline-none placeholder:text-blue2" />
+                <button className="bg-blue1 rounded-md p-1 px-3 active:bg-blue1/70">
+                  <img src={Search} alt="Search" />
+                </button>
               </div>
             </div>
           </div>
-          <img className="rectangle-2" alt="Rectangle" src="rectangle-16.png" />
-          <p className="akses-kelas-dan">
-            Akses kelas dan materi belajar kapan saja dan <br />
-            di mana saja sesuai dengan jadwal Anda.
-          </p>
         </div>
-      </div> */}
+
+      </div>
     </div>
   );
 }
