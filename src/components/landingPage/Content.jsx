@@ -20,17 +20,17 @@ export default function Content() {
     <div className="h-max w-full flex justify-center items-center relative">
       <div className="bg-cream1 w-full h-[60%] rounded-md absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] transform z-0"></div>
       <div className="h-max w-full py-2 flex justify-center items-center flex-col relative z-10">
-        <div className="grid  min-w-[90%] bg-red-500 h-max md:grid-cols-3 gap-2 sm:grid-cols-2  grid-cols-1 flex-wrap">
+        <div className="grid  min-w-[90%]  h-max md:grid-cols-3 gap-2 sm:grid-cols-2  grid-cols-1 flex-wrap">
           <div className="bg-blue1 h-44 rounded-md  p-2 relative   justify-center items-center flex">
             <div className="flex justify-center items-center h-full w-full">
               <img className="absolute w-10 top-1 left-2 z-0" alt="Vector" src={Blob1} />
-              <div className=" grid grid-row-2 px-5 w-full h-max relative z-10">
+              <div className=" grid grid-row-2 px-5 w-full h-2/3 relative z-10">
                 <div className={`${style.text} w-full `}>
                   Absensi dengan
                   GPS
                 </div>
                 <div className="flex justify-end w-full">
-                  <img className="w-20 mr-10 " src={Location} />
+                  <img className="w-10 mr-10 " src={Location} />
                 </div>
               </div>
               <img className="absolute w-10 top-0 right-2 z-0" alt="Vector" src={Blob2} />
@@ -39,7 +39,7 @@ export default function Content() {
           <div className="bg-blue1 h-44 rounded-md  p-2 relative  justify-center items-center flex">
             <div className="flex justify-center items-center h-full w-full">
               <img className="absolute top-20 w-16 left-2 z-0" alt="Vector" src={Blob4} />
-              <div className="grid grid-row-2 px-5 w-full h-max relative z-10">
+              <div className="grid grid-row-2 px-5 w-full h-2/3 relative z-10 ">
                 <div className={`${style.text} w-full`}>
                   Absensi Via QR Code
                 </div>
@@ -50,14 +50,14 @@ export default function Content() {
               <img className="absolute w-10 top-0 right-2 z-0" alt="Vector" src={Blob3} />
             </div>
           </div>
-          <div className="bg-blue1 h-44 rounded-md  p-2 relative sm:col-span-full md:col-span-1 justify-center items-center flex">
+          <div className="bg-blue1 h-44 rounded-md   p-2 relative sm:col-span-full md:col-span-1 justify-center items-center flex">
             <div className="flex justify-center items-center h-full w-full">
               <img className="absolute top-20 w-16 right-2 z-0" alt="Vector" src={Blob5} />
-              <div className="grid grid-row-2 px-5 w-full h-max relative z-10">
+              <div className="grid grid-row-2 px-5 w-full h-2/3 relative z-10">
                 <div className={`${style.text} w-full`}>
                   Absensi Menggunakan Token
                 </div>
-                <div className="w-full flex justify-start">
+                <div className="w-full flex justify-end">
                   <img className="w-10" src={Token} />
                 </div>
               </div>
@@ -82,7 +82,7 @@ export default function Content() {
               di mana saja sesuai dengan jadwal Anda.
             </h1>
           </div>
-          <div className="bg-blue1 p-3 rounded-md h-44 flex justify-center items-end flex-col w-3/12 -translate-x-2 transform">
+          <div className="bg-blue1 p-3 rounded-md h-44 flex justify-center items-end flex-col w-[300px] translate-x-[-10px] transform">
             <div className=" flex justify-center items-start flex-col space-y-1">
               <div className="text-white text-lg font-sans font-semibold">Cari Kelas Anda...</div>
               <div className="flex justify-center items-center bg-white p-1 rounded-md ">
