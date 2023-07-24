@@ -7,7 +7,7 @@ const Footer = () => {
   };
   return (
     <footer className="mb-2 footer p-10 bg-cream1 rounded-md flex flex-col justify-center items-start">
-      <div className="flex justify-between items-center space-x-2 w-max border">
+      <div className="flex justify-between items-center space-x-2 w-max ">
         <img className="" src={Logo} />
         <h1 className="text-2xl font-sans text-white font-semibold">E-verse</h1>
       </div>
