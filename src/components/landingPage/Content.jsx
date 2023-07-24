@@ -99,7 +99,7 @@ export default function Content() {
         <div className="w-full flex justify-center items-center flex-wrap  px-2">
           <div className="md:w-[700px] md:flex-grow-0 flex-grow rounded-md relative h-72 flex justify-center items-center z-10">
             <img
-              className="w-full rounded-md h-full object-cover block absolute z-0 top-0 left-0"
+              className="w-full grayscale rounded-md h-full object-cover block absolute z-0 top-0 left-0"
               src={Universe}
             />
             <h1 className="relative z-10 text-2xl px-10 text-white font-sans font-semibold w-full">

@@ -3,7 +3,7 @@ import Button from "../Button";
 import { useState } from "react";
 import Logo from './../../assets/logo.png'
 import { NavLink } from "react-router-dom";
-import ButtonDropdown from "../ButtonDropdown";
+// import ButtonDropdown from "../ButtonDropdown";
 
 export default function Navbar() {
 
@@ -36,8 +36,8 @@ const style ={
         </div>
         <div className="flex justify-center items-center space-x-4">
           <NavLink className={`${style.menu}`}>Home</NavLink>
-          <NavLink className={`${style.menu}`}>{}About</NavLink>
-          <Button to="#" text="Sign In"/>
+          <NavLink  className={`${style.menu}`}>{}About</NavLink>
+          <Button to="/login" text="Sign In"/>
         </div>
     </nav>
   );
