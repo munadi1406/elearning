@@ -1,13 +1,15 @@
 import Universe from '../assets/universe.jpg'
 import Logo from '../assets/logo.png'
-import { Link } from 'react-router-dom'
+import { Link ,useNavigate} from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+
 
 const LoginRegister = () => {
     const [signUp, setSignUp] = useState(false);
     const [signIn, setSignIn] = useState(0)
     const [qouteNumber, setQouteNumber] = useState(1);
+    const navigate = useNavigate();
 
     const qoutes = {
         quote1: "Ngoding Aja Dulu Jagonya Belakangan",
@@ -31,7 +33,7 @@ const LoginRegister = () => {
 
     const style = {
         input: "w-full rounded-md bg-slate-200 outline-none border-none h-10 px-2 placeholder:italic text-sm",
-        button: "text-white active:scale-95 hover:bg-cream1 transition-all duration-300 ease-in-out  shadow-[3px_3px_1px_#F4D160] hover:shadow-none bg-blue1 p-2 rounded-md font-semibold font-sans w-full"
+        button: "text-white cursor-pointer active:scale-95 hover:bg-cream1 transition-all duration-300 ease-in-out  shadow-[3px_3px_1px_#F4D160] hover:shadow-none bg-blue1 p-2 rounded-md font-semibold font-sans w-full"
     }
 
     const handleSignUp = () => {
@@ -39,6 +41,9 @@ const LoginRegister = () => {
         randomNumber()
     }
 
+    const handleLogin = async ()=>{
+        navigate('/home')
+    }
 
 
     return (
@@ -87,6 +92,7 @@ const LoginRegister = () => {
                                 initial={{ opacity: 0, translateX: -200, }}
                                 animate={{ opacity: 1, translateX: 0, }}
                                 transition={{ duration: 0.4,ease:"easeInOut"}}
+                                onSubmit={handleLogin}
                                 >
                                 <form
                                     action=""
