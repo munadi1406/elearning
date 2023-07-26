@@ -2,7 +2,7 @@
 import WithContainerModal from "../../utils/WithContainerModal";
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
 import PropTypes from "prop-types";
-import { motion } from "framer-motion";
+
 
 const AddCourse = ({ handleAddCourse }) => {
   const style = {
@@ -12,13 +12,9 @@ const AddCourse = ({ handleAddCourse }) => {
   };
 
   return (
-    <motion.div
-      initial={{ opaticy: 0, scale: 0.9 }}
-      animate={{ opaticy: 1, scale: 1 }}
-      exit={{ scale: 0, opaticy: 0 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+    <div
       className="bg-blue1/70 p-3 rounded-md flex justify-center 
-        items-center relative w-96 h-max flex-col"
+        items-center relative w-96 h-max flex-col "
     >
       <div className="w-full h-full rounded-md gap-2 bg-white flex justify-evenly items-center flex-col p-2">
         <div className="text-2xl font-sans text-blue1 font-semibold">
@@ -72,7 +68,7 @@ const AddCourse = ({ handleAddCourse }) => {
           </div>
         </form>
       </div>
-    </motion.div>
+    </div>
   );
 };
 AddCourse.propTypes = {

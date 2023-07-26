@@ -1,7 +1,7 @@
 import { HashRouter,Routes,Route } from "react-router-dom"
 import LandingPage from "./app/LandingPage"
 import LoginRegister from "./pages/LoginRegister"
-import Home from "./app/Home"
+import Main from "./app/main"
 
 function App() {
   
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<LandingPage/>}/>
         <Route exact path="/login" element={<LoginRegister/>}/>
-        <Route exact path="/home/*" element={<Home/>}/>
+        <Route exact path="/home/*" element={<Main/>}/>
       </Routes>
      </HashRouter>
     </div>

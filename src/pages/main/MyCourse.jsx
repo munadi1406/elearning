@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { HiOutlineSwitchHorizontal, HiSearch } from "react-icons/hi";
-import CardCourse from "../../components/home/CardCourse";
+import CardCourse from "../../components/main/CardCourse";
 
 
 const MyCourse = () => {

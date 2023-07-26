@@ -4,6 +4,7 @@ import WithMotionWhileView from "../../utils/WithMotionWhileView";
 import Button from '../Button';
 import TextTruncate from '../../utils/TextTruncate';
 
+
 const CardCourse = ({ course, desc, pengajar }) => {
     return (
         <div className='border-blue1  border-2 p-2 rounded-md h-full text-blue1 shadow-[2px_2px_1px_#F4D160] flex justify-start items-start gap-2 flex-col'>
