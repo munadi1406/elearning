@@ -42,7 +42,7 @@ const LoginRegister = () => {
     }
 
     const handleLogin = async ()=>{
-        navigate('/home')
+        navigate('/home/')
     }
 
 
