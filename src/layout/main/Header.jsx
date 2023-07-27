@@ -13,7 +13,7 @@ export default function Header() {
 
   const style = {
     navlink:
-      "flex justify-center md:shadow-[2px_2px_1px_#FBEEAC] bg-blue1 hover:shadow-none transtion-all ease-in-out duration-300 active:scale-95 items-center gap-1 md:p-2  md:flex-row flex-col",
+      "flex justify-center md:text-base text-3xl md:shadow-[2px_2px_1px_#FBEEAC] bg-blue1 hover:shadow-none transtion-all ease-in-out duration-300 active:scale-95 items-center gap-1 md:p-2  md:flex-row flex-col",
     textNavLink: "font-sans font-semibold text-base md:block hidden",
     active: "md:bg-cream2 md:text-blue1 text-white",
   };
@@ -42,7 +42,7 @@ export default function Header() {
       <header className="flex justify-center items-center flex-col ">
         <nav className="w-full bg-blue1 p-3 flex justify-between items-center rounded-md">
           <div className="flex justify-center items-center gap-2">
-            <img src={Logo} alt="" />
+            <img src={Logo} alt="E-verse" />
             <div className="text-1xl text-white font-sans font-semibold">
               E-Verse
             </div>
@@ -81,7 +81,6 @@ export default function Header() {
             }`}
           >
             <FaBook
-              size={20}
               className={`${
                 locationIsActive === "/home/"
                   ? "md:text-blue1 text-cream1"
@@ -99,7 +98,7 @@ export default function Header() {
             }`}
           >
             <BiCurrentLocation
-              size={20}
+              
               className={`${
                 locationIsActive === "/home/attedance"
                   ? "md:text-blue1 text-cream1"
@@ -117,7 +116,7 @@ export default function Header() {
             }`}
           >
             <SiMusicbrainz
-              size={20}
+              
               className={`${
                 locationIsActive === "/home/course-work"
                   ? "md:text-blue1 text-cream1"
@@ -131,7 +130,7 @@ export default function Header() {
               className={`md:hidden justify-center items-center cursor-pointer flex flex-col`}
             >
               <div className="w-max h-max border-white rounded-full border-2">
-                <img src={Universe} className="w-5 h-5 rounded-full" />
+                <img src={Universe} className="w-8 h-8 rounded-full" />
               </div>
             </div>
           </ScaleEffectMotion>
