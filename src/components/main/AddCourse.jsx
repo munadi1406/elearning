@@ -2,7 +2,7 @@
 import WithContainerModal from "../../utils/WithContainerModal";
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
 import PropTypes from "prop-types";
-
+import ContainerModal from "./ContainerModal";
 
 const AddCourse = ({ handleAddCourse }) => {
   const style = {
@@ -12,63 +12,75 @@ const AddCourse = ({ handleAddCourse }) => {
   };
 
   return (
-    <div
-      className="bg-blue1/70 p-3 rounded-md flex justify-center 
-        items-center relative w-96 h-max flex-col "
-    >
-      <div className="w-full h-full rounded-md gap-2 bg-white flex justify-evenly items-center flex-col p-2">
-        <div className="text-2xl font-sans text-blue1 font-semibold">
-          Add Course
-        </div>
-        <form className="w-full gap-2 flex justify-center items-center flex-col  h-2/3">
-          <div className={`${style.boxInput}`}>
-            <label htmlFor="courseName" className={`${style.label}`}>
-              Course Name
-            </label>
-            <input
-              type="text"
-              name=""
-              id="courseName"
-              className={`${style.input}`}
-            />
-          </div>
-          <div className={`${style.boxInput}`}>
-            <label htmlFor="desc" className={`${style.label}`}>
-              Description Course
-            </label>
-            <input type="text" name="" id="desc" className={`${style.input}`} />
-          </div>
-          <div className={`${style.boxInput}`}>
-            <label htmlFor="Academy" className={`${style.label}`}>
-              Academy
-            </label>
-            <input
-              type="text"
-              name=""
-              id="Academy"
-              className={`${style.input}`}
-            />
-          </div>
-          <div className="w-full grid grid-rows-2 gap-2">
-            <ScaleEffectMotion>
-              <input
-                type="submit"
-                value={"Create Course"}
-                className="bg-blue1 rounded-md p-2 text-white font-sans font-semibold w-full"
-              />
-            </ScaleEffectMotion>
-            <ScaleEffectMotion>
-              <button
-                className="bg-cream1 rounded-md p-2 text-white font-sans font-semibold w-full"
-                onClick={handleAddCourse}
-              >
-                Close
-              </button>
-            </ScaleEffectMotion>
-          </div>
-        </form>
+    <ContainerModal>
+      <div className="text-2xl font-sans text-blue1 font-semibold">
+        Add Course
       </div>
-    </div>
+      <form className="w-full gap-2 flex justify-center items-center flex-col  h-2/3">
+        <div className={`${style.boxInput}`}>
+          <label htmlFor="courseName" className={`${style.label}`}>
+            Course Name
+          </label>
+          <input
+            type="text"
+            name=""
+            id="courseName"
+            placeholder="Course Name..."
+            className={`${style.input}`}
+          />
+        </div>
+        <div className={`${style.boxInput}`}>
+
+          <label htmlFor="desc" className={`${style.label}`}>
+            Description Course
+          </label>
+          <textarea id="desc" cols="30" rows="5" className={`${style.input}`} placeholder="Description Course...">
+
+          </textarea>
+        </div>
+        <div className={`${style.boxInput}`}>
+          <label htmlFor="Academy" className={`${style.label}`}>
+            Academy
+          </label>
+          <input
+            type="text"
+            name=""
+            id="Academy"
+            className={`${style.input}`}
+            placeholder="Academy..."
+          />
+        </div>
+        <div className={`${style.boxInput}`}>
+          <label htmlFor="Academy" className={`${style.label}`}>
+            Kode Kelas
+          </label>
+          <input
+            type="text"
+            name=""
+            id="Academy"
+            className={`${style.input}`}
+            placeholder="Kode Kelas..."
+          />
+        </div>
+        <div className="w-full grid grid-rows-2 gap-2">
+          <ScaleEffectMotion>
+            <input
+              type="submit"
+              value={"Create Course"}
+              className="bg-blue1 rounded-md p-2 cursor-pointer text-white font-sans font-semibold w-full"
+            />
+          </ScaleEffectMotion>
+          <ScaleEffectMotion>
+            <input
+              type="reset"
+              className="bg-cream1 rounded-md p-2 cursor-pointer text-white font-sans font-semibold w-full"
+              onClick={handleAddCourse}
+              value={"Close"}
+            />
+          </ScaleEffectMotion>
+        </div>
+      </form>
+    </ContainerModal>
   );
 };
 AddCourse.propTypes = {

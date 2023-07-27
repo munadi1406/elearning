@@ -16,7 +16,7 @@ const TextTruncate = ({ text, maxWords }) => {
     <div className="h-max">
       <p>{isTruncated ? truncatedText : text}</p>
       {hasMore && (
-        <div onClick={toggleTruncate} className="text-blue1 font-semibold cursor-pointer underline ">
+        <div onClick={toggleTruncate} className="text-blue1 w-max font-semibold cursor-pointer underline ">
           {isTruncated ? "Read More" : "Show Less"}
         </div>
       )}

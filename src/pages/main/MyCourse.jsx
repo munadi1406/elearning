@@ -2,16 +2,28 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { HiOutlineSwitchHorizontal, HiSearch } from "react-icons/hi";
 import CardCourse from "../../components/main/CardCourse";
-
+import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
+import JoinCourse from "../../components/main/JoinCourse";
+import {  useRef } from "react";
 
 const MyCourse = () => {
   const [switchCoursesActive, setSwitchCoursesActive] = useState(true);
   // true === my courses
   // false === courses
+  const [isShowJoinCourseModal, setIsShowJoinCourseModal] = useState(false);
+  const containerRef = useRef()
+  
 
   const handleSwitch = () => {
     setSwitchCoursesActive(!switchCoursesActive);
   };
+
+  const handleShowJoinCouseModal = () => {
+    setIsShowJoinCourseModal(!isShowJoinCourseModal);
+  };
+
+  
+
 
   const courseData = [
     {
@@ -120,56 +132,79 @@ const MyCourse = () => {
   ];
 
   return (
-    <div>
+    <>
+      {isShowJoinCourseModal && (
+        <JoinCourse handleShowJoinCouseModal={handleShowJoinCouseModal} />
+      )}
       <div>
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
-          <div className="flex md:justify-start justify-between items-center gap-2">
-            <h1 className="text-2xl text-blue1 font-sans font-semibold ">
-              {switchCoursesActive ? "My Courses" : "Courses"} /
-            </h1>
-            <motion.button
-              whileTap={{ scale: 0.9, opacity: 0.8 }}
-              className="bg-blue2 text-white font-semibold font-sans text-lg p-2 rounded-md flex justify-center items-center gap-2"
-              onClick={handleSwitch}
-            >
-              Switch To {switchCoursesActive ? "Courses" : "My Courses"}
-              <span>
-                <HiOutlineSwitchHorizontal />
-              </span>
-            </motion.button>
+        <div>
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
+            <div className="flex md:justify-start justify-between items-center gap-2">
+              <h1 className="lg:text-2xl md:text-lg text-xs text-blue1 font-sans font-semibold ">
+                {switchCoursesActive ? "My Courses" : "Courses"} /
+              </h1>
+              <ScaleEffectMotion>
+                <button
+                  className="bg-blue2 text-white font-semibold font-sans lg:text-lg md:text-sm text-xs p-2 rounded-md flex justify-center items-center gap-2"
+                  onClick={handleSwitch}
+                >
+                  Switch To {switchCoursesActive ? "Courses" : "My Courses"}
+                  <span>
+                    <HiOutlineSwitchHorizontal />
+                  </span>
+                </button>
+              </ScaleEffectMotion>
+              <ScaleEffectMotion>
+                <button
+                  className="bg-blue2 text-white font-semibold font-sans lg:text-lg md:text-sm text-xs p-2 rounded-md flex justify-center items-center"
+                  onClick={handleShowJoinCouseModal}
+                >
+                  Join Course
+                </button>
+              </ScaleEffectMotion>
+            </div>
+            <div className="flex md:justify-end justify-center items-center">
+              <div className="flex md:w-max w-full md:justify-center justify-between items-center border-blue1 border-2 py-1 px-2 rounded-md">
+                <input
+                  type="search"
+                  placeholder="Search..."
+                  className="border-none outline-none bg-transparent h-full"
+                />
+                <motion.div
+                  whileTap={{ scale: 0.9 }}
+                  className="bg-blue1 rounded-md p-1"
+                >
+                  <HiSearch color="white" />
+                </motion.div>
+              </div>
+            </div>
           </div>
-          <div className="flex md:justify-end justify-center items-center">
-            <div className="flex md:w-max w-full md:justify-center justify-between items-center border-blue1 border-2 py-1 px-2 rounded-md">
-              <input type="search" placeholder="Search..." className="border-none outline-none bg-transparent h-full" />
-              <motion.div whileTap={{scale:0.9}} className="bg-blue1 rounded-md p-1">
-                <HiSearch color="white"/>
-              </motion.div>
+          <div className="py-2 ">
+            <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2 relative" ref={containerRef}>
+              {switchCoursesActive
+                ? courseData.map((e, i) => (
+                    <CardCourse
+                      key={i}
+                      course={e.course}
+                      desc={e.desc}
+                      pengajar={e.pengajar}
+                      containerRef={containerRef}
+                    />
+                  ))
+                : myCourseData.map((e, i) => (
+                    <CardCourse
+                      key={i}
+                      course={e.course}
+                      desc={e.desc}
+                      pengajar={e.pengajar}
+                      containerRef={containerRef}
+                    />
+                  ))}
             </div>
           </div>
         </div>
-        <div className="py-2 ">
-          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
-            {switchCoursesActive
-              ? courseData.map((e, i) => (
-                <CardCourse
-                  key={i}
-                  course={e.course}
-                  desc={e.desc}
-                  pengajar={e.pengajar}
-                />
-              ))
-              : myCourseData.map((e, i) => (
-                <CardCourse
-                  key={i}
-                  course={e.course}
-                  desc={e.desc}
-                  pengajar={e.pengajar}
-                />
-              ))}
-          </div>
-        </div>
       </div>
-    </div>
+    </>
   );
 };
 

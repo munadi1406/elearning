@@ -48,7 +48,7 @@ const LoginRegister = () => {
 
     return (
         <div className="w-full min-h-screen py-2 flex justify-center items-center md:px-10 px-2">
-            <div className="w-4/5   h-max grid lg:grid-cols-2 grid-cols-1 items-center bg-gray-500 rounded-md overflow-hidden relative">
+            <div className="md:w-4/5 w-full   h-max grid lg:grid-cols-2 grid-cols-1 items-center bg-gray-500 rounded-md overflow-hidden relative">
                 <motion.div
                     initial={{ translateX: -100 }}
                     animate={{ translateX: 0 }}
@@ -79,7 +79,7 @@ const LoginRegister = () => {
                     initial={{ translateX: 100 }}
                     animate={{ translateX: 0 }}
                     transition={{ ease: "linear", duration: 0.3 }}
-                    className=' h-[450px] relative  bg-blue1 gap-2 p-5 px-10 flex justify-center items-center flex-col'>
+                    className=' h-[450px] relative  bg-blue1 gap-2 p-5 md:px-10 px-2 flex justify-center items-center flex-col'>
                     <div className='flex justify-center items-center gap-2'>
                         <img src={Logo} alt="" className="" />
                         <h1 className='text-1xl font-semibold text-white '>E-Verse</h1>

@@ -17,15 +17,15 @@ const CardAttedance = ({ course, dateFrom, toDate, opsi, pengajar }) => {
         <div className="text-xs font-semibold font-sans">
           Attedance Option :{" "}
         </div>
-        {opsi.map((e) => (
-          <>
+        {opsi.map((e,i) => (
+          <div key={i}>
             {e.opsi === "GPS" && <FaLocationArrow size={20} />}
             {e.opsi === "QR Code" && <FaQrcode size={20} />}
             {e.opsi === "Token" && <FaCode size={20} />}
-          </>
+          </div>
         ))}
       </div>
-      <div className="flex justify-center w-full gap-2 items-center">
+      <div className="flex justify-between w-full gap-2 items-center">
         <div className="flex text-white text-[10px] font-semibold font-sans gap-3">
           <div className="bg-blue2 rounded-md px-2">{dateFrom}</div>
           <div className="text-blue1">To</div>
@@ -42,7 +42,7 @@ CardAttedance.propTypes = {
   pengajar: PropTypes.string.isRequired,
   dateFrom: PropTypes.string.isRequired,
   toDate: PropTypes.string.isRequired,
-  opsi: PropTypes.string.isRequired,
+  opsi: PropTypes.array.isRequired,
 };
 
 export default WithMotionWhileView(CardAttedance);
