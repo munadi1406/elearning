@@ -100,9 +100,7 @@ export default function AddQuis() {
                             <input type="number" id="namaTugas" className={`${style.input}`} placeholder="Jumlah Opsi Jawaban" value={jumlahOpsiJawaban} onChange={(e) => setJumlahOpsiJawaban(e.target.value)} />
                         </div>
                     </div>
-                    <div className="w-full h-full flex justify-start items-center px-2">
-                        <button className="bg-blue1 w-max p-2 rounded-md text-white font-sans font-semibold" onClick={handleCreate}>Create</button>
-                    </div>
+                    
                 </div>
             </div>
             <div>
