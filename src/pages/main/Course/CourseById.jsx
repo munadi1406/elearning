@@ -5,6 +5,7 @@ import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
 import { useState } from "react";
 import CardStudent from "../../../components/main/course/CardStudent";
 import CreateTugas from "../../../components/main/course/CreateTugas";
+import Setting from "../../../components/main/course/Setting";
 
 const CourseById = () => {
   const { courseId } = useParams();
@@ -76,12 +77,20 @@ const CourseById = () => {
               Student
             </div>
             <div
-              className={` cursor-pointer border-blue1 p-2 hover:bg-blue1 hover:text-white ${
+              className={`border-b-2 cursor-pointer border-blue1 p-2 hover:bg-blue1 hover:text-white ${
                 sidebarActive === 2 ? "bg-blue1 text-white" : "text-blue1"
               }`}
               onClick={() => setSidebarActive(2)}
             >
               Recap
+            </div>
+            <div
+              className={` cursor-pointer border-blue1 p-2 hover:bg-blue1 hover:text-white ${
+                sidebarActive === 3 ? "bg-blue1 text-white" : "text-blue1"
+              }`}
+              onClick={() => setSidebarActive(3)}
+            >
+              Setting
             </div>
           </div>
           <div className="md:col-span-3 px-2 flex justify-center items-center flex-col gap-2">
@@ -138,6 +147,11 @@ const CourseById = () => {
             {sidebarActive === 2 && (
               <div>
                 <div>recap</div>
+              </div>
+            )}
+            {sidebarActive === 3 && (
+              <div className="col-span-4 w-full">
+               <Setting course={"Belajar Javascript"} />
               </div>
             )}
           </div>
