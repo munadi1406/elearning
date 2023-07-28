@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Universe from '../../../assets/Universe.jpg'
+import Universe from '/assets/Universe.jpg'
 import { FaWhatsapp } from 'react-icons/fa'
 import ScaleEffectMotion from '../../../utils/ScaleEffectMotion'
 
