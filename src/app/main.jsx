@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import MyCourse from "../pages/main/MyCourse";
 import Attedance from "../pages/main/Attedance";
 import CourseWork from "../pages/main/CourseWork";
+import CourseById from "../pages/main/Course/CourseById";
 
 const Main = () => {
   return (
@@ -14,6 +15,7 @@ const Main = () => {
           <Route exact path="/" element={<MyCourse />} />
           <Route exact path="/attedance" element={<Attedance />} />
           <Route exact path="/course-work" element={<CourseWork />} />
+          <Route exact path="/course/:courseId" element={<CourseById />} />
         </Routes>
       </div>
       <Footer />

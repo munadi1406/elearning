@@ -9,6 +9,7 @@ const WithContainerModal = (OriginalComponent) => {
           animate={{ opaticy: 1, scale: 1 }}
           exit={{ scale: 0, opaticy: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="w-screen flex justify-center items-center p-3"
         >
           <OriginalComponent {...props} />
         </motion.div>

@@ -82,7 +82,7 @@ const CardCourse = ({ course, desc, pengajar, containerRef }) => {
       <div className="w-full text-xs">
         <TextTruncate text={desc} maxWords={10} />
       </div>
-      <Button text="Go To Course" color={"bg-blue2"} to="#" />
+      <Button text="Go To Course" color={"bg-blue2"} to={`./course/${1}`} />
     </div>
   );
 };

@@ -23,7 +23,7 @@ export default function Header() {
 
   const activeNavlink = () => {
     const checkLocation = locationArray.includes(location.pathname);
-    if (!checkLocation) return;
+    if (!checkLocation) return setLocationIsActive('');
     setLocationIsActive(location.pathname);
   };
 

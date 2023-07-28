@@ -3,6 +3,8 @@ import WithContainerModal from "../../utils/WithContainerModal";
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
 import PropTypes from "prop-types";
 import ContainerModal from "./ContainerModal";
+import { useRef } from "react";
+import generateRandomCode from "../../utils/generateRandomCode";
 
 const AddCourse = ({ handleAddCourse }) => {
   const style = {
@@ -10,10 +12,17 @@ const AddCourse = ({ handleAddCourse }) => {
     label: "text-sm font-semibold text-blue1 font-sans",
     input: "border-blue1 border outline-none w-full p-2 rounded-md text-sm",
   };
+  const kodeKelasRef = useRef();
+
+  const handleGenereteRandomCode = () => {
+    try {
+      kodeKelasRef.current.value = generateRandomCode()
+    } catch (error) { /* empty */ }
+  };
 
   return (
     <ContainerModal>
-      <div className="text-2xl font-sans text-blue1 font-semibold">
+      <div className="text-2xl  font-sans text-blue1 font-semibold">
         Add Course
       </div>
       <form className="w-full gap-2 flex justify-center items-center flex-col  h-2/3">
@@ -30,13 +39,16 @@ const AddCourse = ({ handleAddCourse }) => {
           />
         </div>
         <div className={`${style.boxInput}`}>
-
           <label htmlFor="desc" className={`${style.label}`}>
             Description Course
           </label>
-          <textarea id="desc" cols="30" rows="5" className={`${style.input}`} placeholder="Description Course...">
-
-          </textarea>
+          <textarea
+            id="desc"
+            cols="30"
+            rows="5"
+            className={`${style.input}`}
+            placeholder="Description Course..."
+          ></textarea>
         </div>
         <div className={`${style.boxInput}`}>
           <label htmlFor="Academy" className={`${style.label}`}>
@@ -60,7 +72,14 @@ const AddCourse = ({ handleAddCourse }) => {
             id="Academy"
             className={`${style.input}`}
             placeholder="Kode Kelas..."
+            ref={kodeKelasRef}
           />
+          <div
+            className="text-xs fons-sans font-semibold text-blue1 hover:underline cursor-pointer"
+            onClick={handleGenereteRandomCode}
+          >
+            Generate Random Code ?
+          </div>
         </div>
         <div className="w-full grid grid-rows-2 gap-2">
           <ScaleEffectMotion>

@@ -35,7 +35,7 @@ const CardCourseWork = ({ course, fromDate, toDate, pengajar, desc }) => {
                         <FaComment className='text-white' />
                     </div>
                 </ScaleEffectMotion>
-                <Button text='Open' color={'bg-blue1'} to='./#' />
+                <Button text='Open' color={'bg-blue1'} to={`../course/${2}`} />
             </div>
             
             <motion.div initial={{height:0}}  animate={commentIsOpen && {height:"max-content"}} exit={{height:0}} className={`${commentIsOpen ? 'block' : 'hidden'} px-5 bg-blue1 rounded-md w-full`}>
