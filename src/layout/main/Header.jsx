@@ -10,6 +10,7 @@ import AddCourse from "../../components/main/AddCourse";
 
 export default function Header() {
   const [isShowAddCourse, setIsShowAddCourse] = useState(false);
+  const [showSubmenuUsers, setShowSubmenuUsers] = useState(false);
 
   const style = {
     navlink:
@@ -26,6 +27,10 @@ export default function Header() {
     if (!checkLocation) return setLocationIsActive('');
     setLocationIsActive(location.pathname);
   };
+
+  const handleShowSubmenuUsers = () => {
+    setShowSubmenuUsers(!showSubmenuUsers)
+  }
 
   useEffect(() => {
     activeNavlink();
@@ -59,69 +64,70 @@ export default function Header() {
                 </h1>
               </div>
             </ScaleEffectMotion>
-            <ScaleEffectMotion>
-              <div
-                className={`md:flex justify-center items-center gap-2 cursor-pointer hidden`}
-              >
-                <div className="w-max h-max border-white rounded-full border-2">
-                  <img src={Universe} className="w-8 h-8 rounded-full" />
+            <div className="relative w-max h-max flex justify-center items-center flex-col">
+              <ScaleEffectMotion>
+                <div
+                  className={`md:flex justify-center items-center gap-2 cursor-pointer hidden relative`}
+                  onClick={handleShowSubmenuUsers}
+                >
+                  <div className="w-max h-max border-white rounded-full border-2">
+                    <img src={Universe} className="w-8 h-8 rounded-full" />
+                  </div>
+                  <h1 className="text-sm font-sans text-white font-semibold">
+                    Fathullah Munadi
+                  </h1>
                 </div>
-                <h1 className="text-sm font-sans text-white font-semibold">
-                  Fathullah Munadi
-                </h1>
+              </ScaleEffectMotion>
+              <div className={`bg-slate-600 text-white z-30 font-semibold text-sm font-sans grid grid-cols-1 ${showSubmenuUsers ? 'absolute' : 'hidden'} w-max h-max py-2  rounded-md top-10`}>
+                <NavLink to={'./profile'} className="border-b text-start w-full active:bg-blue1 border-white px-10" onClick={handleShowSubmenuUsers}>Profile</NavLink>
+                <NavLink  className="text-start w-full active:bg-blue1 cursor-pointer border-white px-10" onClick={handleShowSubmenuUsers}>Logout</NavLink>
               </div>
-            </ScaleEffectMotion>
+            </div>
           </div>
         </nav>
         <nav className="w-full md:bg-transparent md:relative  bg-blue1 fixed bottom-0 left-0 z-20 flex   p-2 md:justify-center justify-evenly items-center gap-2">
           <NavLink
             to={"./"}
-            className={`${style.navlink} ${
-              locationIsActive === "/home/" ? style.active : "text-white"
-            }`}
+            className={`${style.navlink} ${locationIsActive === "/home/" ? style.active : "text-white"
+              }`}
           >
             <FaBook
-              className={`${
-                locationIsActive === "/home/"
-                  ? "md:text-blue1 text-cream1"
-                  : "white"
-              }`}
+              className={`${locationIsActive === "/home/"
+                ? "md:text-blue1 text-cream1"
+                : "white"
+                }`}
             />
             <div className={`${style.textNavLink}`}>Course Catalog</div>
           </NavLink>
           <NavLink
             to={"./attedance"}
-            className={`${style.navlink} ${
-              locationIsActive === "/home/attedance"
-                ? style.active
-                : "text-white"
-            }`}
+            className={`${style.navlink} ${locationIsActive === "/home/attedance"
+              ? style.active
+              : "text-white"
+              }`}
           >
             <BiCurrentLocation
-              
-              className={`${
-                locationIsActive === "/home/attedance"
-                  ? "md:text-blue1 text-cream1"
-                  : "white"
-              }`}
+
+              className={`${locationIsActive === "/home/attedance"
+                ? "md:text-blue1 text-cream1"
+                : "white"
+                }`}
             />
             <div className={`${style.textNavLink}`}>Attedance</div>
           </NavLink>
           <NavLink
             to={"./course-work"}
-            className={`${style.navlink} ${
-              locationIsActive === "/home/course-work"
-                ? style.active
-                : "text-white"
-            }`}
+            className={`${style.navlink} ${locationIsActive === "/home/course-work"
+              ? style.active
+              : "text-white"
+              }`}
           >
             <SiMusicbrainz
-              
-              className={`${
-                locationIsActive === "/home/course-work"
-                  ? "md:text-blue1 text-cream1"
-                  : "white"
-              }`}
+
+              className={`${locationIsActive === "/home/course-work"
+                ? "md:text-blue1 text-cream1"
+                : "white"
+                }`}
             />
             <div className={`${style.textNavLink}`}>Coursework</div>
           </NavLink>

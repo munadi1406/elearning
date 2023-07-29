@@ -6,11 +6,13 @@ import { useState } from "react";
 import CardStudent from "../../../components/main/course/CardStudent";
 import CreateTugas from "../../../components/main/course/CreateTugas";
 import Setting from "../../../components/main/course/Setting";
+import CreateAbsensi from "../../../components/main/course/CreateAbsensi";
 
 const CourseById = () => {
   const { courseId } = useParams();
   const [sidebarActive, setSidebarActive] = useState(0);
   const [isShowCreateTugas, setIsShowCreateTugas] = useState(false);
+  const [isShowCreateAbsensi,setIsShowCreateAbsensi] = useState(false)
   console.log(courseId);
 
   const dataCourseById = [
@@ -42,11 +44,18 @@ const CourseById = () => {
   const handleIsShowCreateTugas = () => {
     setIsShowCreateTugas(!isShowCreateTugas);
   };
+
+
+  const handleIsShowCreateAbsensi =()=>{
+    setIsShowCreateAbsensi(!isShowCreateAbsensi)
+  }
+
   return (
     <>
       {isShowCreateTugas && (
         <CreateTugas handleClose={handleIsShowCreateTugas} />
       )}
+      {isShowCreateAbsensi && (<CreateAbsensi handleClose={handleIsShowCreateAbsensi}/>)}
       <div className="md:px-10 px-2">
         <div className="w-full h-40 relative">
           <div className="relative z-10 text-white h-full flex justify-between items-start flex-col font-sans text-3xl font-semibold w-full px-3 py-2">
@@ -126,7 +135,7 @@ const CourseById = () => {
                     </button>
                   </ScaleEffectMotion>
                   <ScaleEffectMotion>
-                    <button className="w-full py-2 px-3 font-semibold rounded-md bg-blue1 font-sans text-white ">
+                    <button className="w-full py-2 px-3 font-semibold rounded-md bg-blue1 font-sans text-white " onClick={handleIsShowCreateAbsensi}>
                       Buat Absensi
                     </button>
                   </ScaleEffectMotion>

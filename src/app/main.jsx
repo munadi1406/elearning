@@ -5,6 +5,7 @@ import MyCourse from "../pages/main/MyCourse";
 import Attedance from "../pages/main/Attedance";
 import CourseWork from "../pages/main/CourseWork";
 import CourseById from "../pages/main/Course/CourseById";
+import Profile from "../pages/main/Profile";
 
 const Main = () => {
   return (
@@ -16,6 +17,7 @@ const Main = () => {
           <Route exact path="/attedance" element={<Attedance />} />
           <Route exact path="/course-work" element={<CourseWork />} />
           <Route exact path="/course/:courseId" element={<CourseById />} />
+          <Route exact path="/profile" element={<Profile />} />
         </Routes>
       </div>
       <Footer />
