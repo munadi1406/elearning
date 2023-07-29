@@ -88,7 +88,7 @@ export default function Content() {
           </div>
         </div>
         <div className="w-full h-44 justify-center items-center flex flex-col">
-          <div className="text-2xl font-sans font-semibold  text-center text-blue1">
+          <div className="text-2xl font-sans font-semibold  text-center text-blue1 flex justify-center items-center flex-col">
             <h1 className="text-2xl font-sans font-semibold  text-center text-blue1">
               Peningkatan Pembelajaran Modern dengan Fitur Absensi
             </h1>
@@ -96,8 +96,8 @@ export default function Content() {
             <Button to="#" color={"bg-blue1"} text="Get Started" />
           </div>
         </div>
-        <div className="w-full flex justify-center items-center flex-wrap  px-2">
-          <div className="md:w-[700px] md:flex-grow-0 flex-grow rounded-md relative h-72 flex justify-center items-center z-10">
+        <div className="w-full flex justify-center items-center flex-wrap px-2">
+          <div className="md:w-[600px] md:flex-grow-0 flex-grow rounded-md relative h-72 flex justify-center items-center z-10">
             <img
               className="w-full grayscale rounded-md h-full object-cover block absolute z-0 top-0 left-0"
               src={Universe}
@@ -107,7 +107,7 @@ export default function Content() {
               di mana saja sesuai dengan jadwal Anda.
             </h1>
           </div>
-          <div className="bg-blue1 p-3 rounded-md h-44 flex justify-center items-center flex-col xl:w-[300px]  flex-grow-0 sm:w-[400px] w-[250px] xl:translate-x-[-10px] xl:translate-y-0 translate-y-[-20px] transform">
+          <div className="bg-blue1  p-3 rounded-md h-44 flex justify-center items-center flex-col flex-grow-0 sm:w-[300px] w-[90%] md:translate-x-[-6px]  md:translate-y-0 translate-y-[-20px] transform">
             <div className=" flex justify-center xl:w-auto w-full items-start flex-col space-y-1">
               <div className="text-white text-lg font-sans font-semibold">
                 Cari Kelas Anda...

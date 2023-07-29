@@ -7,12 +7,14 @@ import CardStudent from "../../../components/main/course/CardStudent";
 import CreateTugas from "../../../components/main/course/CreateTugas";
 import Setting from "../../../components/main/course/Setting";
 import CreateAbsensi from "../../../components/main/course/CreateAbsensi";
+import ModalTugas from '../../../components/main/course/ModalTugas'
 
 const CourseById = () => {
   const { courseId } = useParams();
   const [sidebarActive, setSidebarActive] = useState(0);
   const [isShowCreateTugas, setIsShowCreateTugas] = useState(false);
   const [isShowCreateAbsensi,setIsShowCreateAbsensi] = useState(false)
+  const [showTugas,setShowTugas] = useState(false);
   console.log(courseId);
 
   const dataCourseById = [
@@ -50,12 +52,18 @@ const CourseById = () => {
     setIsShowCreateAbsensi(!isShowCreateAbsensi)
   }
 
+  const handleShowModalTugas = ()=>{
+    console.log("runnn")
+    setShowTugas(!showTugas)
+  }
+
   return (
     <>
       {isShowCreateTugas && (
         <CreateTugas handleClose={handleIsShowCreateTugas} />
       )}
       {isShowCreateAbsensi && (<CreateAbsensi handleClose={handleIsShowCreateAbsensi}/>)}
+      {showTugas && (<ModalTugas handleClose={handleShowModalTugas} type="tugas"/>)}
       <div className="md:px-10 px-2">
         <div className="w-full h-40 relative">
           <div className="relative z-10 text-white h-full flex justify-between items-start flex-col font-sans text-3xl font-semibold w-full px-3 py-2">
@@ -142,7 +150,7 @@ const CourseById = () => {
                 </div>
                 <div></div>
                 {dataCourseById.map((e, i) => (
-                  <CardCourseById key={i} {...e} />
+                  <CardCourseById key={i} {...e} showModalTugas={handleShowModalTugas}/>
                 ))}
               </>
             )}

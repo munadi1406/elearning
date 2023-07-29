@@ -11,6 +11,7 @@ import AddCourse from "../../components/main/AddCourse";
 export default function Header() {
   const [isShowAddCourse, setIsShowAddCourse] = useState(false);
   const [showSubmenuUsers, setShowSubmenuUsers] = useState(false);
+  const [showSubmenuUsersMobile, setShowSubmenuUsersMobile] = useState(false);
 
   const style = {
     navlink:
@@ -80,7 +81,7 @@ export default function Header() {
               </ScaleEffectMotion>
               <div className={`bg-slate-600 text-white z-30 font-semibold text-sm font-sans grid grid-cols-1 ${showSubmenuUsers ? 'absolute' : 'hidden'} w-max h-max py-2  rounded-md top-10`}>
                 <NavLink to={'./profile'} className="border-b text-start w-full active:bg-blue1 border-white px-10" onClick={handleShowSubmenuUsers}>Profile</NavLink>
-                <NavLink  className="text-start w-full active:bg-blue1 cursor-pointer border-white px-10" onClick={handleShowSubmenuUsers}>Logout</NavLink>
+                <NavLink className="text-start w-full active:bg-blue1 cursor-pointer border-white px-10" onClick={handleShowSubmenuUsers}>Logout</NavLink>
               </div>
             </div>
           </div>
@@ -131,15 +132,22 @@ export default function Header() {
             />
             <div className={`${style.textNavLink}`}>Coursework</div>
           </NavLink>
-          <ScaleEffectMotion>
-            <div
-              className={`md:hidden justify-center items-center cursor-pointer flex flex-col`}
-            >
-              <div className="w-max h-max border-white rounded-full border-2">
-                <img src={Universe} className="w-8 h-8 rounded-full" />
+          <div className="relative">
+            <ScaleEffectMotion>
+              <div
+                className={`md:hidden justify-center items-center cursor-pointer flex flex-col`}
+                onClick={()=>setShowSubmenuUsersMobile(!showSubmenuUsersMobile)}
+              >
+                <div className="w-max h-max border-white rounded-full border-2">
+                  <img src={Universe} className="w-8 h-8 rounded-full" />
+                </div>
               </div>
+            </ScaleEffectMotion>
+            <div className={`bg-slate-600 text-white z-30 font-semibold text-sm font-sans grid grid-cols-1 ${showSubmenuUsersMobile ? 'absolute' : 'hidden'} w-max h-max py-2  rounded-md -top-16 -left-10`}>
+              <NavLink to={'./profile'} className="border-b text-start w-full active:bg-blue1 border-white px-10" onClick={()=>setShowSubmenuUsersMobile(!showSubmenuUsersMobile)}>Profile</NavLink>
+              <NavLink className="text-start w-full active:bg-blue1 cursor-pointer border-white px-10" onClick={()=>setShowSubmenuUsersMobile(!showSubmenuUsersMobile)}>Logout</NavLink>
             </div>
-          </ScaleEffectMotion>
+          </div>
         </nav>
       </header>
     </>
