@@ -7,6 +7,7 @@ import CourseWork from "../pages/main/CourseWork";
 import CourseById from "../pages/main/Course/CourseById";
 import Profile from "../pages/main/Profile";
 
+
 const Main = () => {
   return (
     <div className="p-2">
