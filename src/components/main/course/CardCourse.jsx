@@ -1,13 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
 import PropTypes from "prop-types";
-import WithMotionWhileView from "../../utils/WithMotionWhileView";
-import Button from "../Button";
-import TextTruncate from "../../utils/TextTruncate";
+import WithMotionWhileView from "../../../utils/WithMotionWhileView";
+import Button from "../../Button";
+import TextTruncate from "../../../utils/TextTruncate";
 import { useState, useRef } from "react";
 import { FaGripVertical } from "react-icons/fa";
 import { motion } from "framer-motion";
-import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
+import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const CardCourse = ({ course, desc, pengajar, containerRef }) => {
   const [subMenu, setSubmenu] = useState(false);
@@ -69,9 +70,9 @@ const CardCourse = ({ course, desc, pengajar, containerRef }) => {
               } top-8 font-sans font-semibold flex justify-start items-center flex-col rounded-md z-10 py-2  `}
               ref={modalRef}
             >
-              <div className="w-full active:bg-cream1 border-white cursor-pointer border-b p-2 hover:bg-blue1">
+              <Link to={`./course/${1}`} className="w-full active:bg-cream1 border-white cursor-pointer border-b p-2 hover:bg-blue1">
                 Open
-              </div>
+              </Link>
               <div className="w-full active:bg-cream1 p-2 cursor-pointer hover:bg-blue1">
                 Delete Course
               </div>

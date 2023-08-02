@@ -1,20 +1,22 @@
 import { useParams } from "react-router-dom";
-import CardCourseById from "../../../components/main/course/CardCourseById";
+import CardAssignmentByCourse from "../../../components/main/course/assignment/CardAssignmentByCourse";
 import { BsSend } from "react-icons/bs";
 import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
 import { useState } from "react";
 import CardStudent from "../../../components/main/course/CardStudent";
-import CreateTugas from "../../../components/main/course/CreateTugas";
+import ModalCreateAssignment from "../../../components/main/course/assignment/ModalCreateAssignment";
 import Setting from "../../../components/main/course/Setting";
-import CreateAbsensi from "../../../components/main/course/CreateAbsensi";
-import ModalTugas from '../../../components/main/course/ModalTugas'
+import CreateAbsensi from "../../../components/main/absensi/CreateAbsensi";
+import ModalDetailAssignment from "../../../components/main/course/assignment/ModalDetailAssignment";
+import SubmenuCourseById from "../../../components/main/course/SubmenuCourseById";
+import { useSubmenuActiveStore } from "../../../store/search";
 
 const CourseById = () => {
   const { courseId } = useParams();
-  const [sidebarActive, setSidebarActive] = useState(0);
   const [isShowCreateTugas, setIsShowCreateTugas] = useState(false);
   const [isShowCreateAbsensi,setIsShowCreateAbsensi] = useState(false)
   const [showTugas,setShowTugas] = useState(false);
+  const {subMenuActive} = useSubmenuActiveStore()
   console.log(courseId);
 
   const dataCourseById = [
@@ -60,10 +62,10 @@ const CourseById = () => {
   return (
     <>
       {isShowCreateTugas && (
-        <CreateTugas handleClose={handleIsShowCreateTugas} />
+        <ModalCreateAssignment handleClose={handleIsShowCreateTugas} />
       )}
       {isShowCreateAbsensi && (<CreateAbsensi handleClose={handleIsShowCreateAbsensi}/>)}
-      {showTugas && (<ModalTugas handleClose={handleShowModalTugas} type="tugas"/>)}
+      {showTugas && (<ModalDetailAssignment handleClose={handleShowModalTugas} type="tugas"/>)}
       <div className="md:px-10 px-2">
         <div className="w-full h-40 relative">
           <div className="relative z-10 text-white h-full flex justify-between items-start flex-col font-sans text-3xl font-semibold w-full px-3 py-2">
@@ -76,42 +78,9 @@ const CourseById = () => {
           <div className="w-full h-full bg-blue-400 absolute top-0 left-0 z-0 rounded-md"></div>
         </div>
         <div className="grid md:grid-cols-4 grid-cols-1 p-1 gap-2">
-          <div className="border-blue1 border-2 rounded-md  h-max">
-            <div
-              className={`border-b-2 cursor-pointer border-blue1 p-2 hover:bg-blue1 hover:text-white ${
-                sidebarActive === 0 ? "bg-blue1 text-white" : "text-blue1"
-              }`}
-              onClick={() => setSidebarActive(0)}
-            >
-              Course
-            </div>
-            <div
-              className={`border-b-2 cursor-pointer border-blue1 p-2 hover:bg-blue1 hover:text-white ${
-                sidebarActive === 1 ? "bg-blue1 text-white" : "text-blue1"
-              }`}
-              onClick={() => setSidebarActive(1)}
-            >
-              Student
-            </div>
-            <div
-              className={`border-b-2 cursor-pointer border-blue1 p-2 hover:bg-blue1 hover:text-white ${
-                sidebarActive === 2 ? "bg-blue1 text-white" : "text-blue1"
-              }`}
-              onClick={() => setSidebarActive(2)}
-            >
-              Recap
-            </div>
-            <div
-              className={` cursor-pointer border-blue1 p-2 hover:bg-blue1 hover:text-white ${
-                sidebarActive === 3 ? "bg-blue1 text-white" : "text-blue1"
-              }`}
-              onClick={() => setSidebarActive(3)}
-            >
-              Setting
-            </div>
-          </div>
+          <SubmenuCourseById/>
           <div className="md:col-span-3 px-2 flex justify-center items-center flex-col gap-2">
-            {sidebarActive === 0 && (
+            {subMenuActive === 0 && (
               <>
                 <div className="bg-blue1 p-2 px-3 rounded-md flex w-full">
                   <form
@@ -150,23 +119,23 @@ const CourseById = () => {
                 </div>
                 <div></div>
                 {dataCourseById.map((e, i) => (
-                  <CardCourseById key={i} {...e} showModalTugas={handleShowModalTugas}/>
+                  <CardAssignmentByCourse key={i} {...e} showModalTugas={handleShowModalTugas}/>
                 ))}
               </>
             )}
-            {sidebarActive === 1 && (
+            {subMenuActive === 1 && (
               <div className="col-span-4 w-full">
                 {dataStudent.map((e, i) => (
                   <CardStudent name={e.name} number={e.number} key={i} />
                 ))}
               </div>
             )}
-            {sidebarActive === 2 && (
+            {subMenuActive === 2 && (
               <div>
                 <div>recap</div>
               </div>
             )}
-            {sidebarActive === 3 && (
+            {subMenuActive === 3 && (
               <div className="col-span-4 w-full">
                <Setting course={"Belajar Javascript"} />
               </div>

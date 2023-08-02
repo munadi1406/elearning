@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
-import WithContainerModal from "../../utils/WithContainerModal";
-import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
-import ContainerModal from "./ContainerModal";
+import WithContainerModal from "../../../utils/WithContainerModal";
+import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
+import ContainerModal from "../../ContainerModal";
 import PropTypes from 'prop-types'
 
 const JoinCourse = ({handleShowJoinCouseModal}) => {

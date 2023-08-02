@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { HiOutlineSwitchHorizontal, HiSearch } from "react-icons/hi";
-import CardCourse from "../../components/main/CardCourse";
+import CardCourse from "../../components/main/course/CardCourse";
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
-import JoinCourse from "../../components/main/JoinCourse";
+import JoinCourse from "../../components/main/course/JoinCourse";
 import {  useRef } from "react";
 
 const MyCourse = () => {

@@ -1,13 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
 import WithContainerModal from "../../../utils/WithContainerModal";
 import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
-import ContainerModal from "../ContainerModal";
+import ContainerModal from "../../ContainerModal";
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
-import GPS from "../absensi/GPS";
-import GenerateQRCode from "../absensi/GenerateQRCode";
+import GPS from "./GPS";
+import GenerateQRCode from "./GenerateQRCode";
 import generateRandomCode from "../../../utils/generateRandomCode";
-import SearchLocation from "../absensi/SearchLocation";
+import SearchLocation from "./SearchLocation";
 
 const CreateAbsensi = ({ handleClose }) => {
   const [opsiAbsensi, setOpsiAbsensi] = useState([]);

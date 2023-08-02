@@ -1,24 +1,22 @@
 /* eslint-disable react-refresh/only-export-components */
-import WithContainerModal from "../../../utils/WithContainerModal";
-import ContainerModal from "../ContainerModal";
-import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
+import WithContainerModal from "../../../../utils/WithContainerModal";
+import ContainerModal from "../../../ContainerModal";
+import ScaleEffectMotion from "../../../../utils/ScaleEffectMotion";
 import PropTypes from "prop-types";
-import Tugas from "./Tugas";
+import DetailAssignment from "./DetailAssignment";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import DataTugas from "./DataTugas";
+import AssignmentSubmisstionList from "./AssignmentSubmisstionList";
 
-const ModalTugas = ({ handleClose, type }) => {
+const ModalDetailAssignment = ({ handleClose, type }) => {
   const [optionTugas, setOptionTugas] = useState(0);
   const style = {
     optionTugas:
       "w-1/2 relative z-10 text-center rounded-md font-sans font-semibold text-sm p-2",
   };
-
-
   return (
     <ContainerModal>
-      <div className="flex justify-center items-start flex-col gap-2">
+      <div className="flex max-h-[90vh] w-full justify-center items-start flex-col gap-2">
         {type === 'tugas' && (
           <>
             <div className="flex justify-center items-center border-blue1 w-full">
@@ -46,12 +44,11 @@ const ModalTugas = ({ handleClose, type }) => {
                 ></motion.div>
               </div>
             </div>
-            <div className="max-h-[90vh] md:w-[800px] w-full overflow-y-auto grid md:grid-cols-3 grid-cols-2 gap-1">
-
+            <div className="max-h-[90vh] lg:w-[800px]  w-full overflow-y-auto overflow-x-hidden grid md:grid-cols-3 grid-cols-2 gap-1">
               {optionTugas === 0 && (
-                <Tugas />
+                <DetailAssignment />
               )}
-              {optionTugas === 1 && (<DataTugas />)}
+              {optionTugas === 1 && (<AssignmentSubmisstionList />)}
             </div>
           </>
         )}
@@ -70,9 +67,9 @@ const ModalTugas = ({ handleClose, type }) => {
     </ContainerModal>
   );
 };
-ModalTugas.propTypes = {
+ModalDetailAssignment.propTypes = {
   handleClose: PropTypes.func.isRequired,
-  type: PropTypes.func.isRequired
+  type: PropTypes.string.isRequired
 
 };
-export default WithContainerModal(ModalTugas);
+export default WithContainerModal(ModalDetailAssignment);

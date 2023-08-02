@@ -1,7 +1,7 @@
-import Comments from './Comments';
+import Comments from '../Comments';
 import { useState } from 'react';
 
-export default function Tugas() {
+export default function DetailAssignment() {
     const [file, setFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
   

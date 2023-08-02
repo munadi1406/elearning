@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useState } from "react"
 import WithContainerModal from "../../../utils/WithContainerModal"
-import ContainerModal from "../ContainerModal"
+import ContainerModal from "../../ContainerModal"
 import { useEffect } from "react"
 import ScaleEffectMotion from "../../../utils/ScaleEffectMotion"
 import PropTypes from 'prop-types'

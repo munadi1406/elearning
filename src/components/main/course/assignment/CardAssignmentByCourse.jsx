@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
-import WithMotionWhileView from '../../../utils/WithMotionWhileView'
+import WithMotionWhileView from '../../../../utils/WithMotionWhileView'
 import PropTypes from 'prop-types';
 
-const CardCourseById = ({ tugas, desc, fromDate ,showModalTugas}) => {
+const CardAssignmentByCourse = ({ tugas, desc, fromDate ,showModalTugas}) => {
     return (
         <div className='border-blue1 border-b-2 p-2'>
             <div className='flex justify-between items-center '>
@@ -17,15 +17,15 @@ const CardCourseById = ({ tugas, desc, fromDate ,showModalTugas}) => {
 }
 
 
-CardCourseById.propTypes = {
+CardAssignmentByCourse.propTypes = {
     tugas: PropTypes.string.isRequired,
     fromDate: PropTypes.string.isRequired,
     toDate: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
     showModalTugas: PropTypes.func.isRequired,
 }
-CardCourseById.defaultProps = {
+CardAssignmentByCourse.defaultProps = {
     desc: ""
 }
 
-export default WithMotionWhileView(CardCourseById)
+export default WithMotionWhileView(CardAssignmentByCourse)

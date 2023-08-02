@@ -1,14 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
-import WithContainerModal from "../../../utils/WithContainerModal";
-import ContainerModal from "../../../components/main/ContainerModal";
+import WithContainerModal from "../../../../utils/WithContainerModal";
+import ContainerModal from "../../../ContainerModal";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import AddTugas from "./AddTugas";
-import AddQuis from "./AddQuis";
-import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
+import AddTugas from "./AddAssignment";
+import AddQuis from "../AddQuis";
+import ScaleEffectMotion from "../../../../utils/ScaleEffectMotion";
 
-const CreateTugas = ({ handleClose }) => {
+const ModalCreateAssignment = ({ handleClose }) => {
   const [optionTugas, setOptionTugas] = useState(0);
   const style = {
     input:
@@ -65,8 +65,8 @@ const CreateTugas = ({ handleClose }) => {
   );
 };
 
-CreateTugas.propTypes = {
+ModalCreateAssignment.propTypes = {
   handleClose: PropTypes.func.isRequired,
 };
 
-export default WithContainerModal(CreateTugas);
+export default WithContainerModal(ModalCreateAssignment);

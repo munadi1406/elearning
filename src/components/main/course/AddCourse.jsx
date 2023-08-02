@@ -1,10 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
-import WithContainerModal from "../../utils/WithContainerModal";
-import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
+import WithContainerModal from "../../../utils/WithContainerModal";
+import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
 import PropTypes from "prop-types";
-import ContainerModal from "./ContainerModal";
+import ContainerModal from "../../ContainerModal";
 import { useRef } from "react";
-import generateRandomCode from "../../utils/generateRandomCode";
+import generateRandomCode from "../../../utils/generateRandomCode";
 
 const AddCourse = ({ handleAddCourse }) => {
   const style = {

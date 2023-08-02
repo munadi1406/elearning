@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
-import WithMotionWhileView from "../../utils/WithMotionWhileView";
+import WithMotionWhileView from "../../../utils/WithMotionWhileView";
 import PropTypes from "prop-types";
 import { FaQrcode, FaLocationArrow, FaCode } from "react-icons/fa";
-import Button from "../Button";
+import Button from "../../Button";
 
 const CardAttedance = ({ course, dateFrom, toDate, opsi, pengajar }) => {
   return (

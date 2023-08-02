@@ -2,7 +2,7 @@ import { seacrhLocation } from "../../../api/map.js";
 import { useState } from "react";
 import { useSearchLocationStore } from "../../../store/search.js";
 import ScaleEffectMotion from '../../../utils/ScaleEffectMotion'
-import { useEffect } from "react";
+
 
 export default function SearchLocation() {
   const [dataSearch, setDataSearch] = useState([]);

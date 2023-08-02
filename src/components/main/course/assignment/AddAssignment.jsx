@@ -1,6 +1,6 @@
-import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
+import ScaleEffectMotion from "../../../../utils/ScaleEffectMotion";
 
-export default function AddTugas() {
+export default function AddAssignment() {
   const style = {
     input:
       "w-full outline-none border border-blue1 rounded-md py-1 px-2 placeholder:text-sm",

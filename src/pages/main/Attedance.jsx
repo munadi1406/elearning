@@ -1,4 +1,4 @@
-import CardAttedance from "../../components/main/CardAttedance";
+import CardAttedance from "../../components/main/absensi/CardAttedance";
 
 const Attedance = () => {
   const dataAttedance = [

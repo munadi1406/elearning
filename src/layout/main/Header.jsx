@@ -6,7 +6,7 @@ import { BiCurrentLocation } from "react-icons/bi";
 import { SiMusicbrainz } from "react-icons/si";
 import { useEffect, useState } from "react";
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
-import AddCourse from "../../components/main/AddCourse";
+import AddCourse from "../../components/main/course/AddCourse";
 
 export default function Header() {
   const [isShowAddCourse, setIsShowAddCourse] = useState(false);

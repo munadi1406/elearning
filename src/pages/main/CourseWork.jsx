@@ -1,4 +1,4 @@
-import CardCourseWork from "../../components/main/CardCourseWork";
+import CardCourseWork from "../../components/main/course/CardCourseWork";
 
 const CourseWork = () => {
   const courseData = [
