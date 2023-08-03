@@ -12,7 +12,7 @@ export default function QrCodeCheckin() {
       setData(result.text);
     } else {
       setQrCodeStatus(false);
-      console.log(error);
+      
     }
   };
 

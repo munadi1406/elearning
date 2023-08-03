@@ -1,7 +1,7 @@
 import { Map, Marker } from "pigeon-maps";
 import { osm } from "pigeon-maps/providers";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState,useEffect } from "react";
+import ButtonPure from '../../../ButtonPure'
 
 export default function GpsCheckIn() {
   const attendaceLocation = [51.505, -0.09];
@@ -45,15 +45,15 @@ export default function GpsCheckIn() {
   },[]);
 
   return (
-    <div className="w-full h-full grid grid-cols-1 gap-2">
+    <div className="w-full h-max grid grid-cols-1 gap-2">
       {errorStatus && (
         <div className="bg-red-500 px-2 py-1 text-white font-sans text-xs rounded-md">
           {errorMsg}
         </div>
       )}
       <Map
-        height={400}
-        className="w-full h-full"
+        height={300}
+        className="w-full"
         center={attendaceLocation}
         defaultZoom={11}
         provider={osm}
@@ -76,6 +76,7 @@ export default function GpsCheckIn() {
         {/* <Marker width={50} anchor={attendaceLocation} payload={1} /> */}
         <Marker width={50} anchor={yourLocation} payload={1} />
       </Map>
+      <ButtonPure text={"Check-in"}/>
     </div>
   );
 }

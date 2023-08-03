@@ -8,6 +8,7 @@ import { useState } from 'react'
 import GpsCheckIn from './check-in/GpsCheckIn'
 import QrCodeCheckin from './check-in/QrCodeCheckin'
 import TokenCheckin from './check-in/TokenCheckin'
+import OthersCheckin from './check-in/OthersCheckin'
 
 const ModalAttedance = ({ handleClose }) => {
     const style = {
@@ -43,6 +44,7 @@ const ModalAttedance = ({ handleClose }) => {
                     {subMenuActive === 0 && <GpsCheckIn />}
                     {subMenuActive === 1 && <QrCodeCheckin />}
                     {subMenuActive === 2 && <TokenCheckin />}
+                    {subMenuActive === 3 && <OthersCheckin />}
                 </div>
                 <div className='w-full flex justify-center items-center gap-2'>
                     <ButtonPure text={"close"} color={"cream1"} onClick={handleClose} />

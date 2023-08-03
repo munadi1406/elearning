@@ -13,7 +13,6 @@
     "@zxing/library": "^0.20.0",
     "axios": "^1.4.0",
     "framer-motion": "^10.12.18",
-    "html5-qrcode": "^2.3.8",
     "pigeon-maps": "^0.21.3",
     "prop-types": "^15.8.1",
     "qrcode.react": "^3.1.0",
