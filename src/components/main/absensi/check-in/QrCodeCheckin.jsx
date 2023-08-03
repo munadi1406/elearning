@@ -25,7 +25,7 @@ export default function QrCodeCheckin() {
          delay={300}
         onError={handleError}
         onScan={handleScan}
-        constraints={{facingMode:"user"}}
+        constraints={{facingMode:"environment"}}
         style={{ width: '100%' }}
       />
     </div>
