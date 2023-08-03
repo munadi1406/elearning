@@ -11,21 +11,18 @@ export default function QrCodeCheckin() {
   // };
   const handleScan = (data) => {
     if (data) {
-      alert(data);
+      console.log(data);
+      setDecodedTex(data)
     }
   };
 
-  const handleError = (err) => {
-    console.error(err);
-  };
   return (
     <div >
-    <div className="w-full bg-blue1 text-lg text-white text-center ">{decodedText}</div>
+    <div className="w-full bg-blue1 text-lg text-white text-center ">{toString(decodedText)}</div>
     <QrReader
-         delay={300}
-        onError={handleError}
-        onScan={handleScan}
-        constraints={{facingMode:"environment"}}
+        delay={300}
+        onResult={handleScan}
+        constraints={{facingMode:"user"}}
         style={{ width: '100%' }}
       />
     </div>
