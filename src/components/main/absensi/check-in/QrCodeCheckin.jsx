@@ -4,17 +4,7 @@ import { QrReader } from 'react-qr-reader'; //sementara saja menunggu versi terb
 
 export default function QrCodeCheckin() {
   const [decodedText,setDecodedTex] = useState('result')
-  // const handleCodeSuccess = ({decodedText}) => {
-  //   setDecodedTex(decodedText)
-  //   // console.log(e)
-
-  // };
-  const handleScan = (data) => {
-    if (data) {
-      console.log(data);
-      setDecodedTex(data)
-    }
-  };
+  const [data, setData] = useState('No result');
 
   return (
     <div >
@@ -22,10 +12,19 @@ export default function QrCodeCheckin() {
 
     <QrReader
         delay={300}
-        onResult={handleScan}
+        onResult={(result, error) => {
+          if (result) {
+            setData(result?.text);
+          }
+
+          if (error) {
+            console.info(error);
+          }
+        }}
         constraints={{facingMode:"environment"}}
         style={{ width: '100%' }}
       />
+      <p>{data}</p>
     </div>
   );
 }
