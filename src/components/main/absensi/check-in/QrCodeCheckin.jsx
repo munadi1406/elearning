@@ -12,7 +12,7 @@ export default function QrCodeCheckin() {
   // };
   const [data, setData] = useState('No result');
   const handleResult = (e)=>{
-    console.log({e})
+   alert(e)
   }
   return (
     <div >
