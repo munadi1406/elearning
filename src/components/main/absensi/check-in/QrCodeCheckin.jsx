@@ -1,6 +1,5 @@
 import { useState } from "react";
-// import ScannerPluggin from "../../../../utils/ScannerPluggin";
-import { QrReader } from 'react-qr-reader';
+import { QrReader } from 'react-qr-reader'; //sementara saja menunggu versi terbaru
 
 
 export default function QrCodeCheckin() {
@@ -10,18 +9,25 @@ export default function QrCodeCheckin() {
   //   // console.log(e)
 
   // };
-  const [data, setData] = useState('No result');
-  const handleResult = (e)=>{
-   alert(e)
-  }
+  const handleScan = (data) => {
+    if (data) {
+      alert(data);
+    }
+  };
+
+  const handleError = (err) => {
+    console.error(err);
+  };
   return (
     <div >
     <div className="w-full bg-blue1 text-lg text-white text-center ">{decodedText}</div>
     <QrReader
-        onResult={handleResult}
+         delay={300}
+        onError={handleError}
+        onScan={handleScan}
+        constraints={{facingMode:"user"}}
         style={{ width: '100%' }}
       />
-      <p>{data}</p>
     </div>
   );
 }
