@@ -18,10 +18,7 @@ export default function QrCodeCheckin() {
 
   return (
     <div>
-      <div className="w-full bg-blue1 text-lg text-white text-center ">
-        {data}
-      </div>
-      {data.length < 0 && (
+      {data.length > 0 && (
         <div className={`flex justify-center items-center gap-2 ${qrCodeStatus ? 'bg-green-600' :'bg-red-500'} w-full text-lg font-sans text-white font-semibold   rounded-md`}>
           {qrCodeStatus ? <FaCheckCircle /> : <FaWindowClose />}
           <div className="capitalize">
