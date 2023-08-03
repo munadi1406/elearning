@@ -2,9 +2,9 @@
 import WithMotionWhileView from "../../../utils/WithMotionWhileView";
 import PropTypes from "prop-types";
 import { FaQrcode, FaLocationArrow, FaCode } from "react-icons/fa";
-import Button from "../../Button";
+import ButtonPure from "../../ButtonPure";
 
-const CardAttedance = ({ course, dateFrom, toDate, opsi, pengajar }) => {
+const CardAttedance = ({ course, dateFrom, toDate, opsi, pengajar,handleOpenModal }) => {
   return (
     <div className="border-blue1  border-2 p-2 rounded-md h-full text-blue1 shadow-[2px_2px_1px_#F4D160] flex justify-start items-start gap-3 flex-col">
       <div className="flex flex-wrap justify-between items-center w-full">
@@ -31,7 +31,7 @@ const CardAttedance = ({ course, dateFrom, toDate, opsi, pengajar }) => {
           <div className="text-blue1">To</div>
           <div className="bg-blue2 rounded-md px-2">{toDate}</div>
         </div>
-        <Button color={"bg-blue1"} text="Attedance" to="./#" />
+        <ButtonPure onClick={handleOpenModal} text={'check-in'} />
       </div>
     </div>
   );
@@ -43,6 +43,7 @@ CardAttedance.propTypes = {
   dateFrom: PropTypes.string.isRequired,
   toDate: PropTypes.string.isRequired,
   opsi: PropTypes.array.isRequired,
+  handleOpenModal:PropTypes.func.isRequired
 };
 
 export default WithMotionWhileView(CardAttedance);

@@ -154,7 +154,7 @@ export default function Hero() {
             </motion.div>
           </div>
         </div>
-        <div className="absolute top-32 left-[50%]  flex justify-center items-center -translate-x-[50%]  w-full h-max ">
+        <div className="absolute top-28 left-[50%]  flex justify-center items-center -translate-x-[50%]  w-full h-max ">
           <img src={Elipse} alt="" className="w-max h-max" />
         </div>
         <div className="block border-4 absolute -bottom-10 right-5 rounded-[50%] w-40 h-80 border-white " />
