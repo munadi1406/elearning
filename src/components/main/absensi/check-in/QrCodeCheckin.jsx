@@ -19,10 +19,11 @@ export default function QrCodeCheckin() {
   return (
     <div >
     <div className="w-full bg-blue1 text-lg text-white text-center ">{toString(decodedText)}</div>
+
     <QrReader
         delay={300}
         onResult={handleScan}
-        constraints={{facingMode:"user"}}
+        constraints={{facingMode:"environment"}}
         style={{ width: '100%' }}
       />
     </div>
