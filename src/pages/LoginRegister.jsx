@@ -3,7 +3,7 @@ import Logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import RandomQoutes from "../utils/randomQoutes";
+import RandomQoutes from "../utils/RandomQoutes";
 import Login from "../components/loginRegister/Login";
 import Register from "../components/loginRegister/Register";
 
