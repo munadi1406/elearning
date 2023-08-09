@@ -42,7 +42,7 @@ export default function Login({ setMsg }) {
       return await auth(email, password);
     },
     onSuccess:(data)=>{
-        const datas = data.data
+        const datas = data.data.data
         setAccessToken(datas.access_token)
         setRefreshToken(datas.refresh_token)
         navigate('/home/')

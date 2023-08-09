@@ -2,10 +2,11 @@ import Universe from "../assets/universe.jpg";
 import Logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, Suspense, lazy } from "react";
 import RandomQoutes from "../utils/RandomQoutes";
-import Login from "../components/loginRegister/Login";
-import Register from "../components/loginRegister/Register";
+const Login = lazy(() => import("../components/loginRegister/Login"));
+const Register = lazy(() => import("../components/loginRegister/Register"));
+
 
 const LoginRegister = () => {
   const [signUp, setSignUp] = useState(false)
@@ -84,11 +85,13 @@ const LoginRegister = () => {
             <h1 className="w-full text-center text-red-500 text-xs font-sans capitalize">
               {msg}
             </h1>
-            {!signUp ? (
-             <Login setMsg={setMsg}/>
-            ) : (
-              <Register setMsg={setMsg}/>
-            )}
+            <Suspense>
+              {!signUp ? (
+                <Login setMsg={setMsg} />
+              ) : (
+                <Register setMsg={setMsg} />
+              )}
+            </Suspense>
             <Link className="text-blue-500 text-xs hover:underline">
               Forgot Password ?
             </Link>

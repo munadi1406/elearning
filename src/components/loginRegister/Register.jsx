@@ -146,7 +146,7 @@ export default function Register({ setMsg }) {
             onChange={handleChangeLogin}
             defaultValue={state.confirmPassword}
           />
-          <button type="submit" className={`${style.button} `}>
+          <button type="submit" className={`${style.button} ${isLoading&& 'disabled:opacity-10 cursor-none'}`} disabled={isLoading}>
             {isLoading ? "loading" : "sign-up"}
           </button>
         </>
