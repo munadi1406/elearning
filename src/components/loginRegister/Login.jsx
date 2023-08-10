@@ -1,14 +1,12 @@
 import { useReducer } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useToken } from "../../store/auth";
 import { useMutation } from "react-query";
 import { auth } from "../../api/authRegister";
 import PropTypes from "prop-types";
 
 export default function Login({ setMsg }) {
   const navigate = useNavigate();
-  const { setAccessToken, setRefreshToken } = useToken();
   const style = {
     input:
       "w-full rounded-md bg-slate-200 outline-none border-none h-10 px-2 placeholder:italic text-sm",
@@ -42,9 +40,9 @@ export default function Login({ setMsg }) {
       return await auth(email, password);
     },
     onSuccess:(data)=>{
-        const datas = data.data.data
-        setAccessToken(datas.access_token)
-        setRefreshToken(datas.refresh_token)
+        const datas = data.data.data;
+        sessionStorage.setItem('rt',datas.refresh_token)
+        sessionStorage.setItem('at',datas.access_token)
         navigate('/home/')
     },
     onError:(error)=>{

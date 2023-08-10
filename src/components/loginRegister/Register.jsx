@@ -10,6 +10,7 @@ export default function Register({ setMsg }) {
   const [signIn, setSignIn] = useState(0);
   const navigate = useNavigate();
   const {setRegisterMessage} = useRegisterMessage();
+  const [isShowPassword,setIsShowPassword] = useState(false);
   const intialState = {
     email: "",
     password: "",
@@ -62,6 +63,7 @@ export default function Register({ setMsg }) {
     },
     onSuccess: (data) => {
       setRegisterMessage(data.data.message)
+      localStorage.setItem('register',state.email)
       navigate("/otp");
     },
     onError: (error) => {
@@ -79,6 +81,10 @@ export default function Register({ setMsg }) {
     }
     mutate(state);
   };
+
+  const handleShowPassword = ()=>{
+    setIsShowPassword(!isShowPassword)
+  }
   return (
     <motion.form
       initial={{ opacity: 0, translateX: -200 }}
@@ -131,7 +137,7 @@ export default function Register({ setMsg }) {
       {signIn == 2 && (
         <>
           <input
-            type="password"
+            type={isShowPassword ? 'text': 'password'}
             placeholder="Password"
             className={`${style.input}`}
             name="password"
@@ -139,13 +145,14 @@ export default function Register({ setMsg }) {
             defaultValue={state.password}
           />
           <input
-            type="password"
+            type={isShowPassword ? 'text': 'password'}
             placeholder="Confirm Password"
             className={`${style.input} `}
             name="confirmPassword"
             onChange={handleChangeLogin}
             defaultValue={state.confirmPassword}
           />
+          <div className="text-blue1 text-xs font-sans font-semibold cursor-pointer active:underline" onClick={handleShowPassword}>Show Password ?</div>
           <button type="submit" className={`${style.button} ${isLoading&& 'disabled:opacity-10 cursor-none'}`} disabled={isLoading}>
             {isLoading ? "loading" : "sign-up"}
           </button>

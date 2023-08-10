@@ -1,28 +1,36 @@
 import Header from "../layout/main/Header";
+import { useEffect,lazy,Suspense } from "react";
 import Footer from "../layout/main/Footer";
 import { Route, Routes,useNavigate } from "react-router-dom";
-import MyCourse from "../pages/main/MyCourse";
-import Attedance from "../pages/main/Attedance";
-import CourseWork from "../pages/main/CourseWork";
-import CourseById from "../pages/main/Course/CourseById";
-import Profile from "../pages/main/Profile";
+const MyCourse = lazy(()=> import( "../pages/main/MyCourse"));
+const Attedance = lazy(()=>import( "../pages/main/Attedance"));
+const CourseWork = lazy(()=>import( "../pages/main/CourseWork"));
+const CourseById = lazy(()=>import ( "../pages/main/Course/CourseById"));
+const  Profile = lazy(()=>import( "../pages/main/Profile"));
 import PrivateRoute from "../components/route/PrivateRoute";
-import { useToken } from "../store/auth";
-import { useEffect } from "react";
+import { useDataUser } from "../store/auth";
+import JwtDecodedRf from "../utils/JwtDecodedRf";
 
 const Main = () => {
-  const refreshToken = useToken((state)=>state.refreshToken);
+  const refreshToken = sessionStorage.getItem('rt');
+  const {setUsername,setIdUsers,setRole} = useDataUser();
   const navigate = useNavigate();
   useEffect(()=>{
     if(!refreshToken){
       navigate('/login')
+      return
     }
+    const {id_users,username,role} =JwtDecodedRf(refreshToken);
+    setUsername(username);
+    setIdUsers(id_users);
+    setRole(role);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   return (
     <div className="p-2">
       <Header />
       <div className="min-h-screen md:px-2 md:py-2 px-2 pt-2 pb-14">
+      <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route exact path="/" element={<PrivateRoute><MyCourse/></PrivateRoute>} />
           <Route exact path="/attedance" element={<Attedance />} />
@@ -30,6 +38,7 @@ const Main = () => {
           <Route exact path="/course/:courseId" element={<CourseById />} />
           <Route exact path="/profile" element={<Profile />} />
         </Routes>
+      </Suspense>
       </div>
       <Footer />
     </div>

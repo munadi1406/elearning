@@ -7,11 +7,13 @@ import { SiMusicbrainz } from "react-icons/si";
 import { useEffect, useState } from "react";
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
 import AddCourse from "../../components/main/course/AddCourse";
+import { useDataUser } from "../../store/auth";
 
 export default function Header() {
   const [isShowAddCourse, setIsShowAddCourse] = useState(false);
   const [showSubmenuUsers, setShowSubmenuUsers] = useState(false);
   const [showSubmenuUsersMobile, setShowSubmenuUsersMobile] = useState(false);
+  const username = useDataUser((state)=>state.username);
 
   const style = {
     navlink:
@@ -41,6 +43,7 @@ export default function Header() {
   const handleAddCourse = () => {
     setIsShowAddCourse(!isShowAddCourse);
   };
+
 
   return (
     <>
@@ -75,7 +78,7 @@ export default function Header() {
                     <img src={Universe} className="w-8 h-8 rounded-full" />
                   </div>
                   <h1 className="text-sm font-sans text-white font-semibold">
-                    Fathullah Munadi
+                    {username}
                   </h1>
                 </div>
               </ScaleEffectMotion>

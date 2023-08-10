@@ -27,3 +27,10 @@ export const otpVerification = async (otp) =>{
   });
   return data;
 }
+
+export const requestNewOtp = async (email) =>{
+  const data = await axios.post(`${endpoint}/auth/new-otp`,{
+    email
+  });
+  return data;
+}
