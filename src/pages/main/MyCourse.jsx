@@ -1,20 +1,20 @@
 import { motion } from "framer-motion";
-import { useState,useRef } from "react";
+import React, { useState, useRef ,lazy,Suspense } from "react";
 import { HiOutlineSwitchHorizontal, HiSearch } from "react-icons/hi";
-import CardCourse from "../../components/main/course/CardCourse";
+const CardCourse = lazy(()=>import( "../../components/main/course/CardCourse"));
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
 import JoinCourse from "../../components/main/course/JoinCourse";
-import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import { getCourseByIdUsers } from "../../api/course";
 import { useDataUser } from "../../store/auth";
 
 const MyCourse = () => {
-  const [switchCoursesActive, setSwitchCoursesActive] = useState(true);
   // true === my courses
   // false === courses
+  const [switchCoursesActive, setSwitchCoursesActive] = useState(true);
   const [isShowJoinCourseModal, setIsShowJoinCourseModal] = useState(false);
-  const idUsers = useDataUser((state)=>state.idUsers);
-  const containerRef = useRef()
+  const idUsers = useDataUser((state) => state.idUsers);
+  const containerRef = useRef();
   const handleSwitch = () => {
     setSwitchCoursesActive(!switchCoursesActive);
   };
@@ -23,15 +23,15 @@ const MyCourse = () => {
     setIsShowJoinCourseModal(!isShowJoinCourseModal);
   };
 
-  const {data} = useQuery('courseById',{queryFn: async()=>{
-    const data = await getCourseByIdUsers(idUsers)
-    return data.data
-  },
-  onSuccess:(data)=>{
-    console.log(data)
-  },
-  refetchInterval:5000
-});
+  const { data, isLoading, fetchNextPage } = useInfiniteQuery("courseById", {
+    queryFn: async ({ pageParam }) => {
+      const data = await getCourseByIdUsers(idUsers, pageParam);
+      return data.data;
+    },
+    getNextPageParam: (lastPage) => lastPage.lastIdCourse,
+    refetchInterval: 5000,
+    staleTime: 5000,
+  });
   const myCourseData = [
     {
       course: "Introduction to Computer Science",
@@ -134,26 +134,46 @@ const MyCourse = () => {
             </div>
           </div>
           <div className="py-2 ">
-            <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2 relative" ref={containerRef}>
-              {switchCoursesActive && data
-                ? data.map((e, i) => (
-                    <CardCourse
-                      key={i}
-                      course={e.course}
-                      desc={e.desc_course}
-                      pengajar={"anonymous"}
-                      containerRef={containerRef}
-                    />
-                  ))
-                : myCourseData.map((e, i) => (
-                    <CardCourse
-                      key={i}
-                      course={e.course}
-                      desc={e.desc}
-                      pengajar={e.pengajar}
-                      containerRef={containerRef}
-                    />
+            <div
+              className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2 relative"
+              ref={containerRef}
+            >
+            <Suspense>
+              {switchCoursesActive && !isLoading ? (
+                <>
+                  {data.pages.map((page, pageIndex) => (
+                    <React.Fragment key={pageIndex}>
+                      {page.dataCourse.map((e,i) => (
+                        <CardCourse
+                          key={i}
+                          course={e.course}
+                          desc={e.desc_course || e.desc_coruse}
+                          pengajar={"anonymous"}
+                          containerRef={containerRef}
+                        />
+                      ))}
+                    </React.Fragment>
                   ))}
+                  <button
+                    onClick={() => {
+                      fetchNextPage();
+                    }}
+                  >
+                    Load More
+                  </button>
+                </>
+              ) : (
+                myCourseData.map((e, i) => (
+                  <CardCourse
+                    key={i}
+                    course={e.course}
+                    desc={e.desc}
+                    pengajar={e.pengajar}
+                    containerRef={containerRef}
+                  />
+                ))
+              )}
+            </Suspense>
             </div>
           </div>
         </div>

@@ -29,8 +29,8 @@ axiosJwt.interceptors.response.use(
     }
 )
 
-export const getCourseByIdUsers = async (idUsers)=>{
-    const {data} = await axiosJwt.get(`${endpoint}/course/${idUsers}`)
+export const getCourseByIdUsers = async (idUsers,lastIdCourse)=>{
+    const {data} = await axiosJwt.get(`${endpoint}/course/${idUsers}/${lastIdCourse}`)
     return data
 }
 
@@ -38,6 +38,14 @@ export const getCourseByIdUsers = async (idUsers)=>{
 export const createCourse = async (data)=>{
     const addCourse = await axiosJwt.post(`${endpoint}/course`,data)
     return addCourse
+}
+
+
+export const deleteCourse = async (idCourse)=>{
+    const dropCourse = await axiosJwt.delete(`${endpoint}/course`,{
+        idCourse
+    })
+    return dropCourse
 }
 
 
