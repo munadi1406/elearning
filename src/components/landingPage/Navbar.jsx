@@ -35,8 +35,8 @@ const style ={
           <h1 className="font-sans text-lg text-white font-bold">E-verse</h1>
         </div>
         <div className="flex justify-center items-center space-x-4">
-          <NavLink className={`${style.menu}`}>Home</NavLink>
-          <NavLink  className={`${style.menu}`}>{}About</NavLink>
+          <NavLink className={`${style.menu}`} to={''}>Home</NavLink>
+          <NavLink  className={`${style.menu}`} to={'#about'}>{}About</NavLink>
           <Button to="/login" text="Sign In"/>
         </div>
     </nav>

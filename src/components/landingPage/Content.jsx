@@ -1,10 +1,5 @@
 import Location from "./../../assets/location.svg";
-import Blob1 from "../../assets/Vector.svg";
-import Blob2 from "../../assets/Vector (1).svg";
-import Blob3 from "../../assets/Vector (2).svg";
-import Blob4 from "../../assets/Vector (3).svg";
-import Blob5 from "../../assets/Vector (4).svg";
-import Blob6 from "../../assets/Vector (5).svg";
+import Landing2 from '../../assets/landing2.jpg'
 import QrCode from "../../assets/qrcode.svg";
 import Token from "../../assets/token.svg";
 import Button from "../../components/Button";
@@ -16,74 +11,59 @@ export default function Content() {
     text: "text-white text-xl font-sans font-semibold",
   };
   return (
-    <div className="h-max w-full flex justify-center items-center relative">
-      <div className="bg-cream1 w-full h-[60%] rounded-md absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] transform z-0"></div>
+    <section id="about" className="h-max w-full flex justify-center items-center relative">
       <div className="h-max w-full py-2 flex justify-center items-center flex-col relative z-10">
-        <div className="grid  min-w-[90%]  h-max md:grid-cols-3 gap-2 sm:grid-cols-2  grid-cols-1 flex-wrap">
-          <div className="bg-blue1 h-44 rounded-md  p-2 relative   justify-center items-center flex">
-            <div className="flex justify-center items-center h-full w-full">
-              <img
-                className="absolute w-10 top-1 left-2 z-0"
-                alt="Vector"
-                src={Blob1}
-              />
-              <div className=" grid grid-row-2 px-5 w-full h-2/3 relative z-10">
+      <div className="flex justify-center items-center h-48 w-full">
+        <img src={Landing2} alt="image 2" className="h-full w-auto"/>
+      </div>
+        <div className="flex justify-center items-center h-screen">
+          <div className="grid w-full  h-max md:grid-cols-3 sm:grid-cols-2  grid-cols-1 flex-wrap">
+            <div className=" h-max bg-blue1 p-2 relative  justify-center items-center flex">
+              <div className=" grid grid-row-2 px-5 w-full relative p-2">
+                <div className="flex justify-start w-full">
+                  <img className="w-10 mr-10 " src={Location} />
+                </div>
                 <div className={`${style.text} w-full `}>
                   Absensi dengan GPS
                 </div>
-                <div className="flex justify-end w-full">
-                  <img className="w-10 mr-10 " src={Location} />
+                <div className="text-white text-sm font-sans">
+                  Fitur absensi GPS memungkinkan sistem kami mengidentifikasi
+                  kehadiran Anda secara otomatis saat Anda masuk ke platform,
+                  menghilangkan kebutuhan untuk tanda tangan manual atau
+                  konfirmasi lainnya.
                 </div>
               </div>
-              <img
-                className="absolute w-10 top-0 right-2 z-0"
-                alt="Vector"
-                src={Blob2}
-              />
             </div>
-          </div>
-          <div className="bg-blue1 h-44 rounded-md  p-2 relative  justify-center items-center flex">
-            <div className="flex justify-center items-center h-full w-full">
-              <img
-                className="absolute top-20 w-16 left-2 z-0"
-                alt="Vector"
-                src={Blob4}
-              />
-              <div className="grid grid-row-2 px-5 w-full h-2/3 relative z-10 ">
+            <div className=" h-full  bg-blue1 p-2 relative  justify-center items-center flex">
+              <div className="grid grid-row-2 px-5 w-full relative z-10 ">
+                <div className="w-full flex justify-center">
+                  <img className="w-10" src={QrCode} />
+                </div>
                 <div className={`${style.text} w-full`}>
                   Absensi Via QR Code
                 </div>
-                <div className="w-full flex justify-end">
-                  <img className="w-10" src={QrCode} />
+                <div className="text-white font-sans text-sm">
+                  Cukup dengan memindai QR code unik yang diberikan, Anda bisa
+                  langsung mengonfirmasi kehadiran Anda. Ini adalah metode cepat
+                  dan praktis yang menggantikan prosedur lama yang lebih
+                  merepotkan.
                 </div>
               </div>
-              <img
-                className="absolute w-10 top-0 right-2 z-0"
-                alt="Vector"
-                src={Blob3}
-              />
             </div>
-          </div>
-          <div className="bg-blue1 h-44 rounded-md   p-2 relative sm:col-span-full md:col-span-1 justify-center items-center flex">
-            <div className="flex justify-center items-center h-full w-full">
-              <img
-                className="absolute top-20 w-16 right-2 z-0"
-                alt="Vector"
-                src={Blob5}
-              />
-              <div className="grid grid-row-2 px-5 w-full h-2/3 relative z-10">
-                <div className={`${style.text} w-full`}>
-                  Absensi Menggunakan Token
-                </div>
+            <div className=" h-full bg-blue1  p-2 relative sm:col-span-full md:col-span-1 justify-center items-center flex">
+              <div className="grid grid-row-2 px-5 w-full relative z-10">
                 <div className="w-full flex justify-end">
                   <img className="w-10" src={Token} />
                 </div>
+                <div className={`${style.text} w-full`}>
+                  Absensi Menggunakan Token
+                </div>
+                <div className="text-white text-sm font-sans">
+                  Anda memiliki kontrol penuh atas kehadiran Anda. Setelah
+                  memasukkan token yang diberikan, sistem kami akan segera
+                  merekam kehadiran Anda tanpa perlu langkah tambahan.
+                </div>
               </div>
-              <img
-                className="absolute w-8 top-0 left-2 z-0"
-                alt="Vector"
-                src={Blob6}
-              />
             </div>
           </div>
         </div>
@@ -126,6 +106,6 @@ export default function Content() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

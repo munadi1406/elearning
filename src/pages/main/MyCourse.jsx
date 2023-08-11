@@ -1,20 +1,20 @@
 import { motion } from "framer-motion";
-import React, { useState, useRef ,lazy,Suspense } from "react";
+import { useState, useRef, lazy, Suspense } from "react";
 import { HiOutlineSwitchHorizontal, HiSearch } from "react-icons/hi";
-const CardCourse = lazy(()=>import( "../../components/main/course/CardCourse"));
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
 import JoinCourse from "../../components/main/course/JoinCourse";
-import { useInfiniteQuery } from "react-query";
-import { getCourseByIdUsers } from "../../api/course";
-import { useDataUser } from "../../store/auth";
+import ListCourseAsInstructor from "../../components/main/course/ListCourseAsInstructor";
+const ListCourseAsMember = lazy(() =>
+  import("../../components/main/course/ListCourseAsMember")
+);
 
 const MyCourse = () => {
   // true === my courses
   // false === courses
   const [switchCoursesActive, setSwitchCoursesActive] = useState(true);
   const [isShowJoinCourseModal, setIsShowJoinCourseModal] = useState(false);
-  const idUsers = useDataUser((state) => state.idUsers);
   const containerRef = useRef();
+
   const handleSwitch = () => {
     setSwitchCoursesActive(!switchCoursesActive);
   };
@@ -22,69 +22,6 @@ const MyCourse = () => {
   const handleShowJoinCouseModal = () => {
     setIsShowJoinCourseModal(!isShowJoinCourseModal);
   };
-
-  const { data, isLoading, fetchNextPage } = useInfiniteQuery("courseById", {
-    queryFn: async ({ pageParam }) => {
-      const data = await getCourseByIdUsers(idUsers, pageParam);
-      return data.data;
-    },
-    getNextPageParam: (lastPage) => lastPage.lastIdCourse,
-    refetchInterval: 5000,
-    staleTime: 5000,
-  });
-  const myCourseData = [
-    {
-      course: "Introduction to Computer Science",
-      desc: "This course introduces the fundamentals of computer science, including algorithms, data structures, programming languages, and problem-solving techniques.",
-      pengajar: "Jamal",
-    },
-    {
-      course: "Calculus I",
-      desc: "This course covers the basics of calculus, including limits, derivatives, and integrals of functions. It is essential for various fields such as engineering and physics.",
-      pengajar: "Jamal",
-    },
-    {
-      course: "Principles of Economics",
-      desc: "This course provides an overview of microeconomics and macroeconomics, covering topics such as supply and demand, market structures, and national income.",
-      pengajar: "Jamal",
-    },
-    {
-      course: "Introduction to Psychology",
-      desc: "This course introduces the scientific study of behavior and mental processes. Topics include perception, learning, memory, and psychological disorders.",
-      pengajar: "Jamal",
-    },
-    {
-      course: "World History",
-      desc: "This course explores major events, developments, and societies throughout world history, from ancient civilizations to the modern era.",
-      pengajar: "Jamal",
-    },
-    {
-      course: "Introduction to Sociology",
-      desc: "This course examines the basic concepts of sociology, including social institutions, culture, socialization, and the impact of social forces on individuals.",
-      pengajar: "Jamal",
-    },
-    {
-      course: "English Literature",
-      desc: "This course studies significant works of English literature, including poetry, prose, and drama, from different historical periods and literary movements.",
-      pengajar: "Jamal",
-    },
-    {
-      course: "Environmental Science",
-      desc: "This course explores environmental issues, ecological systems, natural resources, and sustainable practices to address environmental challenges.",
-      pengajar: "Jamal",
-    },
-    {
-      course: "Introduction to Business Management",
-      desc: "This course provides an overview of business management principles, organizational behavior, marketing, finance, and human resources management.",
-      pengajar: "Jamal",
-    },
-    {
-      course: "Public Speaking",
-      desc: "This course helps students overcome the fear of public speaking and improve their presentation skills, including effective techniques for delivering speeches.",
-      pengajar: "Jamal",
-    },
-  ];
-
   return (
     <>
       {isShowJoinCourseModal && (
@@ -138,42 +75,13 @@ const MyCourse = () => {
               className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2 relative"
               ref={containerRef}
             >
-            <Suspense>
-              {switchCoursesActive && !isLoading ? (
-                <>
-                  {data.pages.map((page, pageIndex) => (
-                    <React.Fragment key={pageIndex}>
-                      {page.dataCourse.map((e,i) => (
-                        <CardCourse
-                          key={i}
-                          course={e.course}
-                          desc={e.desc_course || e.desc_coruse}
-                          pengajar={"anonymous"}
-                          containerRef={containerRef}
-                        />
-                      ))}
-                    </React.Fragment>
-                  ))}
-                  <button
-                    onClick={() => {
-                      fetchNextPage();
-                    }}
-                  >
-                    Load More
-                  </button>
-                </>
-              ) : (
-                myCourseData.map((e, i) => (
-                  <CardCourse
-                    key={i}
-                    course={e.course}
-                    desc={e.desc}
-                    pengajar={e.pengajar}
-                    containerRef={containerRef}
-                  />
-                ))
-              )}
-            </Suspense>
+              <Suspense>
+                {switchCoursesActive ? (
+                  <ListCourseAsInstructor containerRef={containerRef} />
+                ) : (
+                  <ListCourseAsMember containerRef={containerRef} />
+                )}
+              </Suspense>
             </div>
           </div>
         </div>

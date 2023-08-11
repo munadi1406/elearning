@@ -34,6 +34,11 @@ export const getCourseByIdUsers = async (idUsers,lastIdCourse)=>{
     return data
 }
 
+export const getCourseWhenUserAsMember = async (idUsers,lastIdCourse)=>{
+    const {data} = await axiosJwt.get(`${endpoint}/course/member/${idUsers}/${lastIdCourse}`)
+    return data
+}
+
 
 export const createCourse = async (data)=>{
     const addCourse = await axiosJwt.post(`${endpoint}/course`,data)
@@ -55,4 +60,12 @@ export const newAccessToken = async ()=>{
         refreshToken
     })
     sessionStorage.setItem('at',data.accessToken);
+}
+
+export const joinCourse = async (idUsers,course_code)=>{
+    const data = await axiosJwt.post(`${endpoint}/course/join-course`,{
+        id_users:`${idUsers}`,
+        course_code
+    })
+    return data;
 }
