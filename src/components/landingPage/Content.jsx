@@ -1,46 +1,41 @@
-import Location from "./../../assets/location.svg";
-import Landing2 from '../../assets/landing2.jpg'
-import QrCode from "../../assets/qrcode.svg";
-import Token from "../../assets/token.svg";
+import Landing2 from "../../assets/landing2.jpg";
 import Button from "../../components/Button";
 import Universe from "./../../assets/universe.jpg";
-import Search from "../../assets/search.svg";
+import {FaLocationArrow,FaQrcode,FaCode, FaSearch} from 'react-icons/fa'
 
 export default function Content() {
   const style = {
     text: "text-white text-xl font-sans font-semibold",
   };
   return (
-    <section id="about" className="h-max w-full flex justify-center items-center relative">
+    <section
+      id="about"
+      className="h-max w-full flex justify-center items-center relative"
+    >
       <div className="h-max w-full py-2 flex justify-center items-center flex-col relative z-10">
-      <div className="flex justify-center items-center h-48 w-full">
-        <img src={Landing2} alt="image 2" className="h-full w-auto"/>
-      </div>
+        <div className="flex justify-center items-center h-48 w-full">
+          <img src={Landing2} alt="image 2" className="h-full w-auto" />
+        </div>
         <div className="flex justify-center items-center h-screen">
           <div className="grid w-full  h-max md:grid-cols-3 sm:grid-cols-2  grid-cols-1 flex-wrap">
-            <div className=" h-max bg-blue1 p-2 relative  justify-center items-center flex">
-              <div className=" grid grid-row-2 px-5 w-full relative p-2">
-                <div className="flex justify-start w-full">
-                  <img className="w-10 mr-10 " src={Location} />
-                </div>
-                <div className={`${style.text} w-full `}>
-                  Absensi dengan GPS
+            <div className="h-full bg-blue1 px-2 py-3 relative  justify-start items-center flex">
+              <div className="h-full flex flex-col justify-center items-start px-5">
+                <div className={`${style.text} w-full flex justify-evenly items-center `}>
+                  Presensi dengan GPS <FaLocationArrow/>
                 </div>
                 <div className="text-white text-sm font-sans">
-                  Fitur absensi GPS memungkinkan sistem kami mengidentifikasi
-                  kehadiran Anda secara otomatis saat Anda masuk ke platform,
+                  Fitur presensi GPS memungkinkan sistem kami secara otomatis
+                  mendeteksi kehadiran Anda saat Anda memasuki platform,
                   menghilangkan kebutuhan untuk tanda tangan manual atau
-                  konfirmasi lainnya.
+                  konfirmasi lainnya. Anda hanya perlu melakukan check-in pada
+                  saat presensi dibuat oleh instruktur.
                 </div>
               </div>
             </div>
-            <div className=" h-full  bg-blue1 p-2 relative  justify-center items-center flex">
-              <div className="grid grid-row-2 px-5 w-full relative z-10 ">
-                <div className="w-full flex justify-center">
-                  <img className="w-10" src={QrCode} />
-                </div>
-                <div className={`${style.text} w-full`}>
-                  Absensi Via QR Code
+            <div className="h-full bg-blue1 px-2 py-3 relative  justify-center items-start flex">
+              <div className="h-full flex flex-col justify-start items-center px-5">
+                <div className={`${style.text} w-full flex justify-evenly items-center`}>
+                  Presensi Via QR Code <FaQrcode/>
                 </div>
                 <div className="text-white font-sans text-sm">
                   Cukup dengan memindai QR code unik yang diberikan, Anda bisa
@@ -50,13 +45,10 @@ export default function Content() {
                 </div>
               </div>
             </div>
-            <div className=" h-full bg-blue1  p-2 relative sm:col-span-full md:col-span-1 justify-center items-center flex">
-              <div className="grid grid-row-2 px-5 w-full relative z-10">
-                <div className="w-full flex justify-end">
-                  <img className="w-10" src={Token} />
-                </div>
-                <div className={`${style.text} w-full`}>
-                  Absensi Menggunakan Token
+            <div className="h-full bg-blue1 px-2 py-3 relative  justify-center items-start flex">
+              <div className="h-full flex flex-col justify-start items-center px-5">
+                <div className={`${style.text} w-full flex justify-evenly items-center`}>
+                  Presensi Via Token <FaCode/>
                 </div>
                 <div className="text-white text-sm font-sans">
                   Anda memiliki kontrol penuh atas kehadiran Anda. Setelah
@@ -73,7 +65,7 @@ export default function Content() {
               Peningkatan Pembelajaran Modern dengan Fitur Absensi
             </h1>
             <h1 className="text-white ">Terbaru</h1>
-            <Button to="#" color={"bg-blue1"} text="Get Started" />
+            <Button to="/login" color={"bg-blue1"} text="Get Started" />
           </div>
         </div>
         <div className="w-full flex justify-center items-center flex-wrap px-2">
@@ -95,11 +87,11 @@ export default function Content() {
               <div className="flex lg:justify-center justify-between xl:w-auto w-full items-center bg-white p-1 rounded-md ">
                 <input
                   type="search"
-                  placeholder="Kode Kelas"
-                  className="bg-transparent w-full border-0 outline-none placeholder:text-blue2"
+                  placeholder="Kode Kelas..."
+                  className="bg-transparent w-full border-0 outline-none placeholder:text-blue2 placeholder:text-xs"
                 />
                 <button className="bg-blue1 rounded-md p-1 px-3 active:bg-blue1/70">
-                  <img src={Search} alt="Search" />
+                  <FaSearch color="white"/>
                 </button>
               </div>
             </div>

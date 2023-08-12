@@ -11,7 +11,7 @@ export default function Login({ setMsg }) {
     input:
       "w-full rounded-md bg-slate-200 outline-none border-none h-10 px-2 placeholder:italic text-sm",
     button:
-      "capitalize text-white cursor-pointer active:scale-95 hover:bg-cream1 transition-all duration-300 ease-in-out  shadow-[3px_3px_1px_#F4D160] hover:shadow-none bg-blue1 p-2 rounded-md font-semibold font-sans w-full",
+      "capitalize text-white active:scale-95 hover:bg-cream1 transition-all duration-300 ease-in-out  shadow-[3px_3px_1px_#F4D160] hover:shadow-none bg-blue1 p-2 rounded-md font-semibold font-sans w-full",
   };
   const initialState = {
     email: "",
@@ -85,10 +85,10 @@ export default function Login({ setMsg }) {
           />
           <button
             type="submit"
-            className={`${style.button} ${isLoading && "disabled:opacity-50"}`}
+            className={`${style.button} ${isLoading && "disabled:opacity-50 cursor-not-allowed"}`}
             disabled={isLoading}
           >
-            {isLoading ? "loading" : "Sign-in"}
+            {isLoading ? "loading..." : "Sign-in"}
           </button>
         </form>
       </motion.div>

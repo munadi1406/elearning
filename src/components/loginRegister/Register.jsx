@@ -9,8 +9,8 @@ import { useRegisterMessage } from "../../store/auth";
 export default function Register({ setMsg }) {
   const [signIn, setSignIn] = useState(0);
   const navigate = useNavigate();
-  const {setRegisterMessage} = useRegisterMessage();
-  const [isShowPassword,setIsShowPassword] = useState(false);
+  const { setRegisterMessage } = useRegisterMessage();
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const intialState = {
     email: "",
     password: "",
@@ -23,7 +23,7 @@ export default function Register({ setMsg }) {
     input:
       "w-full rounded-md bg-slate-200 outline-none border-none h-10 px-2 placeholder:italic text-sm",
     button:
-      "capitalize text-white cursor-pointer active:scale-95 hover:bg-cream1 transition-all duration-300 ease-in-out  shadow-[3px_3px_1px_#F4D160] hover:shadow-none bg-blue1 p-2 rounded-md font-semibold font-sans w-full",
+      "capitalize text-white active:scale-95 hover:bg-cream1 transition-all duration-300 ease-in-out  shadow-[3px_3px_1px_#F4D160] hover:shadow-none bg-blue1 p-2 rounded-md font-semibold font-sans w-full",
   };
 
   const loginRegisterReducer = (state, action) => {
@@ -62,8 +62,8 @@ export default function Register({ setMsg }) {
       return await register(state);
     },
     onSuccess: (data) => {
-      setRegisterMessage(data.data.message)
-      localStorage.setItem('register',state.email)
+      setRegisterMessage(data.data.message);
+      localStorage.setItem("register", state.email);
       navigate("/otp");
     },
     onError: (error) => {
@@ -82,9 +82,9 @@ export default function Register({ setMsg }) {
     mutate(state);
   };
 
-  const handleShowPassword = ()=>{
-    setIsShowPassword(!isShowPassword)
-  }
+  const handleShowPassword = () => {
+    setIsShowPassword(!isShowPassword);
+  };
   return (
     <motion.form
       initial={{ opacity: 0, translateX: -200 }}
@@ -137,7 +137,7 @@ export default function Register({ setMsg }) {
       {signIn == 2 && (
         <>
           <input
-            type={isShowPassword ? 'text': 'password'}
+            type={isShowPassword ? "text" : "password"}
             placeholder="Password"
             className={`${style.input}`}
             name="password"
@@ -145,38 +145,49 @@ export default function Register({ setMsg }) {
             defaultValue={state.password}
           />
           <input
-            type={isShowPassword ? 'text': 'password'}
+            type={isShowPassword ? "text" : "password"}
             placeholder="Confirm Password"
             className={`${style.input} `}
             name="confirmPassword"
             onChange={handleChangeLogin}
             defaultValue={state.confirmPassword}
           />
-          <div className="text-blue1 text-xs font-sans font-semibold cursor-pointer active:underline" onClick={handleShowPassword}>Show Password ?</div>
-          <button type="submit" className={`${style.button} ${isLoading&& 'disabled:opacity-10 cursor-none'}`} disabled={isLoading}>
+          <div
+            className=" flex justify-center items-center gap-2"
+          >
+            <input type="checkbox" id="showPassword" onChange={handleShowPassword} />
+            <label htmlFor="showPassword" className="text-xs capitalize font-sans font-semibold text-blue1 cursor-pointer">{isShowPassword ? 'hide' : 'show'} Password ?</label>
+          </div>
+          <button
+            type="submit"
+            className={`${style.button} ${isLoading && "disabled:opacity-50 cursor-not-allowed"
+              }`}
+            disabled={isLoading}
+          >
             {isLoading ? "loading" : "sign-up"}
           </button>
         </>
       )}
       <div
-        className={`grid ${
-          signIn == 2 ? "grid-cols-1" : "grid-cols-2"
-        } w-full gap-2`}
+        className={`grid ${signIn == 2 ? "grid-cols-1" : "grid-cols-2"
+          } w-full gap-2`}
       >
-        <input
+        <button
           type="button"
-          value={"Next"}
           onClick={() => setSignIn(signIn + 1)}
           className={`${style.button} ${signIn == 2 && "hidden"}`}
           disabled={signIn == 2}
-        />
-        <input
+        >
+          Next
+        </button>
+        <button
           type="button"
-          value={"Back"}
           onClick={() => setSignIn(signIn - 1)}
           className={`${style.button} ${signIn == 0 && "disabled:opacity-70"}`}
           disabled={signIn == 0}
-        />
+        >
+          Back
+        </button>
       </div>
     </motion.form>
   );
