@@ -69,3 +69,16 @@ export const joinCourse = async (idUsers,course_code)=>{
     })
     return data;
 }
+
+export const post = async (idCourse)=>{
+    const data = await axiosJwt.get(`${endpoint}/post/${idCourse}`)
+    return data;
+}
+
+
+export const posting = async (dataPayload)=>{
+    console.log({dataPayload});
+    const data = await axiosJwt.post(`${endpoint}/post`,dataPayload)
+    return data;
+}
+

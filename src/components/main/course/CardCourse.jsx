@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import WithMotionWhileView from "../../../utils/WithMotionWhileView";
 import Button from "../../Button";
 import TextTruncate from "../../../utils/TextTruncate";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect  } from "react";
 import { FaGripVertical } from "react-icons/fa";
 import { motion } from "framer-motion";
 import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom'
 
-const CardCourse = ({ course, desc, pengajar, containerRef }) => {
+
+const CardCourse = ({idCourse, course, desc, pengajar, containerRef }) => {
   const [subMenu, setSubmenu] = useState(false);
   const [isOffset, setIsOffset] = useState(false);
   const modalRef = useRef();
@@ -70,7 +70,7 @@ const CardCourse = ({ course, desc, pengajar, containerRef }) => {
               } top-8 font-sans font-semibold flex justify-start items-center flex-col rounded-md z-10 py-2  `}
               ref={modalRef}
             >
-              <Link to={`./course/${1}`} className="w-full active:bg-cream1 border-white cursor-pointer border-b p-2 hover:bg-blue1">
+              <Link to={`./course/${idCourse}`} className="w-full active:bg-cream1 border-white cursor-pointer border-b p-2 hover:bg-blue1">
                 Open
               </Link>
               <div className="w-full active:bg-cream1 p-2 cursor-pointer hover:bg-blue1">
@@ -83,12 +83,13 @@ const CardCourse = ({ course, desc, pengajar, containerRef }) => {
       <div className="w-full text-xs">
         <TextTruncate text={desc} maxWords={10} />
       </div>
-      <Button text="Go To Course" color={"bg-blue2"} to={`./course/${1}`} />
+      <Button text="Go To Course" color={"bg-blue2"} to={`./course/${idCourse}`} />
     </div>
   );
 };
 
 CardCourse.propTypes = {
+  idCourse: PropTypes.number.isRequired,
   course: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
   pengajar: PropTypes.string.isRequired,

@@ -29,7 +29,7 @@ export default function ListCourseAsInstructor({ containerRef }) {
           {page.dataCourse.map((e, i) => (
             <CardCourse
               key={i}
-              idCourse={e.id_course}
+              idCourse={e.idCourse}
               course={e.course}
               desc={e.desc_course}
               pengajar={e.username}

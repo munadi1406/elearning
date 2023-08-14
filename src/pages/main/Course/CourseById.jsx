@@ -1,38 +1,23 @@
 import { useParams } from "react-router-dom";
-import CardAssignmentByCourse from "../../../components/main/course/assignment/CardAssignmentByCourse";
-import { BsSend } from "react-icons/bs";
-import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
-import { useState } from "react";
-import CardStudent from "../../../components/main/course/CardStudent";
+import { useState, lazy, Suspense } from "react";
 import ModalCreateAssignment from "../../../components/main/course/assignment/ModalCreateAssignment";
-import Setting from "../../../components/main/course/Setting";
+const CardStudent = lazy(() =>
+  import("../../../components/main/course/CardStudent")
+);
+const Setting = lazy(() => import("../../../components/main/course/Setting"));
 import CreateAbsensi from "../../../components/main/absensi/CreateAbsensi";
 import ModalDetailAssignment from "../../../components/main/course/assignment/ModalDetailAssignment";
 import SubmenuCourseById from "../../../components/main/course/SubmenuCourseById";
 import { useSubmenuActiveStore } from "../../../store/search";
+const ListPosting = lazy(() => import("../../../components/main/course/post/ListPosting"));
+const Posting = lazy(() => import("../../../components/main/course/post/Posting"));
 
 const CourseById = () => {
   const { courseId } = useParams();
   const [isShowCreateTugas, setIsShowCreateTugas] = useState(false);
-  const [isShowCreateAbsensi,setIsShowCreateAbsensi] = useState(false)
-  const [showTugas,setShowTugas] = useState(false);
-  const {subMenuActive} = useSubmenuActiveStore()
-  console.log(courseId);
-
-  const dataCourseById = [
-    {
-      tugas: "Tugas 1",
-      fromDate: "06:48 28-07-2023",
-      toDate: "06:48 28-07-2023",
-      desc: "Buatlah Sebuah Website landing page dengan html dan css ",
-    },
-    {
-      tugas: "Tugas 2",
-      fromDate: "06:48 28-07-2023",
-      toDate: "06:48 28-07-2023",
-      desc: "Buatlah Sebuah Website landing page dengan html dan css ",
-    },
-  ];
+  const [isShowCreateAbsensi, setIsShowCreateAbsensi] = useState(false);
+  const [showTugas, setShowTugas] = useState(false);
+  const { subMenuActive } = useSubmenuActiveStore();
 
   const dataStudent = [
     {
@@ -49,23 +34,29 @@ const CourseById = () => {
     setIsShowCreateTugas(!isShowCreateTugas);
   };
 
+  const handleIsShowCreateAbsensi = () => {
+    setIsShowCreateAbsensi(!isShowCreateAbsensi);
+  };
 
-  const handleIsShowCreateAbsensi =()=>{
-    setIsShowCreateAbsensi(!isShowCreateAbsensi)
-  }
-
-  const handleShowModalTugas = ()=>{
-    console.log("runnn")
-    setShowTugas(!showTugas)
-  }
+  const handleShowModalTugas = () => {
+    console.log("runnn");
+    setShowTugas(!showTugas);
+  };
 
   return (
     <>
       {isShowCreateTugas && (
         <ModalCreateAssignment handleClose={handleIsShowCreateTugas} />
       )}
-      {isShowCreateAbsensi && (<CreateAbsensi handleClose={handleIsShowCreateAbsensi}/>)}
-      {showTugas && (<ModalDetailAssignment handleClose={handleShowModalTugas} type="tugas"/>)}
+      {isShowCreateAbsensi && (
+        <CreateAbsensi handleClose={handleIsShowCreateAbsensi} />
+      )}
+      {showTugas && (
+        <ModalDetailAssignment
+          handleClose={handleShowModalTugas}
+          type="tugas"
+        />
+      )}
       <div className="md:px-10 px-2">
         <div className="w-full h-40 relative">
           <div className="relative z-10 text-white h-full flex justify-between items-start flex-col font-sans text-3xl font-semibold w-full px-3 py-2">
@@ -78,56 +69,21 @@ const CourseById = () => {
           <div className="w-full h-full bg-blue-400 absolute top-0 left-0 z-0 rounded-md"></div>
         </div>
         <div className="grid md:grid-cols-4 grid-cols-1 p-1 gap-2">
-          <SubmenuCourseById/>
+          <SubmenuCourseById />
           <div className="md:col-span-3 px-2 flex justify-center items-center flex-col gap-2">
             {subMenuActive === 0 && (
-              <>
-                <div className="bg-blue1 p-2 px-3 rounded-md flex w-full">
-                  <form
-                    action=""
-                    className="flex w-full bg-white rounded-md p-2 justify-center items-center"
-                  >
-                    <input
-                      type="text"
-                      className="w-full bg-transparent border-none outline-none rounded-md text-sm"
-                      placeholder="Pengunguman..."
-                    />
-                    <ScaleEffectMotion>
-                      <button
-                        type="submit"
-                        className="bg-blue1 rounded-md p-1 px-2 text-white"
-                      >
-                        <BsSend />
-                      </button>
-                    </ScaleEffectMotion>
-                  </form>
-                </div>
-                <div className="w-full grid grid-cols-2 gap-2">
-                  <ScaleEffectMotion>
-                    <button
-                      className="w-full py-2 px-3 font-semibold rounded-md bg-cream1 font-sans text-white "
-                      onClick={handleIsShowCreateTugas}
-                    >
-                      Buat Tugas
-                    </button>
-                  </ScaleEffectMotion>
-                  <ScaleEffectMotion>
-                    <button className="w-full py-2 px-3 font-semibold rounded-md bg-blue1 font-sans text-white " onClick={handleIsShowCreateAbsensi}>
-                      Buat Absensi
-                    </button>
-                  </ScaleEffectMotion>
-                </div>
-                <div></div>
-                {dataCourseById.map((e, i) => (
-                  <CardAssignmentByCourse key={i} {...e} showModalTugas={handleShowModalTugas}/>
-                ))}
-              </>
+              <Suspense fallback={<>Loading...</>}>
+                <Posting courseId={courseId} handleIsShowCreateTugas={handleIsShowCreateTugas} handleIsShowCreateAbsensi={handleIsShowCreateAbsensi} />
+                <ListPosting handleShowModalTugas={handleShowModalTugas} courseId={courseId} />
+              </Suspense>
             )}
             {subMenuActive === 1 && (
               <div className="col-span-4 w-full">
-                {dataStudent.map((e, i) => (
-                  <CardStudent name={e.name} number={e.number} key={i} />
-                ))}
+                <Suspense fallback={<>Loading...</>}>
+                  {dataStudent.map((e, i) => (
+                    <CardStudent name={e.name} number={e.number} key={i} />
+                  ))}
+                </Suspense>
               </div>
             )}
             {subMenuActive === 2 && (
@@ -137,7 +93,9 @@ const CourseById = () => {
             )}
             {subMenuActive === 3 && (
               <div className="col-span-4 w-full">
-               <Setting course={"Belajar Javascript"} />
+                <Suspense fallback={<>Loading...</>}>
+                  <Setting course={"Belajar Javascript"} />
+                </Suspense>
               </div>
             )}
           </div>
