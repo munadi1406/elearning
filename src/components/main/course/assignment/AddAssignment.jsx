@@ -1,6 +1,6 @@
 import { useState ,useEffect} from "react";
 import ScaleEffectMotion from "../../../../utils/ScaleEffectMotion";
-import FileDropZone from "../../../FileDropZone";
+import FileDropZone from "../../../FileDropzone";
 import DateTimeRange from "../../../DateTimeRange";
 import { posting } from "../../../../api/course";
 import { useMutation } from "react-query";
