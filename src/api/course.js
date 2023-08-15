@@ -78,7 +78,11 @@ export const post = async (idCourse)=>{
 
 export const posting = async (dataPayload)=>{
     console.log({dataPayload});
-    const data = await axiosJwt.post(`${endpoint}/post`,dataPayload)
+    const data = await axiosJwt.post(`${endpoint}/post`,dataPayload,{
+        headers:{
+            "Content-Type": "multipart/form-data"
+        }
+    })
     return data;
 }
 

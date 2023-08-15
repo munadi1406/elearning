@@ -9,6 +9,7 @@ export default function ListPosting({ courseId, handleShowModalTugas }) {
     const { data, isLoading } = useQuery(`postCourse${courseId}`, {
         queryFn: async () => {
           const { data } = await post(courseId);
+          console.log(data);
           console.log("feching list post")
           return data.data
         },

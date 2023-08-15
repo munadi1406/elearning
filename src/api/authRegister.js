@@ -12,7 +12,7 @@ export const auth = async (email, password) => {
 export const register = async (data) => {
   const { firstName, lastName , email, password, phoneNumber,confirmPassword } = data;
   const datas = await axios.post(`${endpoint}/users`, {
-    username: `${firstName}${lastName}`,
+    username: `${firstName} ${lastName}`,
     email,
     phoneNumber,
     password,

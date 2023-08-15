@@ -5,11 +5,9 @@ import PropTypes from "prop-types";
 const CardPosting = ({
   judul,
   pengumuman_konten,
-  created_at,
   showModalTugas,
+  tugas_deskripsi
 }) => {
-  const originalTime = new Date(`${created_at}`);
-  const time = `${originalTime.toLocaleTimeString()} - ${originalTime.toLocaleDateString()}`;
 
   const words = judul.split(" "); // Pisahkan string menjadi array kata
   const startIdx = 1; // Kata kedua memiliki indeks 1 dalam array
@@ -28,11 +26,8 @@ const CardPosting = ({
         >
           {judull}
         </div>
-        <div className="flex justify-center items-center">
-          <div className="text-blue1 font-sans text-xs">{time}</div>
-        </div>
       </div>
-      <div className="text-sm mt-3 text-blue1">{pengumuman_konten}</div>
+      <div className="text-sm mt-3 text-blue1">{pengumuman_konten ?? tugas_deskripsi}</div>
     </div>
   );
 };
@@ -40,7 +35,8 @@ const CardPosting = ({
 CardPosting.propTypes = {
   judul: PropTypes.string.isRequired,
   created_at: PropTypes.string.isRequired,
-  pengumuman_konten: PropTypes.string.isRequired,
+  pengumuman_konten: PropTypes.string,
+  tugas_deskripsi: PropTypes.string,
   showModalTugas: PropTypes.func.isRequired,
 };
 export default WithMotionWhileView(CardPosting);

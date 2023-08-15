@@ -10,7 +10,7 @@ import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
 import {Link} from 'react-router-dom'
 
 
-const CardCourse = ({idCourse, course, desc, pengajar, containerRef }) => {
+const CardCourse = ({idCourse, course, desc, pengajar, containerRef, academy }) => {
   const [subMenu, setSubmenu] = useState(false);
   const [isOffset, setIsOffset] = useState(false);
   const modalRef = useRef();
@@ -47,6 +47,9 @@ const CardCourse = ({idCourse, course, desc, pengajar, containerRef }) => {
           <div className="text-xl font-sans font-semibold ">{course}</div>
           <div className="text-xs font-sans font-semibold rounded-full bg-cream1 px-2">
             {pengajar}
+          </div>
+          <div className="text-xs font-sans font-semibold rounded-full bg-blue2 text-white px-2">
+            {academy}
           </div>
         </div>
         <div className={`h-full w-max flex justify-center items-start`}>
@@ -93,6 +96,7 @@ CardCourse.propTypes = {
   course: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
   pengajar: PropTypes.string.isRequired,
+  academy: PropTypes.string.isRequired,
   containerRef: PropTypes.object.isRequired,
 };
 export default WithMotionWhileView(CardCourse);

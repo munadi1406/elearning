@@ -4,7 +4,7 @@ import ContainerModal from "../../../ContainerModal";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import AddTugas from "./AddAssignment";
+import AddAssignment from "./AddAssignment";
 import AddQuis from "../AddQuis";
 import ScaleEffectMotion from "../../../../utils/ScaleEffectMotion";
 
@@ -50,7 +50,7 @@ const ModalCreateAssignment = ({ handleClose }) => {
             ></motion.div>
           </div>
         </div>
-        {optionTugas === 0 && <AddTugas />}
+        {optionTugas === 0 && <AddAssignment handleClose={handleClose}/>}
         {optionTugas === 1 && <AddQuis />}
         <ScaleEffectMotion>
           <button

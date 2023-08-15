@@ -33,6 +33,7 @@ export default function ListCourseAsInstructor({ containerRef }) {
               course={e.course}
               desc={e.desc_course}
               pengajar={e.username}
+              academy={e.academy}
               containerRef={containerRef}
             />
           ))}
