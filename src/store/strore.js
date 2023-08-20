@@ -6,3 +6,11 @@ export const useDeleteCourse = create((set)=>({
     showModalDelete:false,
     setShowModalDelete:(sm)=>set({showModalDelete:sm})
 }))
+
+
+export const useNotification = create((set)=>({
+    status:false,
+    setStatus:(s)=>set({status:s}),
+    msgNotification:"",
+    setMsgNotification:(st)=>set({msgNotification:st})
+}))

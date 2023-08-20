@@ -3,16 +3,14 @@ import PropTypes from "prop-types";
 import { useInfiniteQuery } from "react-query";
 import { getCourseByIdUsers } from "../../../api/course";
 const CardCourse = lazy(()=>import( "./CardCourse"));
-import { useDataUser } from "../../../store/auth";
 import SkeletonCardCourse from "../../skeleton/SkeletonCardCourse";
 
 
 export default function ListCourseAsInstructor({ containerRef }) {
-  const idUsers = useDataUser((state) => state.idUsers);
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery("courseById", {
       queryFn: async ({ pageParam }) => {
-        const data = await getCourseByIdUsers(idUsers, pageParam || 0);
+        const data = await getCourseByIdUsers(pageParam || 0);
         return data.data;
       },
       getNextPageParam: (lastPage) => lastPage.lastIdCourse,
@@ -29,10 +27,10 @@ export default function ListCourseAsInstructor({ containerRef }) {
           {page.dataCourse.map((e, i) => (
             <CardCourse
               key={i}
-              idCourse={e.idCourse}
+              idCourse={e.id_course}
               course={e.course}
               desc={e.desc_course}
-              pengajar={e.username}
+              pengajar={e.user.username}
               academy={e.academy}
               containerRef={containerRef}
             />

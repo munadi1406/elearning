@@ -86,7 +86,9 @@ const CardCourse = ({idCourse, course, desc, pengajar, containerRef, academy }) 
       <div className="w-full text-xs">
         <TextTruncate text={desc} maxWords={10} />
       </div>
+      <div className="w-full flex-grow flex justify-start items-end">
       <Button text="Go To Course" color={"bg-blue2"} to={`./course/${idCourse}`} />
+      </div>
     </div>
   );
 };

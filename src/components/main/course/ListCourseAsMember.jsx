@@ -1,28 +1,25 @@
 import { useInfiniteQuery } from "react-query";
 import React, { lazy, Suspense } from "react";
 import { getCourseWhenUserAsMember } from "../../../api/course";
-import { useDataUser } from "../../../store/auth";
 import PropTypes from "prop-types";
 import SkeletonCardCourse from "../../skeleton/SkeletonCardCourse";
 
 const CardCourse = lazy(() => import("./CardCourse"));
 
 export default function ListCourseAsMember({ containerRef }) {
-  const idUsers = useDataUser((state) => state.idUsers);
-
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery("courseAsMember", {
       queryFn: async ({ pageParam }) => {
-        const data = await getCourseWhenUserAsMember(idUsers, pageParam || 0);
+        const data = await getCourseWhenUserAsMember(pageParam || 0);
         return data.data;
       },
       getNextPageParam: (lastPage) => lastPage.lastIdCourse,
       staleTime: 5000,
       refetchInterval: 5000,
     });
-    if(isLoading){
-      return <SkeletonCardCourse/>
-    }
+  if (isLoading) {
+    return <SkeletonCardCourse />;
+  }
   return (
     <Suspense fallback={<SkeletonCardCourse />}>
       {!isLoading &&
@@ -34,7 +31,8 @@ export default function ListCourseAsMember({ containerRef }) {
                 idCourse={e.id_course}
                 course={e.course}
                 desc={e.desc_course}
-                pengajar={e.username}
+                pengajar={e.user.username}
+                academy={e.academy}
                 containerRef={containerRef}
               />
             ))}

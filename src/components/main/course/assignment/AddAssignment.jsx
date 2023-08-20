@@ -1,22 +1,22 @@
-import { useState ,useEffect} from "react";
+import { useState } from "react";
 import ScaleEffectMotion from "../../../../utils/ScaleEffectMotion";
 import FileDropZone from "../../../FileDropzone";
 import DateTimeRange from "../../../DateTimeRange";
 import { posting } from "../../../../api/course";
 import { useMutation } from "react-query";
-import { useDataUser } from "../../../../store/auth";
 import { useParams } from "react-router-dom";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import { useNotification } from "../../../../store/strore";
 
-export default function AddAssignment({handleClose}) {
+export default function AddAssignment({ handleClose }) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [accept, setAccept] = useState("");
-  const idUsers = useDataUser((state) => state.idUsers);
-  const [msg,setMsg] = useState([]);
+  const [msg, setMsg] = useState([]);
   const { courseId } = useParams();
+  const { setStatus, setMsgNotification } = useNotification();
 
   const handleFilesAdded = (files) => {
     setUploadedFiles(files);
@@ -31,39 +31,29 @@ export default function AddAssignment({handleClose}) {
   const { mutate, isLoading } = useMutation({
     mutationFn: async (e) => {
       e.preventDefault();
-      const insert = await posting({
-        id_course: courseId,
-        id_users: `${idUsers}`,
-        typePost: "Tugas",
+      const data = await posting({
+        idCourse: courseId,
         deskripsi,
         accept,
-        file:uploadedFiles[0],
+        file: uploadedFiles[0],
         fromDate: dateFrom,
         toDate: dateTo,
       });
-      return insert.data
+      return data;
     },
-    onSuccess:(data)=>{
-      console.log({data})
+    onSuccess:()=>{
+      setStatus(true)
+      setMsgNotification("Tugas Berhasil Di Posting")
       handleClose()
     },
-    onError: (error) => {
-      setMsg(error.respose.data.message);
-      console.log(error.response.data)
-      console.log("ini error")
+    onError:(error)=>{
+      setMsg(error.response.data.message)
     },
   });
 
-  useEffect(()=>{
-    console.log({msg});
-  },[msg])
-
   return (
     <div>
-    {console.log({isLoading})}
-    {msg.map((e,i)=>(
-      <div key={i} className="text-xs font-sans font-semibold text-red-500">{e}</div>
-    ))}
+      <div className="text-red-500 text-xs w-full text-center">{msg[0]}</div>
       <form
         action=""
         className="flex justify-center items-center flex-col w-full gap-5"
@@ -102,8 +92,8 @@ export default function AddAssignment({handleClose}) {
             className={`${style.input}`}
             onChange={(e) => setAccept(e.target.value)}
           >
-            <option value="Doc/Docx">Doc/Docx</option>
-            <option value="ppt">Ppt/Pptx</option>
+            <option value="Doc">Doc/Docx</option>
+            <option value="Ppt">Ppt/Pptx</option>
             <option value="Pdf">Pdf</option>
             <option value="rar">Rar</option>
             <option value="zip">ZIP</option>
@@ -115,7 +105,7 @@ export default function AddAssignment({handleClose}) {
               type="submit"
               disabled={isLoading}
               className={`${
-                isLoading ? "opacity-50 cursor-not-allowed":''
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
               } bg-blue1 w-full p-2 rounded-md text-white font-sans font-semibold`}
             >
               {isLoading ? "Loading..." : "Create"}
@@ -126,6 +116,6 @@ export default function AddAssignment({handleClose}) {
     </div>
   );
 }
-AddAssignment.propTypes ={
-  handleClose:PropTypes.func.isRequired
-}
+AddAssignment.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+};

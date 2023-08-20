@@ -6,21 +6,23 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { joinCourse } from "../../../api/course";
-import { useDataUser } from "../../../store/auth";
+import { useNotification } from "../../../store/strore";
 
 const JoinCourse = ({ handleShowJoinCouseModal }) => {
-  const [token, setToken] = useState("");
-  const idUsers = useDataUser((state) => state.idUsers);
+  const [token, setToken] = useState();
   const [msg, setMsg] = useState("");
+  const { setStatus, setMsgNotification } = useNotification();
 
   const { isLoading, mutate } = useMutation({
     mutationFn: async (e) => {
       e.preventDefault();
-      const joinCourses = await joinCourse(idUsers, token);
+      const joinCourses = await joinCourse(token);
       return joinCourses;
     },
-    onSuccess: () => {
-        handleShowJoinCouseModal()
+    onSuccess: (data) => {
+      setStatus(true);
+      setMsgNotification(data.data.message);
+      handleShowJoinCouseModal();
     },
     onError: (error) => {
       setMsg(error.response.data.message);
@@ -51,7 +53,9 @@ const JoinCourse = ({ handleShowJoinCouseModal }) => {
           <ScaleEffectMotion>
             <button
               type="submit"
-              className={`bg-blue1 ${isLoading && 'opacity-50 cursor-not-allowed'}  rounded-md p-2 text-white font-sans font-semibold w-full`}
+              className={`bg-blue1 ${
+                isLoading && "opacity-50 cursor-not-allowed"
+              }  rounded-md p-2 text-white font-sans font-semibold w-full`}
               disabled={isLoading}
             >
               {isLoading ? "Loading..." : "Join Course"}

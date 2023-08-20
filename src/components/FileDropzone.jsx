@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import { useDropzone } from "react-dropzone";
-import { FaFilePdf, FaFileWord, FaFilePowerpoint } from "react-icons/fa";
+import { FaFilePdf, FaFileWord, FaFilePowerpoint,FaArrowAltCircleDown } from "react-icons/fa";
 
 export default function FileDropZone({ onFilesAdded }) {
   const {
@@ -20,9 +20,9 @@ export default function FileDropZone({ onFilesAdded }) {
         [],
     },
     maxSize: 5242880,
-    onDropAccepted:(file)=>{
-      onFilesAdded(file)
-    }
+    onDropAccepted: (file) => {
+      onFilesAdded(file);
+    },
   });
   const Files = () => {
     return acceptedFiles.map((file) => (
@@ -31,7 +31,8 @@ export default function FileDropZone({ onFilesAdded }) {
         className="bg-blue1 flex gap-2 justify-center items-center text-xs font-sans font-semibold text-white p-1 rounded-md w-max"
       >
         {file.type === "application/vnd.ms-powerpoint" ||
-          ("application/vnd.openxmlformats-officedocument.presentationml.presentation" && (
+          (file.type ===
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation" && (
             <FaFilePowerpoint />
           ))}
         {file.type ===
@@ -53,8 +54,9 @@ export default function FileDropZone({ onFilesAdded }) {
         })}
       >
         <input {...getInputProps()} />
-        <p className="text-blue1 font-sans  animate-bounce">
+        <p className="text-blue1 font-sans  animate-bounce flex justify-center items-center flex-col gap-2">
           Drag and drop some files here, or click to select files
+          <FaArrowAltCircleDown/>
         </p>
       </div>
       <aside>
@@ -66,6 +68,6 @@ export default function FileDropZone({ onFilesAdded }) {
     </div>
   );
 }
-FileDropZone.propTypes ={
-  onFilesAdded:PropTypes.func.isRequired
-}
+FileDropZone.propTypes = {
+  onFilesAdded: PropTypes.func.isRequired,
+};

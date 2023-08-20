@@ -20,7 +20,7 @@ axiosJwt.interceptors.response.use(
     },
     async function (error){
         console.log({iniErrorResponse:error})
-        if(error.response.status === 403){
+        if(error.response.status === 401){
             await newAccessToken()
             const originalRequest = error.config
             return await axiosJwt(originalRequest)
@@ -29,19 +29,25 @@ axiosJwt.interceptors.response.use(
     }
 )
 
-export const getCourseByIdUsers = async (idUsers,lastIdCourse)=>{
-    const {data} = await axiosJwt.get(`${endpoint}/course/${idUsers}/${lastIdCourse}`)
+export const getCourseByIdUsers = async (lastIdCourse)=>{
+    const {data} = await axiosJwt.get(`${endpoint}/course/${lastIdCourse}`)
     return data
 }
 
-export const getCourseWhenUserAsMember = async (idUsers,lastIdCourse)=>{
-    const {data} = await axiosJwt.get(`${endpoint}/course/member/${idUsers}/${lastIdCourse}`)
+export const getCourseWhenUserAsMember = async (lastIdCourse)=>{
+    const {data} = await axiosJwt.get(`${endpoint}/course/member/${lastIdCourse}`)
     return data
 }
 
 
 export const createCourse = async (data)=>{
     const addCourse = await axiosJwt.post(`${endpoint}/course`,data)
+    return addCourse
+}
+
+
+export const detailCourse = async (idCourse)=>{
+    const addCourse = await axiosJwt.get(`${endpoint}/course/detail/${idCourse}`)
     return addCourse
 }
 
@@ -56,33 +62,38 @@ export const deleteCourse = async (idCourse)=>{
 
 export const newAccessToken = async ()=>{
     const refreshToken = sessionStorage.getItem('rt');
-    const {data} =await axios.post(`${endpoint}/users/new-access-token`,{
+    const {data} =await axios.post(`${endpoint}/new-access-token`,{
         refreshToken
     })
     sessionStorage.setItem('at',data.accessToken);
 }
 
-export const joinCourse = async (idUsers,course_code)=>{
-    const data = await axiosJwt.post(`${endpoint}/course/join-course`,{
-        id_users:`${idUsers}`,
-        course_code
+export const joinCourse = async (courseCode)=>{
+    const data = await axiosJwt.post(`${endpoint}/course/join`,{
+        courseCode
     })
     return data;
 }
 
-export const post = async (idCourse)=>{
-    const data = await axiosJwt.get(`${endpoint}/post/${idCourse}`)
+export const post = async (idCourse,idPost)=>{
+    const data = await axiosJwt.get(`${endpoint}/post/${idCourse}/${idPost}`)
     return data;
 }
 
 
 export const posting = async (dataPayload)=>{
     console.log({dataPayload});
-    const data = await axiosJwt.post(`${endpoint}/post`,dataPayload,{
+    const data = await axiosJwt.post(`${endpoint}/tugas`,dataPayload,{
         headers:{
             "Content-Type": "multipart/form-data"
         }
     })
+    return data;
+}
+
+
+export const handlePostPengumuman = async (dataPayload)=>{
+    const data = await axiosJwt.post(`${endpoint}/pengumuman`,dataPayload)
     return data;
 }
 

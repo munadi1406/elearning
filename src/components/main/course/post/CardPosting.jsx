@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 
 const CardPosting = ({
   judul,
-  pengumuman_konten,
+  Pengumuman,
   showModalTugas,
-  tugas_deskripsi
+  Tugas
 }) => {
 
+  const deskripsi = Tugas[0] && Tugas[0].deskripsi;
   const words = judul.split(" "); // Pisahkan string menjadi array kata
   const startIdx = 1; // Kata kedua memiliki indeks 1 dalam array
   const extractedText = words.slice(startIdx).join(" "); // Gabungkan kembali kata-kata dari indeks kedua sampai akhir
@@ -27,7 +28,7 @@ const CardPosting = ({
           {judull}
         </div>
       </div>
-      <div className="text-sm mt-3 text-blue1">{pengumuman_konten ?? tugas_deskripsi}</div>
+      <div className="text-sm mt-3 text-blue1">{Pengumuman[0] ? Pengumuman[0].konten : deskripsi}</div>
     </div>
   );
 };
@@ -35,8 +36,9 @@ const CardPosting = ({
 CardPosting.propTypes = {
   judul: PropTypes.string.isRequired,
   created_at: PropTypes.string.isRequired,
-  pengumuman_konten: PropTypes.string,
-  tugas_deskripsi: PropTypes.string,
+  Pengumuman: PropTypes.array,
+  Tugas: PropTypes.array,
+  deskripsi:PropTypes.string,
   showModalTugas: PropTypes.func.isRequired,
 };
 export default WithMotionWhileView(CardPosting);

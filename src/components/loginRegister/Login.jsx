@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { auth } from "../../api/authRegister";
 import PropTypes from "prop-types";
+import { useNotification } from "../../store/strore";
 
 export default function Login({ setMsg }) {
   const navigate = useNavigate();
+  const {setStatus,setMsgNotification} = useNotification()
   const style = {
     input:
       "w-full rounded-md bg-slate-200 outline-none border-none h-10 px-2 placeholder:italic text-sm",
@@ -41,8 +43,10 @@ export default function Login({ setMsg }) {
     },
     onSuccess:(data)=>{
         const datas = data.data.data;
-        sessionStorage.setItem('rt',datas.refresh_token)
-        sessionStorage.setItem('at',datas.access_token)
+        setStatus(true)
+        setMsgNotification(data.data.message)
+        sessionStorage.setItem('rt',datas.refreshToken)
+        sessionStorage.setItem('at',datas.accessToken)
         navigate('/home/')
     },
     onError:(error)=>{

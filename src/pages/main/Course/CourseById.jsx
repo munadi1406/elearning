@@ -9,8 +9,16 @@ import CreateAbsensi from "../../../components/main/absensi/CreateAbsensi";
 import ModalDetailAssignment from "../../../components/main/course/assignment/ModalDetailAssignment";
 import SubmenuCourseById from "../../../components/main/course/SubmenuCourseById";
 import { useSubmenuActiveStore } from "../../../store/search";
-const ListPosting = lazy(() => import("../../../components/main/course/post/ListPosting"));
-const Posting = lazy(() => import("../../../components/main/course/post/Posting"));
+import { useQuery } from "react-query";
+import { detailCourse } from "../../../api/course";
+import BannerCourse from "../../../components/main/course/BannerCourse";
+import SkeletonBannerCourse from "../../../components/skeleton/SkeletonBannerCourse";
+const ListPosting = lazy(() =>
+  import("../../../components/main/course/post/ListPosting")
+);
+const Posting = lazy(() =>
+  import("../../../components/main/course/post/Posting")
+);
 
 const CourseById = () => {
   const { courseId } = useParams();
@@ -18,6 +26,7 @@ const CourseById = () => {
   const [isShowCreateAbsensi, setIsShowCreateAbsensi] = useState(false);
   const [showTugas, setShowTugas] = useState(false);
   const { subMenuActive } = useSubmenuActiveStore();
+  const [userStatusInCourse, setUserStatusInCourse] = useState("");
 
   const dataStudent = [
     {
@@ -29,6 +38,15 @@ const CourseById = () => {
       number: "08123456789",
     },
   ];
+
+  const { data, isLoading, isFetched } = useQuery(`course${courseId}`, {
+    queryFn: async () => {
+      const datas = await detailCourse(courseId);
+      const detailCourseData = datas.data.data;
+      setUserStatusInCourse(detailCourseData.CourseMember[0].status_member);
+      return detailCourseData;
+    },
+  });
 
   const handleIsShowCreateTugas = () => {
     setIsShowCreateTugas(!isShowCreateTugas);
@@ -58,23 +76,25 @@ const CourseById = () => {
         />
       )}
       <div className="md:px-10 px-2">
-        <div className="w-full h-40 relative">
-          <div className="relative z-10 text-white h-full flex justify-between items-start flex-col font-sans text-3xl font-semibold w-full px-3 py-2">
-            <div>Belajar Javascript</div>
-            <div className="text-lg ">
-              Kode Keleas : <span>aiJieka82</span>
-            </div>
-          </div>
-
-          <div className="w-full h-full bg-blue-400 absolute top-0 left-0 z-0 rounded-md"></div>
-        </div>
+        {isLoading && <SkeletonBannerCourse />}
+        {isFetched && <BannerCourse {...data} />}
         <div className="grid md:grid-cols-4 grid-cols-1 p-1 gap-2">
           <SubmenuCourseById />
           <div className="md:col-span-3 px-2 flex justify-center items-center flex-col gap-2">
             {subMenuActive === 0 && (
               <Suspense fallback={<>Loading...</>}>
-                <Posting courseId={courseId} handleIsShowCreateTugas={handleIsShowCreateTugas} handleIsShowCreateAbsensi={handleIsShowCreateAbsensi} />
-                <ListPosting handleShowModalTugas={handleShowModalTugas} courseId={courseId} />
+                {userStatusInCourse ===
+                  "instruktur" && (
+                    <Posting
+                      courseId={courseId}
+                      handleIsShowCreateTugas={handleIsShowCreateTugas}
+                      handleIsShowCreateAbsensi={handleIsShowCreateAbsensi}
+                    />
+                  )}
+                <ListPosting
+                  handleShowModalTugas={handleShowModalTugas}
+                  courseId={courseId}
+                />
               </Suspense>
             )}
             {subMenuActive === 1 && (

@@ -1,15 +1,13 @@
-import { useViewportScroll, useTransform, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Landing2 from "../../assets/landing2.jpg";
 import Button from "../../components/Button";
 import { FaLocationArrow, FaQrcode, FaCode } from "react-icons/fa";
-import Landing from '../../assets/landing1.jpg'
+import Landing from "../../assets/landing1.jpg";
 
 export default function Content() {
   const style = {
     text: "text-white text-xl font-sans font-semibold",
   };
-  const { scrollYProgress } = useViewportScroll();
-  const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
   return (
     <main
       id="about"
@@ -17,14 +15,11 @@ export default function Content() {
     >
       <div className="h-max w-full py-2 flex justify-center items-center flex-col relative z-10">
         <motion.div
-          style={{ scale }}
+          initial={{ scale: 0.4 }}
+          whileInView={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
           className="flex justify-center items-center h-48 w-max"
         >
-          <motion.div
-            style={{
-              scaleY: scrollYProgress,
-            }}
-          />
           <img src={Landing2} alt="image 2" className="h-full w-auto" />
         </motion.div>
         <div className="flex justify-center items-center h-screen">
@@ -32,7 +27,7 @@ export default function Content() {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 1, ease: "easeInOut" }}
               className="h-full bg-blue1 px-2 py-3 relative  justify-start items-center flex"
             >
               <div className="h-full flex flex-col justify-center items-start px-5">
@@ -53,7 +48,7 @@ export default function Content() {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 1, ease: "easeInOut" }}
               className="h-full bg-blue1 px-2 py-3 relative  justify-center items-start flex"
             >
               <div className="h-full flex flex-col justify-start items-center px-5">
@@ -73,7 +68,7 @@ export default function Content() {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 1, ease: "easeInOut" }}
               className="h-full bg-blue1 px-2 py-3 relative  justify-center items-start flex"
             >
               <div className="h-full flex flex-col justify-start items-center px-5">
@@ -91,7 +86,12 @@ export default function Content() {
             </motion.div>
           </div>
         </div>
-        <motion.div initial={{scale:0}} whileInView={{scale:1}} transition={{duration:3}} className="w-full h-screen flex flex-col justify-center items-center">
+        <motion.div
+          initial={{ scale: 0.5 }}
+          whileInView={{ scale: 1 }}
+          transition={{ duration: 1.5,ease:"easeInOut" }}
+          className="w-full h-screen flex flex-col justify-center items-center"
+        >
           <div className="w-1/2">
             <img src={Landing} alt="landng" />
           </div>

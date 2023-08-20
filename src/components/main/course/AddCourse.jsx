@@ -3,21 +3,20 @@ import WithContainerModal from "../../../utils/WithContainerModal";
 import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
 import PropTypes from "prop-types";
 import ContainerModal from "../../ContainerModal";
-import { useReducer } from "react";
+import { useReducer,useState } from "react";
 import generateRandomCode from "../../../utils/generateRandomCode";
 import { createCourse } from "../../../api/course";
 import { useMutation } from "react-query";
-import { useDataUser } from "../../../store/auth";
-import { useState } from "react";
+import { useNotification } from "../../../store/strore";
 
 const AddCourse = ({ handleAddCourse }) => {
   const [msg, setMsg] = useState([]);
+  const {setStatus,setMsgNotification} = useNotification()
   const style = {
     boxInput: "flex justify-center items-start flex-col w-full",
     label: "text-sm font-semibold text-blue1 font-sans",
     input: "border-blue1 border outline-none w-full p-2 rounded-md text-sm",
   };
-  const idUsers = useDataUser((state) => state.idUsers);
 
   const handleGenereteRandomCode = () => {
     try {
@@ -29,7 +28,6 @@ const AddCourse = ({ handleAddCourse }) => {
   };
 
   const initialState = {
-    id_users: String(idUsers),
     course: "",
     desc_course: "",
     academy: "",
@@ -37,8 +35,6 @@ const AddCourse = ({ handleAddCourse }) => {
   };
 
   const reducer = (state, action) => {
-    console.log(state);
-    console.log({ action });
     if (action.type === "course") {
       return { ...state, course: action.course };
     } else if (action.type === "desc_course") {
@@ -54,8 +50,6 @@ const AddCourse = ({ handleAddCourse }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log({ name });
-    console.log({ value });
     dispacth({
       type: `${name}`,
       course: value,
@@ -68,20 +62,17 @@ const AddCourse = ({ handleAddCourse }) => {
   const { mutate, isLoading, error } = useMutation({
     mutationFn: async (e) => {
       e.preventDefault();
-      console.log(state);
       const data = await createCourse(state);
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setStatus(true)
+      setMsgNotification(data.data.message)
       handleAddCourse();
     },
     onError: (error) => {
       console.log(error.response.data);
-      const checkType = typeof msg;
-
-      const newMsg =
-        checkType === "string" ? [msg] : msg;
-      setMsg(newMsg);
+      setMsg(error.response.data.message)
     },
   });
 

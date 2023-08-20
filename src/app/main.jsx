@@ -10,24 +10,33 @@ const Profile = lazy(() => import("../pages/main/Profile"));
 import PrivateRoute from "../components/route/PrivateRoute";
 import { useDataUser } from "../store/auth";
 import JwtDecodedRf from "../utils/JwtDecodedRf";
+import Notification from "../components/Notification";
 
 const Main = () => {
   const refreshToken = sessionStorage.getItem("rt");
   const { setUsername, setIdUsers, setRole } = useDataUser();
   const navigate = useNavigate();
   useEffect(() => {
-    if (!refreshToken) {
+    try {
+      if (!refreshToken || refreshToken === undefined) {
+        navigate("/login");
+        return;
+      }
+      const { id_users, username, role } = JwtDecodedRf(refreshToken);
+      setUsername(username);
+      setIdUsers(id_users);
+      setRole(role);
+    } catch (error) {
+      sessionStorage.setItem("rt", "");
+      sessionStorage.setItem("at", "");
       navigate("/login");
-      return;
     }
-    const { id_users, username, role } = JwtDecodedRf(refreshToken);
-    setUsername(username);
-    setIdUsers(id_users);
-    setRole(role);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className="p-2">
+    <div className="p-2 relative">
+      <Notification />
       <Header />
       <div className="min-h-screen md:px-2 md:py-2 px-2 pt-2 pb-14">
         <Suspense fallback={<div>Loading...</div>}>

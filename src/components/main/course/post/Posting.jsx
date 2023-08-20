@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useDataUser } from "../../../../store/auth";
 import ScaleEffectMotion from "../../../../utils/ScaleEffectMotion";
-import { posting } from "../../../../api/course";
+import { handlePostPengumuman, posting } from "../../../../api/course";
 import { useMutation } from "react-query";
 import { BsSend } from "react-icons/bs";
 import PropTypes from "prop-types";
+import { useNotification } from "../../../../store/strore";
 
 export default function Posting({
   courseId,
@@ -12,23 +12,20 @@ export default function Posting({
   handleIsShowCreateAbsensi,
 }) {
   const [pengumuman, setpengumuman] = useState("");
-  const idUsers = useDataUser((state) => state.idUsers);
+  const { setStatus, setMsgNotification } = useNotification();
 
   const { mutate } = useMutation({
     mutationFn: async (e) => {
       e.preventDefault();
-      await posting({
-        id_users: String(idUsers),
-        id_course: courseId,
-        typePost: "Pengumuman",
+      await handlePostPengumuman({
+        idCourse: courseId,
         konten: pengumuman,
       });
     },
     onSuccess: () => {
+      setStatus(true)
+      setMsgNotification("Pengumuman Berhasil Di Posting")
       setpengumuman("");
-    },
-    onError: (error) => {
-      console.log(error);
     },
   });
   return (
