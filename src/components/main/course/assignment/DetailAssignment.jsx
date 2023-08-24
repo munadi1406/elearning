@@ -1,44 +1,42 @@
 import { useMutation, useQuery } from "react-query";
 import Comments from "../Comments";
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { detailPost, submitTugas } from "../../../../api/course";
 import FileDropzone from "./../../../FileDropzone";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ImCancelCircle } from "react-icons/im";
 import { useNotification } from "../../../../store/strore";
+const DetailPengumuman = lazy(() => import("./DetailPengumuman"));
+const DetailTugas = lazy(() => import("./DetailTugas"));
+import ButtonPure from "../../../ButtonPure";
 
 export default function DetailAssignment() {
   const [file, setFile] = useState([]);
-  const { idPost,courseId } = useParams();
-  const { setStatus, setMsgNotification,setStatusType } = useNotification();
+  const { idPost, courseId } = useParams();
+  const { setStatus, setMsgNotification, setStatusType } = useNotification();
 
   const { data, isFetched, isLoading, refetch } = useQuery(`idPost${idPost}`, {
     queryFn: async () => {
       const data = await detailPost(idPost);
       return data.data.data;
     },
-    staleTime:50000
+    staleTime: 50000,
   });
 
-  useEffect(() => {
-    console.log(file);
-  }, [file]);
-
-  const { mutate } = useMutation({
+  const isSubmit = useMutation({
     mutationFn: async (idTugas) => {
       return await submitTugas({ idTugas: idTugas, file: file[0] });
     },
     onSuccess: () => {
       refetch();
       setStatus(true);
+      setStatusType(true);
       setMsgNotification("Tugas Berhasil Di Kirim");
     },
     onError: (error) => {
       setStatus(true);
       setStatusType(false);
-      setMsgNotification("Tugas Gagal Dikirim");
-      console.log({ error });
+      setMsgNotification(error.response.data.message);
     },
   });
 
@@ -46,7 +44,7 @@ export default function DetailAssignment() {
     return <>Loading...</>;
   }
 
-  const tugas = isFetched && data.tugas ? data.tugas[0] : data.pengumuman[0];
+  const tugas = isFetched && data.tugas[0] ? data.tugas[0] : data.pengumuman[0];
 
   return (
     <div className="grid lg:grid-cols-3 grid-cols-1 w-full gap-2 p-2">
@@ -57,37 +55,31 @@ export default function DetailAssignment() {
           <div>Jamal</div>
         </div>
         <div className="grid grid-cols-1 gap-2">
-          {data.tugas ? (
-            <>
-              <div className="text-sm font-sans text-blue1">
-                Date : {new Date(tugas.fromDate).toLocaleString()} -{" "}
-                {new Date(tugas.toDate).toLocaleString()}
-              </div>
-              <div className="text-sm font-sans text-blue1">
-                File Soal : <a href="#">{tugas.file}</a>
-              </div>
-              <div className="text-sm font-sans text-blue1">
-                Accept : {tugas.accept}
-              </div>
-              <div className="text-base font-sans text-blue1 flex gap-2">
-                <div>Deskripsi Tugas : </div>
-                <div>{tugas.deskripsi}</div>
-              </div>
-            </>
-          ) : (
-            <div className="text-base font-sans text-blue1">{tugas.konten}</div>
-          )}
+          <Suspense fallback={<>Loading...</>}>
+            {data.typePost === "Tugas" ? (
+              <DetailTugas {...data} />
+            ) : (
+              <DetailPengumuman {...data} />
+            )}
+          </Suspense>
         </div>
         <Comments />
       </div>
-      {data.tugas && (
+      {data.typePost === "Tugas" && (
         <div className="border-2 h-full rounded-md p-2">
-          {tugas.tugassubmission.length > 0 ? (
+          {tugas.tugassubmission[0] ? (
             <div>
               {tugas.tugassubmission.map((e, i) => (
                 <div key={i} className="w-full p-3">
                   <div className="rounded-md bg-blue1/80 backdrop-blur-sm p-2 flex justify-between items-center">
-                    <a className=" text-white font-sans text-base hover:underline" href={`${import.meta.env.VITE_SOME_ENDPOINT_API}/file/${courseId}/${tugas.file}`} target="_blank" rel="noreferrer">
+                    <a
+                      className=" text-white font-sans text-base hover:underline"
+                      href={`${
+                        import.meta.env.VITE_SOME_ENDPOINT_API
+                      }/file/${courseId}/${tugas.file}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       {e.file}
                     </a>
                     <div>
@@ -101,14 +93,14 @@ export default function DetailAssignment() {
               ))}
             </div>
           ) : (
-            <div className="flex px-2  h-full rounded-md justify-center items-center flex-col gap-2">
+            <div className="flex px-2   h-full rounded-md justify-center items-center flex-col gap-2">
               <FileDropzone onFilesAdded={setFile} />
-              <button
-                onClick={() => mutate(tugas.id_tugas)}
-                className="bg-blue1 w-full rounded-md p-2 text-white font-sans font-semibold text-base active:scale-95 cursor-pointer"
-              >
-                Kirim
-              </button>
+              <ButtonPure
+                text={`${isSubmit.isLoading ? "Loading..." : "Kirim"}`}
+                disabled={isSubmit.isLoading}
+                style={isLoading ? "cursor-not-allowed opacity-70" :''}
+                onClick={() => isSubmit.mutate(tugas.id_tugas)}
+              />
             </div>
           )}
         </div>

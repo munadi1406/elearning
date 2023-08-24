@@ -79,7 +79,7 @@ const AddCourse = ({ handleAddCourse }) => {
 
   return (
     <ContainerModal>
-      <div className="overflow-y-auto w-full h-[90vh]flex flex-col justify-center items-start gap-1">
+      <div className="overflow-y-auto w-[85vw] md:w-[500px] h-[90vh]flex flex-col justify-center items-start gap-1">
         <div className="text-2xl  font-sans text-blue1 font-semibold w-full text-center">
           Add Course
         </div>

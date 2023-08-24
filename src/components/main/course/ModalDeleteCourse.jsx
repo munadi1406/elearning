@@ -56,10 +56,10 @@ const ModalDeleteCourse = ({ course, idCourse, handleIsDelete }) => {
 
     return (
         <ContainerModal>
-            <div className="w-full flex justify-center items-center flex-col gap-2">
-                <div className="text-blue1 font-sans font-semibold text-lg">Apakah Anda Yakin Ingin Menghapus Course {course}</div>
-                <div className="text-blue1 font-sans text-sm">Semua Data Yang Berhubungan Dengan {course} Akan Di Hapus</div>
-                <div className="flex justify-center items-center flex-col w-full gap-2">
+            <div className="flex md:w-[500px] w-[85vw] justify-center items-center flex-col gap-2">
+                <div className="text-blue1 font-sans font-semibold text-lg w-full text-center">Apakah Anda Yakin Ingin Menghapus Course {course}</div>
+                <div className="text-blue1 font-sans text-sm w-full text-center">Semua Data Yang Berhubungan Dengan {course} Akan Di Hapus</div>
+                <div className="flex justify-center items-center flex-col w-full gap-2 text-center">
                     <label htmlFor="delete" className="text-sm font-sans text-blue1 ">Jika Anda Yakin Ingin Menghapus <span className="italic font-semibold">{course}</span> Ketik <span className="font-semibold italic"> delete/{course}</span></label>
                     <input type="text" id="delete" className="rounded-md w-full p-2  border-blue1 border outline-none text-sm text-blue1" value={deleteText} onChange={handleDeleteText} />
                 </div>

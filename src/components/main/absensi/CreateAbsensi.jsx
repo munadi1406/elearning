@@ -40,7 +40,7 @@ const CreateAbsensi = ({ handleClose }) => {
 
   return (
     <ContainerModal>
-      <div className="max-h-[90vh] md:w-[800px] w-full overflow-y-auto grid md:grid-cols-3 grid-cols-2 gap-1">
+      <div className="max-h-[90vh] md:w-[800px] w-[85vw] overflow-y-auto grid md:grid-cols-3 grid-cols-2 gap-1">
         <form
           action=""
           className="flex col-span-2 justify-center h-max items-center flex-col w-full gap-5"

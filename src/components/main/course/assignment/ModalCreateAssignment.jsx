@@ -20,7 +20,7 @@ const ModalCreateAssignment = ({ handleClose }) => {
 
   return (
     <ContainerModal>
-      <div className="bg-white  rounded-md overflow-y-scroll max-h-[90vh] w-full grid grid-cols-1 gap-2">
+      <div className="bg-white md:w-[600px] w-[80vw] rounded-md overflow-y-scroll max-h-[90vh] grid grid-cols-1 gap-2">
         <div className="text-2xl font-sans font-semibold text-blue1 w-full text-center">
           Buat {optionTugas === 0 ? "Tugas" : "Quis"}
         </div>

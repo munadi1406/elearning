@@ -34,7 +34,7 @@ const ModalDeletePost = ({ idPost, handleIsDelete }) => {
 
   return (
     <ContainerModal>
-      <div className="w-full flex justify-center items-center flex-col gap-2">
+      <div className="md:w-[500px] w-[85vw] flex justify-center p-2 items-center flex-col gap-2">
         <div className="grid grid-cols-1 w-full gap-2 ">
           <div className="w-full text-center text-xl text-blue1 font-semibold">
             Apakah Anda Yakin Ingin Menghapus Postingan Ini ?
