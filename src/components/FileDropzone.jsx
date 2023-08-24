@@ -1,6 +1,12 @@
 import PropTypes from "prop-types";
 import { useDropzone } from "react-dropzone";
-import { FaFilePdf, FaFileWord, FaFilePowerpoint,FaArrowAltCircleDown } from "react-icons/fa";
+import {
+  FaFilePdf,
+  FaFileWord,
+  FaFilePowerpoint,
+  FaArrowAltCircleDown,
+  FaFileArchive,
+} from "react-icons/fa";
 
 export default function FileDropZone({ onFilesAdded }) {
   const {
@@ -11,6 +17,10 @@ export default function FileDropZone({ onFilesAdded }) {
     isDragReject,
   } = useDropzone({
     accept: {
+      "image/*":[],
+      "application/x-zip-compressed": [],
+      "application/x-rar-compressed": [],
+      "application/vnd.rar": [],
       "application/pdf": [],
       "application/msword": [],
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
@@ -24,23 +34,26 @@ export default function FileDropZone({ onFilesAdded }) {
       onFilesAdded(file);
     },
   });
+  const getFileExtension = (filename) => {
+    return filename.split(".").pop();
+  };
   const Files = () => {
     return acceptedFiles.map((file) => (
       <li
         key={file.path}
-        className="bg-blue1 flex gap-2 justify-center items-center text-xs font-sans font-semibold text-white p-1 rounded-md w-max"
+        className=" flex overflow-clip gap-2 justify-start items-center text-sm font-sans font-semibold text-blue1 p-2 rounded-md w-full"
       >
-        {file.type === "application/vnd.ms-powerpoint" ||
-          (file.type ===
-            "application/vnd.openxmlformats-officedocument.presentationml.presentation" && (
-            <FaFilePowerpoint />
-          ))}
-        {file.type ===
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && (
-          <FaFileWord />
-        )}
-        {file.type === "application/pdf" && <FaFilePdf />}
-        {file.path} - {Math.round((file.size / (1024 * 1024)) * 100) / 100} MB
+        <span className="text-base">
+          {(getFileExtension(file.name) === "docx" ||
+            getFileExtension(file.name) === "doc") && <FaFileWord />}
+          {(getFileExtension(file.name) === "ppt" ||
+            getFileExtension(file.name) === "pptx") && <FaFilePowerpoint />}
+          {getFileExtension(file.name) === "pdf" && <FaFilePdf />}
+          {getFileExtension(file.name) === "zip" && <FaFileArchive />}
+        </span>
+        <div className=" whitespace-pre-wrap flex-grow">
+          {file.path} - {Math.round((file.size / (1024 * 1024)) * 100) / 100} MB
+        </div>
       </li>
     ));
   };
@@ -48,15 +61,15 @@ export default function FileDropZone({ onFilesAdded }) {
     <div className="w-full">
       <div
         {...getRootProps({
-          className: `border-dashed h-44 flex justify-center items-center border-blue1 border-2 ${
+          className: `border-dashed rounded-md h-44 flex justify-center items-center border-blue1 border-2 ${
             isDragAccept && "border-green-500"
           } ${isDragReject && "border-red-500"}`,
         })}
       >
         <input {...getInputProps()} />
-        <p className="text-blue1 font-sans  animate-bounce flex justify-center items-center flex-col gap-2">
+        <p className="text-blue1 px-1 font-sans text-center animate-bounce flex justify-center items-center flex-col gap-2">
           Drag and drop some files here, or click to select files
-          <FaArrowAltCircleDown/>
+          <FaArrowAltCircleDown />
         </p>
       </div>
       <aside>

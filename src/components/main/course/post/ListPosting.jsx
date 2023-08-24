@@ -5,7 +5,7 @@ const CardPosting = lazy(() => import("./CardPosting"));
 import SkeletonPosting from "../../../skeleton/SkeletonPosting";
 import PropTypes from "prop-types";
 
-export default function ListPosting({ courseId, handleShowModalTugas }) {
+export default function ListPosting({ courseId, handleShowModalTugas,statusUser }) {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(`postCourse${courseId}`, {
       queryFn: async ({ pageParam }) => {
@@ -28,6 +28,7 @@ export default function ListPosting({ courseId, handleShowModalTugas }) {
                 <CardPosting
                   key={i}
                   {...e}
+                  statusUser={statusUser}
                   showModalTugas={handleShowModalTugas}
                 />
               ))}
@@ -52,5 +53,6 @@ export default function ListPosting({ courseId, handleShowModalTugas }) {
 }
 ListPosting.propTypes = {
   courseId: PropTypes.string.isRequired,
+  statusUser:PropTypes.string.isRequired,
   handleShowModalTugas: PropTypes.func.isRequired,
 };

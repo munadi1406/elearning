@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const endpoint = import.meta.env.VITE_SOME_ENDPOINT_API
-const axiosJwt = axios.create()
+export const axiosJwt = axios.create()
 axiosJwt.interceptors.request.use(
     function (config){
         const accessToken = sessionStorage.getItem('at')
@@ -53,9 +53,7 @@ export const detailCourse = async (idCourse)=>{
 
 
 export const deleteCourse = async (idCourse)=>{
-    const dropCourse = await axiosJwt.delete(`${endpoint}/course`,{
-        idCourse
-    })
+    const dropCourse = await axiosJwt.delete(`${endpoint}/course/${idCourse}`)
     return dropCourse
 }
 
@@ -80,9 +78,13 @@ export const post = async (idCourse,idPost)=>{
     return data;
 }
 
+export const detailPost = async (idPost)=>{
+    const data = await axiosJwt.get(`${endpoint}/post/${idPost}`)
+    return data;
+}
+
 
 export const posting = async (dataPayload)=>{
-    console.log({dataPayload});
     const data = await axiosJwt.post(`${endpoint}/tugas`,dataPayload,{
         headers:{
             "Content-Type": "multipart/form-data"
@@ -92,8 +94,29 @@ export const posting = async (dataPayload)=>{
 }
 
 
+export const submitTugas = async (dataPayload)=>{
+    const data = await axiosJwt.post(`${endpoint}/tugas/submit`,dataPayload,{
+        headers:{
+            "Content-Type": "multipart/form-data"
+        }
+    })
+    return data;
+}
+
 export const handlePostPengumuman = async (dataPayload)=>{
     const data = await axiosJwt.post(`${endpoint}/pengumuman`,dataPayload)
+    return data;
+}
+
+
+export const downloadFileTugas = async (id_course,fileName)=>{
+    const data = await axios.post(`${endpoint}/file/${id_course}/${fileName}`)
+    return data
+}
+
+
+export const handleDeletePost = async (idPost)=>{
+    const data = await axiosJwt.delete(`${endpoint}/post/${idPost}`)
     return data;
 }
 

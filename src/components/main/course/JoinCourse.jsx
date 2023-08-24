@@ -11,7 +11,7 @@ import { useNotification } from "../../../store/strore";
 const JoinCourse = ({ handleShowJoinCouseModal }) => {
   const [token, setToken] = useState();
   const [msg, setMsg] = useState("");
-  const { setStatus, setMsgNotification } = useNotification();
+  const { setStatus, setMsgNotification,setStatusType } = useNotification();
 
   const { isLoading, mutate } = useMutation({
     mutationFn: async (e) => {
@@ -21,6 +21,7 @@ const JoinCourse = ({ handleShowJoinCouseModal }) => {
     },
     onSuccess: (data) => {
       setStatus(true);
+      setStatusType(true)
       setMsgNotification(data.data.message);
       handleShowJoinCouseModal();
     },

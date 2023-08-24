@@ -21,4 +21,6 @@ export const useDataUser = create((set) => ({
   setEmail: (e) => set({ email: e }),
   role: "",
   setRole: (r) => set({ role: r }),
+  image: "",
+  setImage: (img) => set({ image: img }),
 }));

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { axiosJwt } from "./course";
 
 const endpoint = import.meta.env.VITE_SOME_ENDPOINT_API;
 
@@ -22,15 +23,20 @@ export const register = async (data) => {
 };
 
 export const otpVerification = async (otp) =>{
-  const data = await axios.post(`${endpoint}/auth/otp`,{
+  const data = await axios.post(`${endpoint}/otpcheck`,{
     otp
   });
   return data;
 }
 
 export const requestNewOtp = async (email) =>{
-  const data = await axios.post(`${endpoint}/auth/new-otp`,{
+  const data = await axios.post(`${endpoint}/newotp`,{
     email
   });
   return data;
+}
+
+export const logout = async()=>{
+  const isLogout = await axiosJwt.put(`${endpoint}/logout`)
+  return isLogout
 }

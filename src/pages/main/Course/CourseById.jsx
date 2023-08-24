@@ -13,6 +13,9 @@ import { useQuery } from "react-query";
 import { detailCourse } from "../../../api/course";
 import BannerCourse from "../../../components/main/course/BannerCourse";
 import SkeletonBannerCourse from "../../../components/skeleton/SkeletonBannerCourse";
+import { Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
+import DetailAssignment from "../../../components/main/course/assignment/DetailAssignment";
 const ListPosting = lazy(() =>
   import("../../../components/main/course/post/ListPosting")
 );
@@ -39,11 +42,11 @@ const CourseById = () => {
     },
   ];
 
-  const { data, isLoading, isFetched } = useQuery(`course${courseId}`, {
+  const { data, isLoading, isFetched } = useQuery(`course-${courseId}`, {
     queryFn: async () => {
       const datas = await detailCourse(courseId);
       const detailCourseData = datas.data.data;
-      setUserStatusInCourse(detailCourseData.CourseMember[0].status_member);
+      setUserStatusInCourse(detailCourseData.member[0].status_member);
       return detailCourseData;
     },
   });
@@ -78,48 +81,61 @@ const CourseById = () => {
       <div className="md:px-10 px-2">
         {isLoading && <SkeletonBannerCourse />}
         {isFetched && <BannerCourse {...data} />}
-        <div className="grid md:grid-cols-4 grid-cols-1 p-1 gap-2">
-          <SubmenuCourseById />
-          <div className="md:col-span-3 px-2 flex justify-center items-center flex-col gap-2">
-            {subMenuActive === 0 && (
-              <Suspense fallback={<>Loading...</>}>
-                {userStatusInCourse ===
-                  "instruktur" && (
-                    <Posting
-                      courseId={courseId}
-                      handleIsShowCreateTugas={handleIsShowCreateTugas}
-                      handleIsShowCreateAbsensi={handleIsShowCreateAbsensi}
-                    />
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="grid md:grid-cols-4 grid-cols-1 p-1 gap-2">
+                <SubmenuCourseById />
+                <div className="md:col-span-3 px-2 flex justify-center items-center flex-col gap-2">
+                  {subMenuActive === 0 && (
+                    <Suspense fallback={<>Loading...</>}>
+                      {userStatusInCourse === "instruktur" && (
+                        <Posting
+                          courseId={courseId}
+                          handleIsShowCreateTugas={handleIsShowCreateTugas}
+                          handleIsShowCreateAbsensi={handleIsShowCreateAbsensi}
+                        />
+                      )}
+                      <ListPosting
+                        handleShowModalTugas={handleShowModalTugas}
+                        statusUser={userStatusInCourse}
+                        courseId={courseId}
+                      />
+                    </Suspense>
                   )}
-                <ListPosting
-                  handleShowModalTugas={handleShowModalTugas}
-                  courseId={courseId}
-                />
-              </Suspense>
-            )}
-            {subMenuActive === 1 && (
-              <div className="col-span-4 w-full">
-                <Suspense fallback={<>Loading...</>}>
-                  {dataStudent.map((e, i) => (
-                    <CardStudent name={e.name} number={e.number} key={i} />
-                  ))}
-                </Suspense>
+                  {subMenuActive === 1 && (
+                    <div className="col-span-4 w-full">
+                      <Suspense fallback={<>Loading...</>}>
+                        {dataStudent.map((e, i) => (
+                          <CardStudent
+                            name={e.name}
+                            number={e.number}
+                            key={i}
+                          />
+                        ))}
+                      </Suspense>
+                    </div>
+                  )}
+                  {subMenuActive === 2 && (
+                    <div>
+                      <div>recap</div>
+                    </div>
+                  )}
+                  {subMenuActive === 3 && (
+                    <div className="col-span-4 w-full">
+                      <Suspense fallback={<>Loading...</>}>
+                        <Setting course={"Belajar Javascript"} />
+                      </Suspense>
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
-            {subMenuActive === 2 && (
-              <div>
-                <div>recap</div>
-              </div>
-            )}
-            {subMenuActive === 3 && (
-              <div className="col-span-4 w-full">
-                <Suspense fallback={<>Loading...</>}>
-                  <Setting course={"Belajar Javascript"} />
-                </Suspense>
-              </div>
-            )}
-          </div>
-        </div>
+            }
+          />
+          <Route path="/post/:idPost" element={<DetailAssignment/>}/>
+        </Routes>
       </div>
     </>
   );

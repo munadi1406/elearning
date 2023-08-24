@@ -2,10 +2,13 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { useNotification } from "../store/strore";
+import { ImCancelCircle } from "react-icons/im";
 
 export default function Notification() {
-  const { status, msgNotification } = useNotification((state) => state);
-  const { setStatus } = useNotification();
+  const { status, msgNotification, statusType } = useNotification(
+    (state) => state
+  );
+  const { setStatus ,setStatusType} = useNotification();
 
   useEffect(() => {
     if (status) {
@@ -16,20 +19,24 @@ export default function Notification() {
         clearTimeout(timeOut);
       };
     }
-  }, [status]);
-  
+  }, [setStatus, setStatusType, status]);
+
   return (
     <motion.div
       initial={{ y: -50, translateX: "-50%", left: "50%", position: "fixed" }}
       animate={status ? { y: 20 } : {}}
       exit={{ y: -50 }}
-      transition={{ ease: "easeInOut" }}
-      className="bg-green-400/90 backdrop-blur-sm   flex transform justify-between gap-2 w-[400px] m-auto items-center font-semibold text-base rounded-md py-2 px-4 absolute z-50"
+      transition={{ ease: "linear" }}
+      className={`${
+        statusType ? "bg-green-400/90" : "bg-red-500"
+      } backdrop-blur-sm   flex transform justify-between gap-2 w-[400px] m-auto items-center font-semibold text-base rounded-md py-2 px-4 absolute z-50`}
     >
-      <FaCheckCircle color="white"/>
-      <div className="text-white">
-      {msgNotification}
-      </div>
+      {statusType ? (
+        <FaCheckCircle color="white" />
+      ) : (
+        <ImCancelCircle color="white" />
+      )}
+      <div className="text-white">{msgNotification}</div>
     </motion.div>
   );
 }

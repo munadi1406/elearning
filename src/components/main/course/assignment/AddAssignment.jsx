@@ -16,7 +16,7 @@ export default function AddAssignment({ handleClose }) {
   const [accept, setAccept] = useState("");
   const [msg, setMsg] = useState([]);
   const { courseId } = useParams();
-  const { setStatus, setMsgNotification } = useNotification();
+  const { setStatus, setMsgNotification,setStatusType } = useNotification();
 
   const handleFilesAdded = (files) => {
     setUploadedFiles(files);
@@ -43,6 +43,7 @@ export default function AddAssignment({ handleClose }) {
     },
     onSuccess:()=>{
       setStatus(true)
+      setStatusType(true)
       setMsgNotification("Tugas Berhasil Di Posting")
       handleClose()
     },
@@ -92,9 +93,12 @@ export default function AddAssignment({ handleClose }) {
             className={`${style.input}`}
             onChange={(e) => setAccept(e.target.value)}
           >
-            <option value="Doc">Doc/Docx</option>
-            <option value="Ppt">Ppt/Pptx</option>
-            <option value="Pdf">Pdf</option>
+            <option hidden>Pilih Type File Yang Diminta...</option>
+            <option value="doc">Doc</option>
+            <option value="docx">DocX</option>
+            <option value="ppt">Ppt</option>
+            <option value="pptx">Pptx</option>
+            <option value="pdf">Pdf</option>
             <option value="rar">Rar</option>
             <option value="zip">ZIP</option>
           </select>

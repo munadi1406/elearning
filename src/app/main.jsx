@@ -14,7 +14,7 @@ import Notification from "../components/Notification";
 
 const Main = () => {
   const refreshToken = sessionStorage.getItem("rt");
-  const { setUsername, setIdUsers, setRole } = useDataUser();
+  const { setUsername, setIdUsers, setRole,setImage } = useDataUser();
   const navigate = useNavigate();
   useEffect(() => {
     try {
@@ -22,10 +22,11 @@ const Main = () => {
         navigate("/login");
         return;
       }
-      const { id_users, username, role } = JwtDecodedRf(refreshToken);
+      const { id_users, username, role,image } = JwtDecodedRf(refreshToken);
       setUsername(username);
       setIdUsers(id_users);
       setRole(role);
+      setImage(image);
     } catch (error) {
       sessionStorage.setItem("rt", "");
       sessionStorage.setItem("at", "");
@@ -52,7 +53,7 @@ const Main = () => {
             />
             <Route exact path="/attedance" element={<Attedance />} />
             <Route exact path="/course-work" element={<CourseWork />} />
-            <Route exact path="/course/:courseId" element={<CourseById />} />
+            <Route exact path="/course/:courseId/*" element={<CourseById />} />
             <Route exact path="/profile" element={<Profile />} />
           </Routes>
         </Suspense>

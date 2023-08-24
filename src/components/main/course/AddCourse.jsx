@@ -3,7 +3,7 @@ import WithContainerModal from "../../../utils/WithContainerModal";
 import ScaleEffectMotion from "../../../utils/ScaleEffectMotion";
 import PropTypes from "prop-types";
 import ContainerModal from "../../ContainerModal";
-import { useReducer,useState } from "react";
+import { useReducer, useState } from "react";
 import generateRandomCode from "../../../utils/generateRandomCode";
 import { createCourse } from "../../../api/course";
 import { useMutation } from "react-query";
@@ -11,7 +11,7 @@ import { useNotification } from "../../../store/strore";
 
 const AddCourse = ({ handleAddCourse }) => {
   const [msg, setMsg] = useState([]);
-  const {setStatus,setMsgNotification} = useNotification()
+  const { setStatus, setMsgNotification } = useNotification();
   const style = {
     boxInput: "flex justify-center items-start flex-col w-full",
     label: "text-sm font-semibold text-blue1 font-sans",
@@ -66,13 +66,14 @@ const AddCourse = ({ handleAddCourse }) => {
       return data;
     },
     onSuccess: (data) => {
-      setStatus(true)
-      setMsgNotification(data.data.message)
+      setStatus(true);
+      setMsgNotification(data.data.message);
       handleAddCourse();
     },
     onError: (error) => {
-      console.log(error.response.data);
-      setMsg(error.response.data.message)
+      const errorArray = typeof error.response.data.message
+      const errorMsg = errorArray === 'object' ? error.response.data.message : [error.response.data.message];
+      setMsg(errorMsg);
     },
   });
 
@@ -87,13 +88,11 @@ const AddCourse = ({ handleAddCourse }) => {
           onSubmit={mutate}
         >
           <div className="w-full flex justify-center items-center flex-col">
-          {console.log(msg)}
-            {error &&
-              msg.map((e, i) => (
-                <p key={i} className="text-red-500 text-xs font-sans">
-                  {e}
-                </p>
-              ))}
+            {error && (
+              <p className="text-red-500 text-xs font-sans">
+                {msg[0]}
+              </p>
+            )}
           </div>
           <div className={`${style.boxInput}`}>
             <label htmlFor="course" className={`${style.label}`}>
@@ -163,8 +162,8 @@ const AddCourse = ({ handleAddCourse }) => {
               <button
                 type="submit"
                 className={`bg-blue1 rounded-md ${
-                  isLoading && "cursor-not-allowed"
-                } p-2 cursor-pointer text-white font-sans font-semibold w-full`}
+                  isLoading && "cursor-not-allowed opacity-75"
+                } p-2 text-white font-sans font-semibold w-full`}
                 disabled={isLoading}
               >
                 {isLoading ? "Loading..." : "Create Course"}

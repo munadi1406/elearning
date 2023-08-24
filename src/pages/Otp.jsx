@@ -15,13 +15,11 @@ export default function Otp() {
       e.preventDefault();
       return await otpVerification(otp);
     },
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       localStorage.removeItem("register");
       navigate("/login");
     },
     onError: (error) => {
-      console.log(error);
       setDisabled(true);
       setMsg(error.response.data.msg);
     },
@@ -29,14 +27,10 @@ export default function Otp() {
 
   const newOtp = useMutation({
     mutationFn: async () => {
-      return await requestNewOtp(localStorage.getItem('register'));
+      return await requestNewOtp(localStorage.getItem("register"));
     },
     onSuccess: (data) => {
-      console.log(data);
       setMsg(data.response.data.msg);
-    },
-    onError: (error) => {
-      console.log(error);
     },
   });
   const [disabled, setDisabled] = useState(true);

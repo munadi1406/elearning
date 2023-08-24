@@ -8,7 +8,7 @@ import { useNotification } from "../../store/strore";
 
 export default function Login({ setMsg }) {
   const navigate = useNavigate();
-  const {setStatus,setMsgNotification} = useNotification()
+  const {setStatus,setMsgNotification,setStatusType} = useNotification()
   const style = {
     input:
       "w-full rounded-md bg-slate-200 outline-none border-none h-10 px-2 placeholder:italic text-sm",
@@ -44,6 +44,7 @@ export default function Login({ setMsg }) {
     onSuccess:(data)=>{
         const datas = data.data.data;
         setStatus(true)
+        setStatusType(true)
         setMsgNotification(data.data.message)
         sessionStorage.setItem('rt',datas.refreshToken)
         sessionStorage.setItem('at',datas.accessToken)

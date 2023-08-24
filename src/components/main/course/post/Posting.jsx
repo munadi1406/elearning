@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ScaleEffectMotion from "../../../../utils/ScaleEffectMotion";
-import { handlePostPengumuman, posting } from "../../../../api/course";
+import { handlePostPengumuman } from "../../../../api/course";
 import { useMutation } from "react-query";
 import { BsSend } from "react-icons/bs";
 import PropTypes from "prop-types";
@@ -12,21 +12,27 @@ export default function Posting({
   handleIsShowCreateAbsensi,
 }) {
   const [pengumuman, setpengumuman] = useState("");
-  const { setStatus, setMsgNotification } = useNotification();
+  const { setStatus, setMsgNotification,setStatusType } = useNotification();
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: async (e) => {
-      e.preventDefault();
-      await handlePostPengumuman({
-        idCourse: courseId,
-        konten: pengumuman,
-      });
+        e.preventDefault();
+        await handlePostPengumuman({
+          idCourse: courseId,
+          konten: pengumuman,
+        });
     },
     onSuccess: () => {
-      setStatus(true)
-      setMsgNotification("Pengumuman Berhasil Di Posting")
+      setStatus(true);
+      setStatusType(true)
+      setMsgNotification("Pengumuman Berhasil Di Posting");
       setpengumuman("");
     },
+    onError:(error)=>{
+      setStatus(true);
+      setStatusType(false)
+      setMsgNotification(error.response.data.message[0]);
+    }
   });
   return (
     <>
@@ -47,8 +53,10 @@ export default function Posting({
           <ScaleEffectMotion>
             <button
               type="submit"
-              disabled={posting.isLoading}
-              className="bg-blue1 rounded-md p-1 px-2 text-white"
+              disabled={isLoading}
+              className={`bg-blue1 rounded-md p-1 px-2 text-white ${
+                isLoading ? "cursor-not-allowed opacity-80" : ""
+              }`}
             >
               <BsSend />
             </button>

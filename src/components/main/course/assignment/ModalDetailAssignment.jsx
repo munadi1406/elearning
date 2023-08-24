@@ -1,6 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-import WithContainerModal from "../../../../utils/WithContainerModal";
-import ContainerModal from "../../../ContainerModal";
 import ScaleEffectMotion from "../../../../utils/ScaleEffectMotion";
 import PropTypes from "prop-types";
 import DetailAssignment from "./DetailAssignment";
@@ -15,7 +12,7 @@ const ModalDetailAssignment = ({ handleClose, type }) => {
       "w-1/2 relative z-10 text-center rounded-md font-sans font-semibold text-sm p-2",
   };
   return (
-    <ContainerModal>
+    <>
       <div className="flex max-h-[90vh] w-full justify-center items-start flex-col gap-2">
         {type === 'tugas' && (
           <>
@@ -44,7 +41,7 @@ const ModalDetailAssignment = ({ handleClose, type }) => {
                 ></motion.div>
               </div>
             </div>
-            <div className="max-h-[90vh] lg:w-[800px]  w-full overflow-y-auto overflow-x-hidden grid md:grid-cols-3 grid-cols-2 gap-1">
+            <div className="max-h-[90vh] w-full overflow-y-auto overflow-x-hidden">
               {optionTugas === 0 && (
                 <DetailAssignment />
               )}
@@ -64,7 +61,7 @@ const ModalDetailAssignment = ({ handleClose, type }) => {
           </ScaleEffectMotion>
         </div>
       </div>
-    </ContainerModal>
+    </>
   );
 };
 ModalDetailAssignment.propTypes = {
@@ -72,4 +69,4 @@ ModalDetailAssignment.propTypes = {
   type: PropTypes.string.isRequired
 
 };
-export default WithContainerModal(ModalDetailAssignment);
+export default ModalDetailAssignment;

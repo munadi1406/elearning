@@ -24,8 +24,8 @@ const [copy,setCopy] = useState(false)
   return (
     <div className="w-full h-40 relative">
       <div className="relative z-10 text-white font-semibold h-full flex justify-between items-start flex-col font-sans w-full px-3 py-2">
-        <div className="text-xl ">{course}</div>
-        <div className="text-xs  py-1 flex-grow">{desc_course}</div>
+        <div className="text-2xl ">{course}</div>
+        <div className="text-base  py-1 flex-grow font-light">{desc_course}</div>
         <div className="grid md:grid-cols-2 grid-cols-1 w-full">
           <div className="flex gap-2 justify-start items-center">
             <div className="text-xs rounded-full bg-cream1 py-1 px-2">

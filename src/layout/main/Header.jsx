@@ -1,6 +1,6 @@
 import Logo from "../../assets/logo.png";
 import Universe from "../../assets/universe.jpg";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FaPlus, FaBook } from "react-icons/fa";
 import { BiCurrentLocation } from "react-icons/bi";
 import { SiMusicbrainz } from "react-icons/si";
@@ -8,12 +8,14 @@ import { useEffect, useState } from "react";
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
 import AddCourse from "../../components/main/course/AddCourse";
 import { useDataUser } from "../../store/auth";
+import { logout } from "../../api/authRegister";
 
 export default function Header() {
   const [isShowAddCourse, setIsShowAddCourse] = useState(false);
   const [showSubmenuUsers, setShowSubmenuUsers] = useState(false);
   const [showSubmenuUsersMobile, setShowSubmenuUsersMobile] = useState(false);
-  const username = useDataUser((state)=>state.username);
+  const { username, image, idUsers } = useDataUser((state) => state);
+  const navigate = useNavigate();
 
   const style = {
     navlink:
@@ -27,13 +29,13 @@ export default function Header() {
 
   const activeNavlink = () => {
     const checkLocation = locationArray.includes(location.pathname);
-    if (!checkLocation) return setLocationIsActive('');
+    if (!checkLocation) return setLocationIsActive("");
     setLocationIsActive(location.pathname);
   };
 
   const handleShowSubmenuUsers = () => {
-    setShowSubmenuUsers(!showSubmenuUsers)
-  }
+    setShowSubmenuUsers(!showSubmenuUsers);
+  };
 
   useEffect(() => {
     activeNavlink();
@@ -44,6 +46,16 @@ export default function Header() {
     setIsShowAddCourse(!isShowAddCourse);
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      sessionStorage.setItem("rt", "");
+      sessionStorage.setItem("at", "");
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -75,16 +87,43 @@ export default function Header() {
                   onClick={handleShowSubmenuUsers}
                 >
                   <div className="w-max h-max border-white rounded-full border-2">
-                    <img src={Universe} className="w-8 h-8 rounded-full" />
+                    <img
+                      src={
+                        image
+                          ? `${
+                              import.meta.env.VITE_SOME_ENDPOINT_API
+                            }/image/${idUsers}/${image}`
+                          : Universe
+                      }
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
                   </div>
                   <h1 className="text-sm font-sans text-white font-semibold">
                     {username}
                   </h1>
                 </div>
               </ScaleEffectMotion>
-              <div className={`bg-slate-600 text-white z-30 font-semibold text-sm font-sans grid grid-cols-1 ${showSubmenuUsers ? 'absolute' : 'hidden'} w-max h-max py-2  rounded-md top-10`}>
-                <NavLink to={'./profile'} className="border-b text-start w-full active:bg-blue1 border-white px-10" onClick={handleShowSubmenuUsers}>Profile</NavLink>
-                <NavLink className="text-start w-full active:bg-blue1 cursor-pointer border-white px-10" onClick={handleShowSubmenuUsers}>Logout</NavLink>
+              <div
+                className={`bg-slate-600 text-white z-30 font-semibold text-sm font-sans grid grid-cols-1 ${
+                  showSubmenuUsers ? "absolute" : "hidden"
+                } w-max h-max py-2  rounded-md top-10`}
+              >
+                <NavLink
+                  to={"./profile"}
+                  className="border-b text-start w-full active:bg-blue1 border-white px-10"
+                  onClick={handleShowSubmenuUsers}
+                >
+                  Profile
+                </NavLink>
+                <NavLink
+                  className="text-start w-full active:bg-blue1 cursor-pointer border-white px-10"
+                  onClick={() => {
+                    handleShowSubmenuUsers();
+                    handleLogout();
+                  }}
+                >
+                  Logout
+                </NavLink>
               </div>
             </div>
           </div>
@@ -92,46 +131,50 @@ export default function Header() {
         <nav className="w-full md:bg-transparent md:relative  bg-blue1 fixed bottom-0 left-0 z-20 flex   p-2 md:justify-center justify-evenly items-center gap-2">
           <NavLink
             to={"./"}
-            className={`${style.navlink} ${locationIsActive === "/home/" ? style.active : "text-white"
-              }`}
+            className={`${style.navlink} ${
+              locationIsActive === "/home/" ? style.active : "text-white"
+            }`}
           >
             <FaBook
-              className={`${locationIsActive === "/home/"
-                ? "md:text-blue1 text-cream1"
-                : "white"
-                }`}
+              className={`${
+                locationIsActive === "/home/"
+                  ? "md:text-blue1 text-cream1"
+                  : "white"
+              }`}
             />
             <div className={`${style.textNavLink}`}>Course Catalog</div>
           </NavLink>
           <NavLink
             to={"./attedance"}
-            className={`${style.navlink} ${locationIsActive === "/home/attedance"
-              ? style.active
-              : "text-white"
-              }`}
+            className={`${style.navlink} ${
+              locationIsActive === "/home/attedance"
+                ? style.active
+                : "text-white"
+            }`}
           >
             <BiCurrentLocation
-
-              className={`${locationIsActive === "/home/attedance"
-                ? "md:text-blue1 text-cream1"
-                : "white"
-                }`}
+              className={`${
+                locationIsActive === "/home/attedance"
+                  ? "md:text-blue1 text-cream1"
+                  : "white"
+              }`}
             />
             <div className={`${style.textNavLink}`}>Attedance</div>
           </NavLink>
           <NavLink
             to={"./course-work"}
-            className={`${style.navlink} ${locationIsActive === "/home/course-work"
-              ? style.active
-              : "text-white"
-              }`}
+            className={`${style.navlink} ${
+              locationIsActive === "/home/course-work"
+                ? style.active
+                : "text-white"
+            }`}
           >
             <SiMusicbrainz
-
-              className={`${locationIsActive === "/home/course-work"
-                ? "md:text-blue1 text-cream1"
-                : "white"
-                }`}
+              className={`${
+                locationIsActive === "/home/course-work"
+                  ? "md:text-blue1 text-cream1"
+                  : "white"
+              }`}
             />
             <div className={`${style.textNavLink}`}>Coursework</div>
           </NavLink>
@@ -139,16 +182,47 @@ export default function Header() {
             <ScaleEffectMotion>
               <div
                 className={`md:hidden justify-center items-center cursor-pointer flex flex-col`}
-                onClick={()=>setShowSubmenuUsersMobile(!showSubmenuUsersMobile)}
+                onClick={() =>
+                  setShowSubmenuUsersMobile(!showSubmenuUsersMobile)
+                }
               >
                 <div className="w-max h-max border-white rounded-full border-2">
-                  <img src={Universe} className="w-8 h-8 rounded-full" />
+                  <img
+                    src={
+                      image
+                        ? `${
+                            import.meta.env.VITE_SOME_ENDPOINT_API
+                          }/image/${idUsers}/${image}`
+                        : Universe
+                    }
+                    className="w-8 h-8 rounded-full"
+                  />
                 </div>
               </div>
             </ScaleEffectMotion>
-            <div className={`bg-slate-600 text-white z-30 font-semibold text-sm font-sans grid grid-cols-1 ${showSubmenuUsersMobile ? 'absolute' : 'hidden'} w-max h-max py-2  rounded-md -top-16 -left-10`}>
-              <NavLink to={'./profile'} className="border-b text-start w-full active:bg-blue1 border-white px-10" onClick={()=>setShowSubmenuUsersMobile(!showSubmenuUsersMobile)}>Profile</NavLink>
-              <NavLink className="text-start w-full active:bg-blue1 cursor-pointer border-white px-10" onClick={()=>setShowSubmenuUsersMobile(!showSubmenuUsersMobile)}>Logout</NavLink>
+            <div
+              className={`bg-slate-600 text-white z-30 font-semibold text-sm font-sans grid grid-cols-1 ${
+                showSubmenuUsersMobile ? "absolute" : "hidden"
+              } w-max h-max py-2  rounded-md -top-16 -left-10`}
+            >
+              <NavLink
+                to={"./profile"}
+                className="border-b text-start w-full active:bg-blue1 border-white px-10"
+                onClick={() =>
+                  setShowSubmenuUsersMobile(!showSubmenuUsersMobile)
+                }
+              >
+                Profile
+              </NavLink>
+              <NavLink
+                className="text-start w-full active:bg-blue1 cursor-pointer border-white px-10"
+                onClick={() => {
+                  handleLogout();
+                  setShowSubmenuUsersMobile(!showSubmenuUsersMobile);
+                }}
+              >
+                Logout
+              </NavLink>
             </div>
           </div>
         </nav>
