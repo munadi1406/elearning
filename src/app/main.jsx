@@ -15,6 +15,7 @@ import Notification from "../components/Notification";
 const Main = () => {
   const refreshToken = sessionStorage.getItem("rt");
   const { setUsername, setIdUsers, setRole,setImage } = useDataUser();
+  const img = useDataUser((state)=>state.image)
   const navigate = useNavigate();
   useEffect(() => {
     try {
@@ -26,7 +27,11 @@ const Main = () => {
       setUsername(username);
       setIdUsers(id_users);
       setRole(role);
-      setImage(image);
+      if(!img){
+        setImage(`${
+          import.meta.env.VITE_SOME_ENDPOINT_API
+        }/image/${id_users}/${image}`);
+      }
     } catch (error) {
       sessionStorage.setItem("rt", "");
       sessionStorage.setItem("at", "");
@@ -39,7 +44,7 @@ const Main = () => {
     <div className="p-2 relative">
       <Notification />
       <Header />
-      <div className="min-h-screen md:px-2 md:py-2 px-2 pt-2 pb-14">
+      <div className="min-h-screen md:px-2 md:py-2 pt-2 pb-14">
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route

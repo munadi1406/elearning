@@ -1,9 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, lazy, Suspense } from "react";
 import ModalCreateAssignment from "../../../components/main/course/assignment/ModalCreateAssignment";
-const CardStudent = lazy(() =>
-  import("../../../components/main/course/CardStudent")
-);
 const Setting = lazy(() => import("../../../components/main/course/Setting"));
 import CreateAbsensi from "../../../components/main/absensi/CreateAbsensi";
 import ModalDetailAssignment from "../../../components/main/course/assignment/ModalDetailAssignment";
@@ -16,12 +13,14 @@ import SkeletonBannerCourse from "../../../components/skeleton/SkeletonBannerCou
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import DetailAssignment from "../../../components/main/course/assignment/DetailAssignment";
+import AssignmentSubmisstionList from "../../../components/main/course/assignment/AssignmentSubmisstionList";
 const ListPosting = lazy(() =>
   import("../../../components/main/course/post/ListPosting")
 );
 const Posting = lazy(() =>
   import("../../../components/main/course/post/Posting")
 );
+const ListMember = lazy(()=>import( "../../../components/main/course/member/ListMember"));
 
 const CourseById = () => {
   const { courseId } = useParams();
@@ -30,17 +29,6 @@ const CourseById = () => {
   const [showTugas, setShowTugas] = useState(false);
   const { subMenuActive } = useSubmenuActiveStore();
   const [userStatusInCourse, setUserStatusInCourse] = useState("");
-
-  const dataStudent = [
-    {
-      name: "Munadi",
-      number: "08123456789",
-    },
-    {
-      name: "sarah",
-      number: "08123456789",
-    },
-  ];
 
   const { data, isLoading, isFetched } = useQuery(`course-${courseId}`, {
     queryFn: async () => {
@@ -60,7 +48,6 @@ const CourseById = () => {
   };
 
   const handleShowModalTugas = () => {
-    console.log("runnn");
     setShowTugas(!showTugas);
   };
 
@@ -78,7 +65,7 @@ const CourseById = () => {
           type="tugas"
         />
       )}
-      <div className="md:px-10 px-2">
+      <div className="md:px-10 w-full">
         {isLoading && <SkeletonBannerCourse />}
         {isFetched && <BannerCourse {...data} />}
 
@@ -108,13 +95,7 @@ const CourseById = () => {
                   {subMenuActive === 1 && (
                     <div className="col-span-4 w-full">
                       <Suspense fallback={<>Loading...</>}>
-                        {dataStudent.map((e, i) => (
-                          <CardStudent
-                            name={e.name}
-                            number={e.number}
-                            key={i}
-                          />
-                        ))}
+                        <ListMember/>
                       </Suspense>
                     </div>
                   )}
@@ -135,6 +116,7 @@ const CourseById = () => {
             }
           />
           <Route path="/post/:idPost" element={<DetailAssignment/>}/>
+          <Route path="/tugas/:idTugas" element={<AssignmentSubmisstionList/>}/>
         </Routes>
       </div>
     </>

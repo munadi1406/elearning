@@ -11,7 +11,6 @@ export default function GpsCheckIn() {
   const [errorStatus, setErrorStatus] = useState(false);
 
   const getLocation = async () => {
-    console.log('running')
     try {
       const position = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);

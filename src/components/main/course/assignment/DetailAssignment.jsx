@@ -3,17 +3,19 @@ import Comments from "../Comments";
 import { useState, lazy, Suspense } from "react";
 import { detailPost, submitTugas } from "../../../../api/course";
 import FileDropzone from "./../../../FileDropzone";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import { ImCancelCircle } from "react-icons/im";
 import { useNotification } from "../../../../store/strore";
 const DetailPengumuman = lazy(() => import("./DetailPengumuman"));
 const DetailTugas = lazy(() => import("./DetailTugas"));
 import ButtonPure from "../../../ButtonPure";
+// import { cancaleSubmit } from "../../../../api/tugas";
 
 export default function DetailAssignment() {
   const [file, setFile] = useState([]);
   const { idPost, courseId } = useParams();
   const { setStatus, setMsgNotification, setStatusType } = useNotification();
+  const navigate = useNavigate()
 
   const { data, isFetched, isLoading, refetch } = useQuery(`idPost${idPost}`, {
     queryFn: async () => {
@@ -40,71 +42,97 @@ export default function DetailAssignment() {
     },
   });
 
+  // const isCancelSubmit = useMutation({
+  //   mutationFn: async (idTugasSubmission) => {
+  //     return await cancaleSubmit(idTugasSubmission);
+  //   },
+  //   onSuccess: () => {
+  //     refetch();
+  //     setStatus(true);
+  //     setStatusType(true);
+  //     setMsgNotification("Tugas Berhasil Di Kirim");
+  //   },
+  //   onError: (error) => {
+  //     setStatus(true);
+  //     setStatusType(false);
+  //     setMsgNotification(error.response.data.message);
+  //   },
+  // });
+  
+
   if (isLoading) {
     return <>Loading...</>;
   }
 
+  const handeNavigate = (idTugas)=>{
+    navigate(`../tugas/${idTugas}`)
+  }
   const tugas = isFetched && data.tugas[0] ? data.tugas[0] : data.pengumuman[0];
 
   return (
-    <div className="grid lg:grid-cols-3 grid-cols-1 w-full gap-2 p-2">
-      <div className="flex col-span-2 justify-center h-max items-start flex-col gap-2">
-        <div className="flex gap-2 text-blue1 font-semibold text-lg font-sans">
-          <div>{data.judul}</div>
-          <div>-</div>
-          <div>Jamal</div>
+    <>
+      <div className="grid lg:grid-cols-3 grid-cols-1 w-full gap-2 p-2">
+        <div className="flex col-span-2 justify-center h-max items-start flex-col gap-2">
+          <div className="flex gap-2 text-blue1 font-semibold text-lg font-sans">
+            <div>{data.judul}</div>
+            <div>-</div>
+            <div>Jamal</div>
+          </div>
+          <div className="grid grid-cols-1 gap-2">
+            <Suspense fallback={<>Loading...</>}>
+              {data.typePost === "Tugas" ? (
+                <DetailTugas {...data} />
+              ) : (
+                <DetailPengumuman {...data} />
+              )}
+            </Suspense>
+            <div className="flex">
+              <ButtonPure text={"Lihat Pengumpulan Tugas"} onClick={()=>handeNavigate(tugas.id_tugas)}/>
+            </div>
+          </div>
+          <Comments />
         </div>
-        <div className="grid grid-cols-1 gap-2">
-          <Suspense fallback={<>Loading...</>}>
-            {data.typePost === "Tugas" ? (
-              <DetailTugas {...data} />
-            ) : (
-              <DetailPengumuman {...data} />
-            )}
-          </Suspense>
-        </div>
-        <Comments />
-      </div>
-      {data.typePost === "Tugas" && (
-        <div className="border-2 h-full rounded-md p-2">
-          {tugas.tugassubmission[0] ? (
-            <div>
-              {tugas.tugassubmission.map((e, i) => (
-                <div key={i} className="w-full p-3">
-                  <div className="rounded-md bg-blue1/80 backdrop-blur-sm p-2 flex justify-between items-center">
-                    <a
-                      className=" text-white font-sans text-base hover:underline"
-                      href={`${
-                        import.meta.env.VITE_SOME_ENDPOINT_API
-                      }/file/${courseId}/${tugas.file}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {e.file}
-                    </a>
-                    <div>
-                      <ImCancelCircle color={"white"} />
+        {data.typePost === "Tugas" && (
+          <div className="border-2 h-full rounded-md p-2">
+            {tugas.tugassubmission[0] ? (
+              <div>
+                {tugas.tugassubmission.map((e, i) => (
+                  <div key={i} className="w-full p-3">
+                    <div className="rounded-md bg-blue1/80 backdrop-blur-sm p-2 flex justify-between items-center">
+                      <a
+                        className=" text-white font-sans text-base hover:underline"
+                        href={`${
+                          import.meta.env.VITE_SOME_ENDPOINT_API
+                        }/file/${courseId}/${tugas.file}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {e.file}
+                      </a>
+                      <div>
+                        <ImCancelCircle color={"white"} />
+                      </div>
+                    </div>
+                    <div className="text-base font-sans font-regular text-blue1">
+                      Nilai : 0
                     </div>
                   </div>
-                  <div className="text-base font-sans font-regular text-blue1">
-                    Nilai : 0
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="flex px-2   h-full rounded-md justify-center items-center flex-col gap-2">
-              <FileDropzone onFilesAdded={setFile} />
-              <ButtonPure
-                text={`${isSubmit.isLoading ? "Loading..." : "Kirim"}`}
-                disabled={isSubmit.isLoading}
-                style={isLoading ? "cursor-not-allowed opacity-70" :''}
-                onClick={() => isSubmit.mutate(tugas.id_tugas)}
-              />
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex px-2   h-full rounded-md justify-center items-center flex-col gap-2">
+                <FileDropzone onFilesAdded={setFile} />
+                <ButtonPure
+                  text={`${isSubmit.isLoading ? "Loading..." : "Kirim"}`}
+                  disabled={isSubmit.isLoading}
+                  style={isLoading ? "cursor-not-allowed opacity-70" : ""}
+                  onClick={() => isSubmit.mutate(tugas.id_tugas)}
+                />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </>
   );
 }

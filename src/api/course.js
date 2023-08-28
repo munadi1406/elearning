@@ -9,7 +9,6 @@ axiosJwt.interceptors.request.use(
         return config;
     },
     function (error){
-        console.log({inierrrorequest:error});
         throw error;
     }
 )
@@ -19,7 +18,6 @@ axiosJwt.interceptors.response.use(
         return response
     },
     async function (error){
-        console.log({iniErrorResponse:error})
         if(error.response.status === 401){
             await newAccessToken()
             const originalRequest = error.config
@@ -120,3 +118,8 @@ export const handleDeletePost = async (idPost)=>{
     return data;
 }
 
+
+export const listMember = async (idCourse,idMember)=>{
+    const data = await axiosJwt.get(`${endpoint}/course/listmember/${idCourse}/${idMember}'}`)
+    return data;
+}

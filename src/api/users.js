@@ -15,3 +15,9 @@ export const handleUploadImage = async (image) => {
   );
   return isUpload;
 };
+
+
+export const getUsersById = async ()=>{
+  const data = await axiosJwt.get(`${endpoint}/users`)
+  return data
+}

@@ -31,7 +31,7 @@ export default function FileDropZoneForImage({ onFilesAdded }) {
     <div className="w-full grid md:grid-cols-2 gap-2 grid-cols-1">
       <div
         {...getRootProps({
-          className: `border-dashed rounded-md h-full flex justify-center items-center border-blue1 border-2 ${
+          className: `border-dashed rounded-md h-full min-h-[200px] flex justify-center items-center border-blue1 border-2 ${
             isDragAccept && "border-green-500"
           } ${isDragReject && "border-red-500"}`,
         })}

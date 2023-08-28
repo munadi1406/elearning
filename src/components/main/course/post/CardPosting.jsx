@@ -5,6 +5,7 @@ import ButtonPure from "../../../ButtonPure";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ModalDeletePost from "./ModalDeletePost";
+import { useNavigate } from "react-router-dom";
 
 const CardPosting = ({
   id_post,
@@ -27,6 +28,11 @@ const CardPosting = ({
     setIsDelete(false)
   }
 
+  const navigate = useNavigate()
+  const handleNavigate = ()=>{
+      navigate(`tugas/${tugas[0].id_tugas}`)
+  }
+
   return (
     <>
   {isDelete && <ModalDeletePost idPost={id_post} handleIsDelete={handleClose}/>}
@@ -39,12 +45,13 @@ const CardPosting = ({
           {judull}
         </Link>
       </div>
-      <div className="text-sm mt-3 text-blue1">
+      <div className="text-sm mt-3 text-blue1 ">
         {pengumuman[0] ? pengumuman[0].konten : deskripsi}
       </div>
       {statusUser === "instruktur" && (
         <div className="flex gap-2">
           <ButtonPure text={"Edit"} />
+          <ButtonPure text={"Lihat Pengumpulan Tugas"} onClick={handleNavigate}/>
           <ButtonPure text={"Delete"} color={"red-500"} onClick={()=>setIsDelete(true)}/>
         </div>
       )}

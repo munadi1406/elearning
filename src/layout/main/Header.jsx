@@ -14,7 +14,7 @@ export default function Header() {
   const [isShowAddCourse, setIsShowAddCourse] = useState(false);
   const [showSubmenuUsers, setShowSubmenuUsers] = useState(false);
   const [showSubmenuUsersMobile, setShowSubmenuUsersMobile] = useState(false);
-  const { username, image, idUsers } = useDataUser((state) => state);
+  const { username, image } = useDataUser((state) => state);
   const navigate = useNavigate();
 
   const style = {
@@ -90,10 +90,7 @@ export default function Header() {
                     <img
                       src={
                         image
-                          ? `${
-                              import.meta.env.VITE_SOME_ENDPOINT_API
-                            }/image/${idUsers}/${image}`
-                          : Universe
+                         ?? Universe
                       }
                       className="w-8 h-8 rounded-full object-cover"
                     />
@@ -190,10 +187,8 @@ export default function Header() {
                   <img
                     src={
                       image
-                        ? `${
-                            import.meta.env.VITE_SOME_ENDPOINT_API
-                          }/image/${idUsers}/${image}`
-                        : Universe
+                        ??
+                         Universe
                     }
                     className="w-8 h-8 rounded-full"
                   />
