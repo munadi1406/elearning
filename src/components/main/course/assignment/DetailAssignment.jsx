@@ -17,7 +17,7 @@ export default function DetailAssignment() {
   const { setStatus, setMsgNotification, setStatusType } = useNotification();
   const navigate = useNavigate()
 
-  const { data, isFetched, isLoading, refetch } = useQuery(`idPost${idPost}`, {
+  const { data,  isLoading, refetch } = useQuery(`idPost${idPost}`, {
     queryFn: async () => {
       const data = await detailPost(idPost);
       return data.data.data;
@@ -67,16 +67,19 @@ export default function DetailAssignment() {
   const handeNavigate = (idTugas)=>{
     navigate(`../tugas/${idTugas}`)
   }
-  const tugas = isFetched && data.tugas[0] ? data.tugas[0] : data.pengumuman[0];
+  let judul = data.judul.split(' ');
+  let judulOri = judul.shift();
+  let judulTanggal = judul.join(' ');
+  const tanggalToLocalString = new Date(judulTanggal).toLocaleString()
 
   return (
     <>
       <div className="grid lg:grid-cols-3 grid-cols-1 w-full gap-2 p-2">
         <div className="flex col-span-2 justify-center h-max items-start flex-col gap-2">
           <div className="flex gap-2 text-blue1 font-semibold text-lg font-sans">
-            <div>{data.judul}</div>
+            <div>{`${judulOri}  ${tanggalToLocalString}`}</div>
             <div>-</div>
-            <div>Jamal</div>
+            <div>{data.username}</div>
           </div>
           <div className="grid grid-cols-1 gap-2">
             <Suspense fallback={<>Loading...</>}>
@@ -86,28 +89,27 @@ export default function DetailAssignment() {
                 <DetailPengumuman {...data} />
               )}
             </Suspense>
-            <div className="flex">
-              <ButtonPure text={"Lihat Pengumpulan Tugas"} onClick={()=>handeNavigate(tugas.id_tugas)}/>
+            <div className={`flex ${data.typePost == 'Pengumuman' && 'hidden'}`}>
+              <ButtonPure text={"Lihat Pengumpulan Tugas"} onClick={()=>handeNavigate(data.id_tugas)}/>
             </div>
           </div>
           <Comments />
         </div>
         {data.typePost === "Tugas" && (
           <div className="border-2 h-full rounded-md p-2">
-            {tugas.tugassubmission[0] ? (
+            {data.id_tugas_submission ? (
               <div>
-                {tugas.tugassubmission.map((e, i) => (
-                  <div key={i} className="w-full p-3">
+                  <div className="w-full p-3">
                     <div className="rounded-md bg-blue1/80 backdrop-blur-sm p-2 flex justify-between items-center">
                       <a
                         className=" text-white font-sans text-base hover:underline"
                         href={`${
                           import.meta.env.VITE_SOME_ENDPOINT_API
-                        }/file/${courseId}/${tugas.file}`}
+                        }/file/${courseId}/${data.fileIsSubmit}`}
                         target="_blank"
                         rel="noreferrer"
                       >
-                        {e.file}
+                        {data.fileIsSubmit}
                       </a>
                       <div>
                         <ImCancelCircle color={"white"} />
@@ -117,7 +119,6 @@ export default function DetailAssignment() {
                       Nilai : 0
                     </div>
                   </div>
-                ))}
               </div>
             ) : (
               <div className="flex px-2   h-full rounded-md justify-center items-center flex-col gap-2">
@@ -126,7 +127,7 @@ export default function DetailAssignment() {
                   text={`${isSubmit.isLoading ? "Loading..." : "Kirim"}`}
                   disabled={isSubmit.isLoading}
                   style={isLoading ? "cursor-not-allowed opacity-70" : ""}
-                  onClick={() => isSubmit.mutate(tugas.id_tugas)}
+                  onClick={() => isSubmit.mutate(data.id_tugas)}
                 />
               </div>
             )}

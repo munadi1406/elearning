@@ -45,7 +45,7 @@ export default function ListCourseAsMember({ containerRef }) {
           }}
           disabled={!hasNextPage && isFetchingNextPage}
           className={`bg-blue1 rounded-md p-2 w-max text-white font-sans font-semibold text-sm ${
-            !hasNextPage && "hidden"
+            !hasNextPage&& "hidden"
           }  ${isFetchingNextPage ? "opacity-50 cursor-not-allowed" : ""}`}
         >
           {isFetchingNextPage ? "Loading..." : "Load More"}

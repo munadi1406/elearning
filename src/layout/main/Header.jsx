@@ -1,5 +1,4 @@
 import Logo from "../../assets/logo.png";
-import Universe from "../../assets/universe.jpg";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FaPlus, FaBook } from "react-icons/fa";
 import { BiCurrentLocation } from "react-icons/bi";
@@ -9,6 +8,7 @@ import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
 import AddCourse from "../../components/main/course/AddCourse";
 import { useDataUser } from "../../store/auth";
 import { logout } from "../../api/authRegister";
+import SplitUsername from "../../utils/SplitUsername";
 
 export default function Header() {
   const [isShowAddCourse, setIsShowAddCourse] = useState(false);
@@ -87,13 +87,16 @@ export default function Header() {
                   onClick={handleShowSubmenuUsers}
                 >
                   <div className="w-max h-max border-white rounded-full border-2">
-                    <img
-                      src={
-                        image
-                         ?? Universe
-                      }
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
+                    {image ? (
+                      <img
+                        src={image}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full object-cover flex justify-center items-center bg-blue2 text-white text-xs font-semibold">
+                        <SplitUsername username={username} />
+                      </div>
+                    )}
                   </div>
                   <h1 className="text-sm font-sans text-white font-semibold">
                     {username}
@@ -184,14 +187,16 @@ export default function Header() {
                 }
               >
                 <div className="w-max h-max border-white rounded-full border-2">
-                  <img
-                    src={
-                      image
-                        ??
-                         Universe
-                    }
-                    className="w-8 h-8 rounded-full"
-                  />
+                {image ? (
+                      <img
+                        src={image}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full object-cover flex justify-center items-center bg-blue2 text-white text-xs font-semibold">
+                        <SplitUsername username={username} />
+                      </div>
+                    )}
                 </div>
               </div>
             </ScaleEffectMotion>

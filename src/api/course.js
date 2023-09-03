@@ -107,12 +107,6 @@ export const handlePostPengumuman = async (dataPayload)=>{
 }
 
 
-export const downloadFileTugas = async (id_course,fileName)=>{
-    const data = await axios.post(`${endpoint}/file/${id_course}/${fileName}`)
-    return data
-}
-
-
 export const handleDeletePost = async (idPost)=>{
     const data = await axiosJwt.delete(`${endpoint}/post/${idPost}`)
     return data;

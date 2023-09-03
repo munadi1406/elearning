@@ -1,31 +1,47 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
+import moment from 'moment-timezone'; // Import Moment-Timezone
+import { useNotification } from "../store/strore";
 
 export default function DateTimeRange({ dateFrom, dateTo }) {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [dateRange, setDateRange] = useState("");
-  const handleFromDateChange = (event) => {
-    const newFromDate = event.target.value;
+  const {setStatus,setStatusType,setMsgNotification} = useNotification();
+
+  const handleFromDateChange = (date) => {
+    const newFromDate = date;
+    const desiredTimeZone = 'Asia/Makassar';
+    const utcFormat = moment.tz(date,desiredTimeZone).utc().format()
     if (new Date(newFromDate) >= new Date(toDate)) {
-      alert("From date must be before To date");
-      setFromDate("");
-      setDateRange("");
+      setStatus(true)
+      setStatusType(false);
+      setMsgNotification("Pastikan Waktu Mulai Dan Waktu Berakhir Anda Sudah Benar");
+      setFromDate(null);
+      setDateRange(null);
+      return;
     } else {
       setFromDate(newFromDate);
-      dateFrom(newFromDate);
+      dateFrom(utcFormat);
       updateDateRange(newFromDate, toDate);
     }
   };
 
-  const handleToDateChange = (event) => {
-    const newToDate = event.target.value;
+  const handleToDateChange = (date) => {
+    const newToDate = date;
+    const desiredTimeZone = 'Asia/Makassar';
+    const utcFormat = moment.tz(date,desiredTimeZone).utc().format()
     if (new Date(newToDate) <= new Date(fromDate)) {
-      alert("To date must be after From date");
-      setToDate("");
-      setDateRange("");
+      setStatus(true)
+      setStatusType(false);
+      setMsgNotification("Pastikan Waktu Mulai Dan Waktu Berakhir Anda Sudah Benar");
+      setToDate(null);
+      setDateRange(null);
+      return
     } else {
-      dateTo(newToDate);
+      dateTo(utcFormat);
       setToDate(newToDate);
       updateDateRange(fromDate, newToDate);
     }
@@ -55,33 +71,22 @@ export default function DateTimeRange({ dateFrom, dateTo }) {
     setDateRange(`${formattedRange}`);
   };
   return (
-    <>
-      <div className="flex justify-start gap-2 items-center">
-        <label htmlFor="from-date" className="text-sm font-semibold text-blue1">
-          From:
+    <div className="w-full grid grid-cols-1 gap-1">
+      <div className="grid grid-cols-6 gap-2 items-center w-full">
+        <label htmlFor="from-date" className="text-sm font-semibold text-blue1 col-span-2">
+          Start Date:
         </label>
-        <input
-          type="datetime-local"
-          id="from-date"
-          value={fromDate}
-          onChange={handleFromDateChange}
-          required
-        />
+        <Datetime onChange={handleFromDateChange} value={fromDate} closeOnSelect={true} utc={false} displayTimeZone="Asia/Makassar" className="border-blue1 border-2 rounded-lg w-full col-span-4 p-1"/>
       </div>
-      <div className="flex justify-start gap-2 items-center">
-        <label htmlFor="to-date" className="text-sm font-semibold text-blue1">
-          To:
+      <div className="grid grid-cols-6 gap-2 items-center w-full">
+        <label htmlFor="to-date" className="col-span-2 text-sm font-semibold text-blue1">
+          End Date:
         </label>
-        <input
-          type="datetime-local"
-          id="to-date"
-          value={toDate}
-          onChange={handleToDateChange}
-          required
-        />
+        <Datetime onChange={handleToDateChange} value={toDate} closeOnSelect={true} className="border-blue1 border-2 rounded-lg w-full col-span-4 p-1"/>
       </div>
       <div className="text-xs font-semibold font-sans text-blue1">Range : {dateRange}</div>
-    </>
+    </div>
+    
   );
 }
 DateTimeRange.propTypes = {

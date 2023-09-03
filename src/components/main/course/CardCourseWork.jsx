@@ -8,26 +8,27 @@ import {BsSend} from 'react-icons/bs'
 import { useState } from 'react';
 import ScaleEffectMotion from '../../../utils/ScaleEffectMotion';
 import { motion } from 'framer-motion';
+import splitJudul from '../../../utils/splitJudul';
 
-const CardCourseWork = ({ course, fromDate, toDate, pengajar, desc }) => {
+const CardCourseWork = ({ id_course,course, fromDate,judul, toDate, username, deskripsi }) => {
     const [commentIsOpen, setCommentIsOpen] = useState(false);
     const handleComment = () => {
         setCommentIsOpen(!commentIsOpen)
     }
-
     return (
         <div className='w-full border-b-2 border-blue1 p-2 flex justify-center items-start flex-col gap-3'>
-            <div className='grid grid-cols-2 w-full'>
+            <div className='grid md:grid-cols-2 grid-cols-1 w-full'>
                 <div className='flex justify-center items-start flex-col gap-2'>
-                    <Link to={`../course/${2}`} className='text-2xl hover:underline text-blue1 font-sans font-semibold'>{course} - {pengajar}</Link>
+                    <Link to={`../course/${id_course}`} className='text-2xl hover:underline text-blue1 font-sans font-semibold'>{course} - {username}</Link>
                 </div>
-                <div className='flex justify-end items-content gap-2'>
-                    <div className='bg-blue1 rounded-md px-2 text-white font-semibold text-sm flex justify-center items-center'>{fromDate}</div>
-                    <div>/</div>
-                    <div className='bg-blue1 rounded-md px-2 text-white font-semibold text-sm flex justify-center items-center'>{toDate}</div>
+                <div className='flex justify-end items-center gap-2'>
+                    <div className='bg-blue1 rounded-md px-2 text-white font-semibold text-sm flex justify-center items-center'>{new Date(fromDate).toLocaleString()}</div>
+                    <div>-</div>
+                    <div className='bg-blue1 rounded-md px-2 text-white font-semibold text-sm flex justify-center items-center'>{new Date(toDate).toLocaleString()}</div>
                 </div>
             </div>
-            <div className='text-blue1 text-sm w-full font-sans'>{desc}</div>
+            <div className='text-blue1 text-sm w-full font-sans'>{splitJudul(judul)}</div>
+            <div className='text-blue1 text-sm w-full font-sans'>{deskripsi}</div>
             <div className='flex justify-start items-center gap-2'>
                 <ScaleEffectMotion>
                     <div className='bg-blue1 p-2 rounded-md cursor-pointer' onClick={handleComment}>
@@ -57,10 +58,12 @@ const CardCourseWork = ({ course, fromDate, toDate, pengajar, desc }) => {
 }
 CardCourseWork.propTypes = {
     course: PropTypes.string.isRequired,
-    pengajar: PropTypes.string.isRequired,
+    id_course: PropTypes.number.isRequired,
+    username: PropTypes.string.isRequired,
+    judul: PropTypes.string.isRequired,
     fromDate: PropTypes.string.isRequired,
     toDate: PropTypes.string.isRequired,
-    desc: PropTypes.string.isRequired,
+    deskripsi: PropTypes.string.isRequired,
 };
 
 

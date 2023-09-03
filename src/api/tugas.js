@@ -19,3 +19,15 @@ export const cancaleSubmit = async (idTugasSubmission)=>{
     })
     return data
 }
+
+export const tugasList = async (idPost)=>{
+    const data = await axiosJwt.get(`${endpoint}/tugas/${idPost}`)
+    return data
+}
+
+
+export const downloadFileTugas = (idCourse,fileName) =>{
+    const url = `${endpoint}/file/${idCourse}/${fileName}`
+    return window.open(url,'_blank');
+}
+

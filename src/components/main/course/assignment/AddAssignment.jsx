@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ScaleEffectMotion from "../../../../utils/ScaleEffectMotion";
 import FileDropZone from "../../../FileDropzone";
 import DateTimeRange from "../../../DateTimeRange";
 import { posting } from "../../../../api/course";
@@ -7,6 +6,7 @@ import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useNotification } from "../../../../store/strore";
+import ButtonPure from "../../../ButtonPure";
 
 export default function AddAssignment({ handleClose }) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -16,7 +16,7 @@ export default function AddAssignment({ handleClose }) {
   const [accept, setAccept] = useState("");
   const [msg, setMsg] = useState([]);
   const { courseId } = useParams();
-  const { setStatus, setMsgNotification,setStatusType } = useNotification();
+  const { setStatus, setMsgNotification, setStatusType } = useNotification();
 
   const handleFilesAdded = (files) => {
     setUploadedFiles(files);
@@ -41,14 +41,17 @@ export default function AddAssignment({ handleClose }) {
       });
       return data;
     },
-    onSuccess:()=>{
-      setStatus(true)
-      setStatusType(true)
-      setMsgNotification("Tugas Berhasil Di Posting")
-      handleClose()
+    onSuccess: () => {
+      setStatus(true);
+      setStatusType(true);
+      setMsgNotification("Tugas Berhasil Di Posting");
+      handleClose();
     },
-    onError:(error)=>{
-      setMsg(error.response.data.message)
+    onError: (error) => {
+      setMsg(error.response.data.message);
+      setStatus(true);
+      setStatusType(false);
+      setMsgNotification(error.response.data.message[0]);
     },
   });
 
@@ -81,7 +84,7 @@ export default function AddAssignment({ handleClose }) {
           </label>
           <FileDropZone onFilesAdded={handleFilesAdded} />
         </div>
-        <div className={`${style.input} w-full grid grid-cols-2`}>
+        <div className={`${style.input} w-full`}>
           <DateTimeRange dateFrom={setDateFrom} dateTo={setDateTo} />
         </div>
         <div className="w-full">
@@ -103,18 +106,13 @@ export default function AddAssignment({ handleClose }) {
             <option value="zip">ZIP</option>
           </select>
         </div>
-        <div className="w-full">
-          <ScaleEffectMotion>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className={`${
-                isLoading ? "opacity-50 cursor-not-allowed" : ""
-              } bg-blue1 w-full p-2 rounded-md text-white font-sans font-semibold`}
-            >
-              {isLoading ? "Loading..." : "Create"}
-            </button>
-          </ScaleEffectMotion>
+        <div className="w-full flex">
+          <ButtonPure
+            text={isLoading ? "Loading..." : "Create"}
+            type="submit"
+            disabled={isLoading}
+            style={`${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+          />
         </div>
       </form>
     </div>
