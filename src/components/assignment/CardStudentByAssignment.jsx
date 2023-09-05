@@ -11,7 +11,7 @@ import { useState } from "react";
 import { downloadFileSubmitTugas, insertNilai } from "../../api/tugas";
 import { useNotification } from "../../store/strore";
 import { motion } from "framer-motion";
-import {useParams} from 'react-router-dom'
+import { useParams } from "react-router-dom";
 
 export default function CardStudentByAssignment({
   student,
@@ -23,7 +23,7 @@ export default function CardStudentByAssignment({
 }) {
   const [nilai, setNilai] = useState(0);
   const { setStatus, setStatusType, setMsgNotification } = useNotification();
-  const {idTugas} = useParams()
+  const { idTugas } = useParams();
   const style = {
     input:
       "w-2/7 py-1 flex justify-between items-center gap-2  text-sm  border-2 border-blue1 rounded-md px-2 placeholder:text-sm",
@@ -45,15 +45,9 @@ export default function CardStudentByAssignment({
     },
   });
 
-  // const handleClickFile = (file) => {
-  //   window.open(
-  //     `${
-  //       import.meta.env.VITE_SOME_ENDPOINT_API
-  //     }/file/${courseId}/${file}`,
-  //     '_blank' // Ini akan membuka URL dalam tab baru
-  //   );
-  // };
-  
+  const handleOpenNewWindow = ()=>{
+    window.open('http://localhost:5173/#/file-view/oke', 'new_window', 'width=500,height=700')
+  }
 
   return (
     <motion.div
@@ -69,12 +63,12 @@ export default function CardStudentByAssignment({
         Submit At : {date}
       </div>
       <div
-        className={`flex justify-center items-center gap-2 ${
+        className={`flex justify-center items-center flex-col gap-2 ${
           !file && "hidden"
         }`}
       >
         <ScaleEffectMotion>
-          <div className="text-white text-xs rounded-md cursor-pointer bg-blue1 px-2 py-1 w-max flex gap-2 justify-center items-center" onClick={()=>downloadFileSubmitTugas(idTugas,idUsers,file)}>
+          <div className="text-white text-xs rounded-md cursor-pointer bg-blue1 px-2 py-1 w-max flex gap-2 justify-center items-center">
             {fileExt[1] === "rar" || fileExt[0] === "zip" ? (
               <FaFileArchive />
             ) : (
@@ -94,8 +88,19 @@ export default function CardStudentByAssignment({
             <div className="w-full h-full">{file}</div>
           </div>
         </ScaleEffectMotion>
+        <div className="border-l-2 p-2 border-blue1 flex flex-col gap-2">
+          <div
+            onClick={() => downloadFileSubmitTugas(idTugas, idUsers, file)}
+            className="text-xs text-blue1 font-sans cursor-pointer hover:underline"
+          >
+            Download
+          </div>
+          <div className="text-xs text-blue1 font-sans cursor-pointer hover:underline" onClick={handleOpenNewWindow}>
+            Preview
+          </div>
+        </div>
       </div>
-      <div className={`${style.input} ${!file && "hidden"}`}>
+      <div className={`${style.input} ${!file && "hidden"} w-full`}>
         <input
           type="number"
           placeholder="Nilai"

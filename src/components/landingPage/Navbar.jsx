@@ -33,8 +33,8 @@ export default function Navbar() {
       animate={{ width: "100%",  }}
       transition={{ ease: "easeInOut", duration: 1.5 }}
       className={` ${
-        isScrolled ? "bg-blue2/60 transition-all ease-in-out backdrop-blur-md backdrop-filter text-blue1" : 'md:text-white bg-white/60 backdrop-blur-md backdrop-filter text-blue1 md:bg-transparent md:backdrop-blur-none'
-      } rounded-md   flex h-16 justify-between items-center  md:px-4 px-1 py-4 overflow-clip relative z-60`}
+        isScrolled ? "md:bg-blue2/60 bg-gradient-to-r ease-in from-blue1 to-blue2 " : 'md:text-white md:bg-transparent md:backdrop-blur-none'
+      } rounded-md  backdrop-blur-sm flex h-16 justify-between items-center  md:px-4 px-1 py-4 overflow-clip relative z-60 text-white`}
     >
       <motion.div
         initial={{ opacity: 0 }}

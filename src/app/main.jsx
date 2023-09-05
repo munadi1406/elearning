@@ -59,6 +59,7 @@ const Main = () => {
             <Route exact path="/course-work" element={<CourseWork />} />
             <Route exact path="/course/:courseId/*" element={<CourseById />} />
             <Route exact path="/profile" element={<Profile />} />
+            
           </Routes>
         </Suspense>
       </div>

@@ -29,7 +29,7 @@ const LoginRegister = () => {
     <div className="w-full min-h-screen py-2 flex justify-center items-center md:px-10 px-2">
     {/* background */}
     <div className="absolute top-0 left-0 w-full h-screen">
-      <img src={Moon} className="h-screen"/>
+      <img src={Moon} className="h-full w-full object-cover "/>
     </div>
     {/* background */}
       <div className="md:w-4/5 w-full   h-max grid lg:grid-cols-2 grid-cols-1 items-center  rounded-md overflow-hidden relative">

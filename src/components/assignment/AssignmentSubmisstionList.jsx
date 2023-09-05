@@ -39,7 +39,7 @@ const AssignmentSubmisstionList = () => {
         <option value="">Submitted</option>
         <option value="">Not Submitted</option>
       </select>
-      <div className="grid ld:grid-cols-4 md:grid-cols-2 grid-cols-1 w-full h-full overflow-y-auto">
+      <div className="grid ld:grid-cols-4 md:grid-cols-3 grid-cols-1 w-full h-full overflow-y-auto">
         {isSubmitted ? (
           <Suspense fallback={<>Loading...</>}>
             {data[0].tugassubmission.map((e, i) => (
