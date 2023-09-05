@@ -67,13 +67,13 @@ export default function FileDropZone({ onFilesAdded }) {
         })}
       >
         <input {...getInputProps()} />
-        <p className="text-blue1 px-1 font-sans text-center animate-bounce flex justify-center items-center flex-col gap-2">
+        <p className="text-blue1 px-2 font-sans text-center animate-bounce flex justify-center items-center flex-col gap-2">
           Drag and drop some files here, or click to select files
           <FaArrowAltCircleDown />
         </p>
       </div>
       <aside>
-        <h4>Files</h4>
+        <h4 className="text-blue1 text-sm font-sans border-">Files</h4>
         <ul>
           <Files />
         </ul>

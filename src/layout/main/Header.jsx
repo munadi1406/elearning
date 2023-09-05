@@ -5,7 +5,7 @@ import { BiCurrentLocation } from "react-icons/bi";
 import { SiMusicbrainz } from "react-icons/si";
 import { useEffect, useState } from "react";
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
-import AddCourse from "../../components/main/course/AddCourse";
+import AddCourse from "../../components/course/AddCourse";
 import { useDataUser } from "../../store/auth";
 import { logout } from "../../api/authRegister";
 import SplitUsername from "../../utils/SplitUsername";

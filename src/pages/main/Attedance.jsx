@@ -1,6 +1,6 @@
 import { useState } from "react";
-import CardAttedance from "../../components/main/absensi/CardAttedance";
-import ModalAttedance from "../../components/main/absensi/ModalAttedance";
+import CardAttedance from "../../components/absensi/CardAttedance";
+import ModalAttedance from "../../components/absensi/ModalAttedance";
 
 const Attedance = () => {
   const dataAttedance = [

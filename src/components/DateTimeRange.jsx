@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
-import moment from 'moment-timezone'; // Import Moment-Timezone
+import moment from "moment";
 import { useNotification } from "../store/strore";
 
 export default function DateTimeRange({ dateFrom, dateTo }) {
@@ -12,9 +12,8 @@ export default function DateTimeRange({ dateFrom, dateTo }) {
   const {setStatus,setStatusType,setMsgNotification} = useNotification();
 
   const handleFromDateChange = (date) => {
-    const newFromDate = date;
-    const desiredTimeZone = 'Asia/Makassar';
-    const utcFormat = moment.tz(date,desiredTimeZone).utc().format()
+    const newFromDate = moment(date);
+    const utcFormat = moment(newFromDate).utc().format()
     if (new Date(newFromDate) >= new Date(toDate)) {
       setStatus(true)
       setStatusType(false);
@@ -30,9 +29,8 @@ export default function DateTimeRange({ dateFrom, dateTo }) {
   };
 
   const handleToDateChange = (date) => {
-    const newToDate = date;
-    const desiredTimeZone = 'Asia/Makassar';
-    const utcFormat = moment.tz(date,desiredTimeZone).utc().format()
+    const newToDate = moment(date);
+    const utcFormat = moment(newToDate).utc().format()
     if (new Date(newToDate) <= new Date(fromDate)) {
       setStatus(true)
       setStatusType(false);
@@ -76,13 +74,13 @@ export default function DateTimeRange({ dateFrom, dateTo }) {
         <label htmlFor="from-date" className="text-sm font-semibold text-blue1 col-span-2">
           Start Date:
         </label>
-        <Datetime onChange={handleFromDateChange} value={fromDate} closeOnSelect={true} utc={false} displayTimeZone="Asia/Makassar" className="border-blue1 border-2 rounded-lg w-full col-span-4 p-1"/>
+        <Datetime onChange={handleFromDateChange} value={fromDate} closeOnSelect={true} className="border-blue1 border-2 rounded-lg w-full col-span-4 p-1" />
       </div>
       <div className="grid grid-cols-6 gap-2 items-center w-full">
         <label htmlFor="to-date" className="col-span-2 text-sm font-semibold text-blue1">
           End Date:
         </label>
-        <Datetime onChange={handleToDateChange} value={toDate} closeOnSelect={true} className="border-blue1 border-2 rounded-lg w-full col-span-4 p-1"/>
+        <Datetime onChange={handleToDateChange} value={toDate} closeOnSelect={true}  className="border-blue1 border-2 rounded-lg w-full col-span-4 p-1"/>
       </div>
       <div className="text-xs font-semibold font-sans text-blue1">Range : {dateRange}</div>
     </div>

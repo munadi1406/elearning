@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { useState, useRef, lazy, Suspense } from "react";
 import { HiOutlineSwitchHorizontal, HiSearch } from "react-icons/hi";
 import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
-import JoinCourse from "../../components/main/course/JoinCourse";
-import ListCourseAsInstructor from "../../components/main/course/ListCourseAsInstructor";
+import JoinCourse from "../../components/course/JoinCourse";
+import ListCourseAsInstructor from "../../components/course/ListCourseAsInstructor";
 const ListCourseAsMember = lazy(() =>
-  import("../../components/main/course/ListCourseAsMember")
+  import("../../components/course/ListCourseAsMember")
 );
 
 const MyCourse = () => {
@@ -32,14 +32,14 @@ const MyCourse = () => {
           <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
             <div className="flex md:justify-start justify-between items-center gap-2">
               <h1 className="lg:text-2xl md:text-lg text-xs text-blue1 font-sans font-semibold ">
-                {switchCoursesActive ? "My Courses" : "Courses"} /
+                {switchCoursesActive ? "My Courses" : "Your Courses"} /
               </h1>
               <ScaleEffectMotion>
                 <button
                   className="bg-blue2 text-white font-semibold font-sans lg:text-lg md:text-sm text-xs p-2 rounded-md flex justify-center items-center gap-2"
                   onClick={handleSwitch}
                 >
-                  Switch To {switchCoursesActive ? "Courses" : "My Courses"}
+                  Switch To {switchCoursesActive ? "Your Courses" : "My Courses"}
                   <span>
                     <HiOutlineSwitchHorizontal />
                   </span>

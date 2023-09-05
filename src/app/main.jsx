@@ -15,7 +15,6 @@ import Notification from "../components/Notification";
 const Main = () => {
   const refreshToken = sessionStorage.getItem("rt");
   const { setUsername, setIdUsers, setRole,setImage } = useDataUser();
-  const img = useDataUser((state)=>state.image)
   const navigate = useNavigate();
   useEffect(() => {
     try {
@@ -27,7 +26,7 @@ const Main = () => {
       setUsername(username);
       setIdUsers(id_users);
       setRole(role);
-      if(!img){
+      if(image){
         setImage(`${
           import.meta.env.VITE_SOME_ENDPOINT_API
         }/image/${id_users}/${image}`);

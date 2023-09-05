@@ -1,26 +1,27 @@
 import { useParams } from "react-router-dom";
 import { useState, lazy, Suspense } from "react";
-import ModalCreateAssignment from "../../../components/main/course/assignment/ModalCreateAssignment";
-const Setting = lazy(() => import("../../../components/main/course/Setting"));
-import CreateAbsensi from "../../../components/main/absensi/CreateAbsensi";
-import ModalDetailAssignment from "../../../components/main/course/assignment/ModalDetailAssignment";
-import SubmenuCourseById from "../../../components/main/course/SubmenuCourseById";
+const ModalCreatePost = lazy(() =>
+  import("../../../components/post/ModalCreatePost")
+);
+const Setting = lazy(() => import("../../../components/course/Setting"));
+const CreateAbsensi = lazy(() =>
+  import("../../../components/absensi/CreateAbsensi")
+);
+import SubmenuCourseById from "../../../components/course/SubmenuCourseById";
 import { useSubmenuActiveStore } from "../../../store/search";
 import { useQuery } from "react-query";
 import { detailCourse } from "../../../api/course";
-import BannerCourse from "../../../components/main/course/BannerCourse";
+import BannerCourse from "../../../components/course/BannerCourse";
 import SkeletonBannerCourse from "../../../components/skeleton/SkeletonBannerCourse";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
-import DetailAssignment from "../../../components/main/course/assignment/DetailAssignment";
-import AssignmentSubmisstionList from "../../../components/main/course/assignment/AssignmentSubmisstionList";
-const ListPosting = lazy(() =>
-  import("../../../components/main/course/post/ListPosting")
+const DetailPost = lazy(() => import("../../../components/post/DetailPost"));
+const AssignmentSubmisstionList = lazy(() =>
+  import("../../../components/assignment/AssignmentSubmisstionList")
 );
-const Posting = lazy(() =>
-  import("../../../components/main/course/post/Posting")
-);
-const ListMember = lazy(()=>import( "../../../components/main/course/member/ListMember"));
+const ListPosting = lazy(() => import("../../../components/post/ListPosting"));
+const Posting = lazy(() => import("../../../components/post/Posting"));
+const ListMember = lazy(() => import("../../../components/member/ListMember"));
 
 const CourseById = () => {
   const { courseId } = useParams();
@@ -54,16 +55,14 @@ const CourseById = () => {
   return (
     <>
       {isShowCreateTugas && (
-        <ModalCreateAssignment handleClose={handleIsShowCreateTugas} />
+        <Suspense>
+          <ModalCreatePost handleClose={handleIsShowCreateTugas} />
+        </Suspense>
       )}
       {isShowCreateAbsensi && (
-        <CreateAbsensi handleClose={handleIsShowCreateAbsensi} />
-      )}
-      {showTugas && (
-        <ModalDetailAssignment
-          handleClose={handleShowModalTugas}
-          type="tugas"
-        />
+        <Suspense>
+          <CreateAbsensi handleClose={handleIsShowCreateAbsensi} />
+        </Suspense>
       )}
       <div className="md:px-10 w-full">
         {isLoading && <SkeletonBannerCourse />}
@@ -74,7 +73,7 @@ const CourseById = () => {
             path="/"
             element={
               <div className="grid md:grid-cols-4 grid-cols-1 p-1 gap-2">
-                <SubmenuCourseById />
+                <SubmenuCourseById statusUser={userStatusInCourse}/>
                 <div className="md:col-span-3 px-2 flex justify-center items-center flex-col gap-2">
                   {subMenuActive === 0 && (
                     <Suspense fallback={<>Loading...</>}>
@@ -95,7 +94,7 @@ const CourseById = () => {
                   {subMenuActive === 1 && (
                     <div className="col-span-4 w-full">
                       <Suspense fallback={<>Loading...</>}>
-                        <ListMember/>
+                        <ListMember />
                       </Suspense>
                     </div>
                   )}
@@ -115,8 +114,23 @@ const CourseById = () => {
               </div>
             }
           />
-          <Route path="/post/:idPost" element={<DetailAssignment/>}/>
-          <Route path="/tugas/:idTugas" element={<AssignmentSubmisstionList/>}/>
+
+          <Route
+            path="/post/:idPost"
+            element={
+              <Suspense fallback={<>Loading...</>}>
+                <DetailPost />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/tugas/:idTugas"
+            element={
+              <Suspense fallback={<>Loading...</>}>
+                <AssignmentSubmisstionList />
+              </Suspense>
+            }
+          />
         </Routes>
       </div>
     </>

@@ -14,7 +14,7 @@ export const insertNilai = async (scoreData)=>{
 }
 
 export const cancaleSubmit = async (idTugasSubmission)=>{
-    const data = await axiosJwt.post(`${endpoint}/nilai/`,{
+    const data = await axiosJwt.post(`${endpoint}/tugas/cancelsubmit`,{
         idTugasSubmission
     })
     return data
@@ -25,9 +25,14 @@ export const tugasList = async (idPost)=>{
     return data
 }
 
-
+// ini file tugas dari course
 export const downloadFileTugas = (idCourse,fileName) =>{
     const url = `${endpoint}/file/${idCourse}/${fileName}`
     return window.open(url,'_blank');
 }
 
+// ini file dari pengumupulan member
+export const downloadFileSubmitTugas = (idTugas,idUsers,fileName) => {
+    const url = `${endpoint}/fileTugas/${idTugas}/${idUsers}/${fileName}`
+    return window.open(url,'_blank');
+};
