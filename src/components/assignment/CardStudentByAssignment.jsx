@@ -44,9 +44,9 @@ export default function CardStudentByAssignment({
       setMsgNotification(error.response.data.message);
     },
   });
-
-  const handleOpenNewWindow = ()=>{
-    window.open('http://localhost:5173/#/file-view/oke', 'new_window', 'width=500,height=700')
+  const handleOpenNewWindow = async ()=>{
+    const targetWindow  =  window.open(`#/file-view/${student}/${idTugas}`, 'new_window', 'width=500,height=700')
+    targetWindow.data = { idUsers,file };
   }
 
   return (
@@ -95,7 +95,7 @@ export default function CardStudentByAssignment({
           >
             Download
           </div>
-          <div className="text-xs text-blue1 font-sans cursor-pointer hover:underline" onClick={handleOpenNewWindow}>
+          <div className={`text-xs text-blue1 font-sans cursor-pointer hover:underline ${fileExt[1] != 'pdf' && 'hidden'}`} onClick={handleOpenNewWindow}>
             Preview
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState,Fragment } from "react";
+import { useState, Fragment } from "react";
 import InputText from "../InputText";
 import TextArea from "../TextArea";
 import ButtonPure from "../ButtonPure";
@@ -7,17 +7,18 @@ import { useMutation } from "react-query";
 import { createQuiz } from "../../api/quiz";
 import { useParams } from "react-router-dom";
 import { useNotification } from "../../store/strore";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
-export default function CreateQuiz({handleClose}) {
+export default function CreateQuiz({ handleClose }) {
   const [jumlahSoal, setJumlahSoal] = useState(0);
   const [jumlahOpsiJawaban, setJumlahOpsiJawaban] = useState(0);
   const [judul, setJudul] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
+  const [duration, setDuration] = useState(0);
   const [startQuiz, setStartQuiz] = useState("");
   const [endQuiz, setEndQuiz] = useState("");
   const { courseId } = useParams();
-  const {setStatus,setStatusType,setMsgNotification} = useNotification()
+  const { setStatus, setStatusType, setMsgNotification } = useNotification();
 
   const soalArray = Array.from({ length: jumlahSoal }, (_, index) => index);
   const opsiJawabanArray = Array.from(
@@ -68,6 +69,7 @@ export default function CreateQuiz({handleClose}) {
         idCourse: courseId,
         judul,
         deskripsi,
+        duration,
         startQuiz,
         endQuiz,
         dataQuiz: soalData,
@@ -76,15 +78,15 @@ export default function CreateQuiz({handleClose}) {
       return data;
     },
     onSuccess: (data) => {
-      setStatus(true)
-      setStatusType(true)
-      setMsgNotification(data.data.message)
-      handleClose()
+      setStatus(true);
+      setStatusType(true);
+      setMsgNotification(data.data.message);
+      handleClose();
     },
     onError: (error) => {
-      setStatus(true)
-      setStatusType(true)
-      setMsgNotification(error.response.data.message)
+      setStatus(true);
+      setStatusType(true);
+      setMsgNotification(error.response.data.message);
     },
   });
   return (
@@ -92,24 +94,35 @@ export default function CreateQuiz({handleClose}) {
       <div className="flex justify-center items-center gap-2 w-full flex-col">
         <InputText
           label={"Nama Quiz"}
+          placeholder={"Masukkan Nama Quiz"}
           required={true}
           onChange={(e) => setJudul(e.target.value)}
         />
         <TextArea
           label={"Deskripsi Quiz"}
+          placeholder={"Masukkan Deskripsi Quiz"}
           required={true}
           onChange={(e) => setDeskripsi(e.target.value)}
+        />
+        <InputText
+          type={"number"}
+          label={"Lama Pengerjaan Quiz"}
+          placeholder={"Masukkan Lama Pengerjaan Kuis Dalam Menit..."}
+          required={true}
+          onChange={(e) => setDuration(e.target.value)}
         />
         <div className="grid grid-cols-2 gap-2">
           <div className="col-span-2 w-full">
             <DateTimeRange dateFrom={setStartQuiz} dateTo={setEndQuiz} />
           </div>
           <InputText
+            placeholder={"Masukkan Jumlah Soal "}
             label={"Jumlah Soal"}
             onChange={(e) => setJumlahSoal(e.target.value)}
             required={true}
           />
           <InputText
+            placeholder={"Masukkan Jumlah Opsi Jawaban Di Setiap Soal"}
             label={"Jumlah Opsi Jawaban"}
             onChange={(e) => setJumlahOpsiJawaban(e.target.value)}
             required={true}
@@ -170,6 +183,6 @@ export default function CreateQuiz({handleClose}) {
   );
 }
 
-CreateQuiz.propTypes ={
-  handleClose:PropTypes.func.isRequired
-}
+CreateQuiz.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+};

@@ -17,7 +17,7 @@ function App() {
         <Route exact path="/login" element={<LoginRegister/>}/>
         <Route exact path="/otp" element={<Otp/>}/>
         <Route exact path="/home/*" element={<Main/>}/>
-        <Route exact path="/file-view/:fileName" element={<PdfViewer />} />
+        <Route exact path="/file-view/:student/:idTugas" element={<PdfViewer />} />
       </Routes>
      </HashRouter>
     </div>

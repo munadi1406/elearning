@@ -15,6 +15,7 @@ import BannerCourse from "../../../components/course/BannerCourse";
 import SkeletonBannerCourse from "../../../components/skeleton/SkeletonBannerCourse";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
+const TakeQuiz = lazy(()=>import( "../../../components/quiz/TakeQuiz"));
 const DetailPost = lazy(() => import("../../../components/post/DetailPost"));
 const AssignmentSubmisstionList = lazy(() =>
   import("../../../components/assignment/AssignmentSubmisstionList")
@@ -114,7 +115,6 @@ const CourseById = () => {
               </div>
             }
           />
-
           <Route
             path="/post/:idPost"
             element={
@@ -128,6 +128,14 @@ const CourseById = () => {
             element={
               <Suspense fallback={<>Loading...</>}>
                 <AssignmentSubmisstionList />
+              </Suspense>
+            }
+          />
+            <Route
+            path="/quiz/:idQuiz"
+            element={
+              <Suspense fallback={<>Loading...</>}>
+                <TakeQuiz />
               </Suspense>
             }
           />

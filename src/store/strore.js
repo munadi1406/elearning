@@ -20,3 +20,4 @@ export const useIdPost = create((set) => ({
   idPost: 0,
   setIdPost: (idP) => set({ idPost: idP }),
 }));
+
