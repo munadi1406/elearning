@@ -8,6 +8,11 @@ export const createQuiz = async(dataPayload)=>{
 }
 
 export const takeAQuiz = async(idQuiz)=>{
-    const data = await axiosJwt.get(`${endpoint}/quis/${idQuiz}`)
+    const data = await axiosJwt.get(`${endpoint}/quiz/${idQuiz}`)
+    return data
+}
+
+export const detailQuestion = async (idQuestion)=>{
+    const data = await axiosJwt.get(`${endpoint}/question/${idQuestion}`)
     return data
 }

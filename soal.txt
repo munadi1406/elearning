@@ -1,0 +1,50 @@
+[soal] Berapakah hasil dari 5 + 3?
+[jawaban] 8 [true]
+[jawaban] 7
+[jawaban] 6
+[jawaban] 9
+[soal] Hitunglah 12 - 5.
+[jawaban] 7 [true]
+[jawaban] 6
+[jawaban] 8
+[jawaban] 9
+[soal] Jika x = 20 dan y = 7, berapakah nilai dari x - y?
+[jawaban] 13 [true]
+[jawaban] 14
+[jawaban] 12
+[jawaban] 15
+[soal] Berapakah hasil dari 6 x 9?
+[jawaban] 54 [true]
+[jawaban] 45
+[jawaban] 48
+[jawaban] 63
+[soal] Jika a = 25 dan b = 4, berapakah hasil dari a / b?
+[jawaban] 6.25 [true]
+[jawaban] 5.5
+[jawaban] 6
+[jawaban] 7
+[soal] Hitunglah 15 pangkat 2.
+[jawaban] 225 [true]
+[jawaban] 210
+[jawaban] 240
+[jawaban] 250
+[soal] Berapakah hasil dari 10 - 3?
+[jawaban] 7 [true]
+[jawaban] 8
+[jawaban] 6
+[jawaban] 9
+[soal] Jika p = 16 dan q = 2, berapakah nilai dari p / q?
+[jawaban] 8 [true]
+[jawaban] 7
+[jawaban] 6
+[jawaban] 9
+[soal] Berapakah hasil dari 4 x 7?
+[jawaban] 28 [true]
+[jawaban] 24
+[jawaban] 30
+[jawaban] 35
+[soal] Jika x = 36 dan y = 4, berapakah nilai dari x / y?
+[jawaban] 9 [true]
+[jawaban] 8
+[jawaban] 10
+[jawaban] 7

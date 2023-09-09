@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState } from "react";
 import InputText from "../InputText";
 import TextArea from "../TextArea";
 import ButtonPure from "../ButtonPure";
@@ -8,6 +8,9 @@ import { createQuiz } from "../../api/quiz";
 import { useParams } from "react-router-dom";
 import { useNotification } from "../../store/strore";
 import PropTypes from "prop-types";
+import QuizFromFile from "./QuizFromFile";
+import QuizManual from "./QuizManual";
+
 
 export default function CreateQuiz({ handleClose }) {
   const [jumlahSoal, setJumlahSoal] = useState(0);
@@ -19,6 +22,7 @@ export default function CreateQuiz({ handleClose }) {
   const [endQuiz, setEndQuiz] = useState("");
   const { courseId } = useParams();
   const { setStatus, setStatusType, setMsgNotification } = useNotification();
+  const [isFromFile, setIsFromFile] = useState(false);
 
   const soalArray = Array.from({ length: jumlahSoal }, (_, index) => index);
   const opsiJawabanArray = Array.from(
@@ -89,6 +93,34 @@ export default function CreateQuiz({ handleClose }) {
       setMsgNotification(error.response.data.message);
     },
   });
+
+  const [text, setText] = useState();
+  const handleChangePdf = async (e) => {
+    const file = e.target.files[0];
+    const textt = await readFileContents(file)
+    if(textt){
+      setText(textt)
+    }
+    setIsFromFile(true)
+  }
+
+  const readFileContents = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        const fileContents = event.target.result;
+        resolve(fileContents);
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+
+      reader.readAsText(file);
+    });
+  };
+
   return (
     <form className="grid grid-cols-1 gap-2" onSubmit={mutate}>
       <div className="flex justify-center items-center gap-2 w-full flex-col">
@@ -111,66 +143,50 @@ export default function CreateQuiz({ handleClose }) {
           required={true}
           onChange={(e) => setDuration(e.target.value)}
         />
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2 w-full">
           <div className="col-span-2 w-full">
             <DateTimeRange dateFrom={setStartQuiz} dateTo={setEndQuiz} />
           </div>
-          <InputText
-            placeholder={"Masukkan Jumlah Soal "}
-            label={"Jumlah Soal"}
-            onChange={(e) => setJumlahSoal(e.target.value)}
-            required={true}
-          />
-          <InputText
-            placeholder={"Masukkan Jumlah Opsi Jawaban Di Setiap Soal"}
-            label={"Jumlah Opsi Jawaban"}
-            onChange={(e) => setJumlahOpsiJawaban(e.target.value)}
-            required={true}
-          />
-        </div>
-      </div>
-      {soalArray.map((e) => (
-        <Fragment key={e}>
-          <TextArea
-            label={`Soal Ke ${e + 1}`}
-            key={e}
-            row={3}
-            name={`soal-${e}`}
-            onChange={handleInputChange}
-            required={true}
-          />
-          {opsiJawabanArray.map((jawabanI) => (
-            <div
-              className="grid grid-cols-6 w-full border-l-2 border-blue1"
-              key={jawabanI}
-            >
-              <div className="col-span-1 flex flex-col justify-center items-center">
-                <label
-                  htmlFor={`jawaban${e}`}
-                  className="text-xs text-blue1 text-center p-1"
-                >
-                  Click Jika Ini Jawaban Yang Benar
-                </label>
-                <input
-                  type="radio"
-                  name={`isTrue${e}`}
-                  id={`jawabanId${jawabanI}`}
-                  value={true}
-                  onChange={handleInputChange}
-                  required={true}
-                />
-              </div>
-              <TextArea
-                wrapperStyle={"col-span-5"}
-                label={`Jawaban Ke ${jawabanI + 1}`}
-                name={`jawaban${jawabanI}-${e}`}
-                onChange={handleInputChange}
+          <div className="w-full text-xs col-span-2 text-blue1">
+            <div>Jika Soal Quiz Anda Relatif Banyak, Anda Bisa Membuat Nya Dari Sebuah File Dengan Format .txt</div>
+            <div>Silahkan Baca Dokumentasi Terlebih Dahulu Untuk Menggunakan Opsi Soal Dari File .text <span className="font-semibold cursor-pointer underline">Klik Disini</span></div>
+            <div className="flex gap-2">
+              <span onClick={() => setIsFromFile(!isFromFile)} className="cursor-pointer font-semibold underline">
+                Klik Disini
+              </span>
+              <div className="font-semibold">
+                {isFromFile ? 'Jika Anda Ingin Membuat Soal Langsung Dari Sini' : 'Jika Anda Ingin Membuat Soal Dari File .txt'}</div>
+            </div>
+          </div>
+          {!isFromFile ? (
+            <>
+              <InputText
+                placeholder={"Masukkan Jumlah Soal "}
+                label={"Jumlah Soal"}
+                value={jumlahSoal}
+                onChange={(e) => setJumlahSoal(e.target.value)}
                 required={true}
               />
+              <InputText
+                placeholder={"Masukkan Jumlah Opsi Jawaban Di Setiap Soal"}
+                label={"Jumlah Opsi Jawaban"}
+                value={jumlahOpsiJawaban}
+                onChange={(e) => setJumlahOpsiJawaban(e.target.value)}
+                required={true}
+              />
+            </>
+          ) : (
+            <div className="col-span-2">
+              <InputText label={"File Pdf"} accept=".txt" type={"file"} onChange={handleChangePdf} style={"col-span-2"} />
             </div>
-          ))}
-        </Fragment>
-      ))}
+          )}
+        </div>
+      </div>
+      {!isFromFile ? (
+        <QuizManual opsiJawabanArray={opsiJawabanArray} handleInputChange={handleInputChange} soalArray={soalArray} />
+      ) : (
+        <QuizFromFile handleInputChange={handleInputChange} text={text} setSoalData={setSoalData} />
+      )}
       {/* <div>{handleCreate()}</div> */}
       <div className="flex w-full">
         <ButtonPure

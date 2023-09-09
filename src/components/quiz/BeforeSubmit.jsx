@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import ButtonPure from "../ButtonPure";
 import { useNavigate } from "react-router-dom";
-
+import React from "react";
 export default function BeforeSubmit({ judul, kuis, users }) {
   const navigate = useNavigate()
   const handleTakeQuiz = (idQuiz)=>{
@@ -13,9 +13,8 @@ export default function BeforeSubmit({ judul, kuis, users }) {
         {judul} - {users.username}
       </h1>
       {kuis.map((e, i) => (
-        <div key={i}>
+        <React.Fragment key={i}>
           <div
-            
             className="flex flex-col gap-3 justify-center items-center"
           >
             <h3 className="text-blue1 font-semibold text-xs font-sans bg-cream1 rounded-full px-3 py-1 w-max">
@@ -29,7 +28,7 @@ export default function BeforeSubmit({ judul, kuis, users }) {
           <div className="flex">
             <ButtonPure text={"Kerjakan Sekarang"} onClick={()=>handleTakeQuiz(e.id_quiz)}/>
           </div>
-        </div>
+        </React.Fragment>
       ))}
     </div>
   );

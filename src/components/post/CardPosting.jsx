@@ -7,7 +7,7 @@ import { useState } from "react";
 import ModalDeletePost from "./ModalDeletePost";
 import { useNavigate } from "react-router-dom";
 import splitJudul from "../../utils/splitJudul";
-import TextTruncate from '../../utils/TextTruncate'
+import TextTruncate from "../../utils/TextTruncate";
 
 const CardPosting = ({
   id_post,
@@ -49,9 +49,16 @@ const CardPosting = ({
           {typePost}
         </div>
         <div className="text-sm mt-3 text-blue1 ">
-        {typePost === "Kuis" && (kuis[0].deskripsi)}
-        <TextTruncate text={`${pengumuman[0] ? pengumuman[0].konten : deskripsi}`} maxWords={100}/>
-          {/* {pengumuman[0] ? pengumuman[0].konten : deskripsi} */}
+          {typePost === "Kuis" && kuis[0].deskripsi}
+          { typePost === 'Tugas' && (
+            <TextTruncate
+              text={`${deskripsi}`}
+              maxWords={100}
+            />
+          )}
+          {typePost === 'Pengumuman' && 
+          <div dangerouslySetInnerHTML={{ __html: pengumuman[0].konten }} />
+          }
         </div>
         {statusUser === "instruktur" && (
           <div className="flex gap-2">
@@ -82,6 +89,6 @@ CardPosting.propTypes = {
   deskripsi: PropTypes.string,
   statusUser: PropTypes.string.isRequired,
   typePost: PropTypes.string.isRequired,
-  kuis:PropTypes.array
+  kuis: PropTypes.array,
 };
 export default WithMotionWhileView(CardPosting);
