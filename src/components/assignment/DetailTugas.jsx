@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { downloadFileTugas } from "../../api/tugas";
 import { useParams } from "react-router-dom";
-import TextTruncate from '../../utils/TextTruncate'
+import RenderHtml from "../../utils/RenderHtml";
 
 export default function DetailTugas({
   deskripsi,
@@ -45,7 +45,7 @@ export default function DetailTugas({
           Deskripsi
         </div>
         <div className="col-span-4">
-          <div className="text-sm font-sans text-blue1 flex gap-1">: <TextTruncate text={deskripsi} maxWords={100}/></div>
+          <div className="text-sm font-sans text-blue1 flex gap-1">: <RenderHtml text={deskripsi} /></div>
         </div>
       </div>
     </>

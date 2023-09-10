@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import RenderHtml from "../../utils/RenderHtml";
 
 
 export default function DetailPengumuman({ pengumuman }) {
@@ -6,7 +7,7 @@ export default function DetailPengumuman({ pengumuman }) {
     <div>
     {pengumuman.map((e,i)=>(
       <div className="text-base font-sans text-blue1" key={i}>
-        {e.konten}
+      <RenderHtml text={e.konten} />
       </div>
     ))}
     </div>

@@ -12,7 +12,7 @@ const ModalCreatePengumuman = ({ handleClose ,setPengumuman,mutate,isLoading}) =
       <form className="md:w-[500px] w-[90vw]">
       <div className="text-blue1 font-semibold text-md w-full">Pengumuman</div>
         <Suspense fallback={<>Loading...</>}>
-          <TextEditor setPengumuman={setPengumuman}/>
+          <TextEditor setValueData={setPengumuman} title={"Ada Pengumuman Apa Nih ?"}/>
         </Suspense>
         <div className="flex gap-2 w-full justify-center items-center">
           <ButtonPure text={`${isLoading ? 'Loading...':'Post'}`} type={"submit"} onClick={mutate} disabled={isLoading} style={`${isLoading && 'cursor-not-allowed opacity-80'}`}/>

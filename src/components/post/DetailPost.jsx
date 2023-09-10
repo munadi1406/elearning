@@ -47,6 +47,7 @@ export default function DetailPost() {
   const isCancelSubmit = useMutation({
     mutationFn: async (idTugasSubmission) => {
       const data = await cancaleSubmit(idTugasSubmission);
+      
       return data;
     },
     onSuccess: (data) => {
@@ -78,7 +79,7 @@ export default function DetailPost() {
               <>
                 <div>{splitJudul(data.judul)}</div>
                 <div>-</div>
-                <div>{data.username}</div>
+                <div>{data.typePost === 'Tugas' ? data.username: data.users.username}</div>
               </>
             )}
           </div>

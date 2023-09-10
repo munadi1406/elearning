@@ -10,7 +10,7 @@ import ScaleEffectMotion from '../../utils/ScaleEffectMotion';
 import { motion } from 'framer-motion';
 import splitJudul from '../../utils/splitJudul';
 
-const CardCourseWork = ({ id_course,course, fromDate,judul, toDate, username, deskripsi }) => {
+const CardCourseWork = ({ id_course,course, fromDate,judul, toDate, username, deskripsi,id_post }) => {
     const [commentIsOpen, setCommentIsOpen] = useState(false);
     const handleComment = () => {
         setCommentIsOpen(!commentIsOpen)
@@ -19,9 +19,9 @@ const CardCourseWork = ({ id_course,course, fromDate,judul, toDate, username, de
         <div className='w-full border-b-2 border-blue1 p-2 flex justify-center items-start flex-col gap-3'>
             <div className='grid md:grid-cols-2 grid-cols-1 w-full'>
                 <div className='flex justify-center items-start flex-col gap-2'>
-                    <Link to={`../course/${id_course}`} className='text-lg hover:underline text-blue1 font-sans font-medium'>{course} - {username}</Link>
+                    <Link to={`../course/${id_course}/post/${id_post}`} className='text-lg hover:underline text-blue1 font-sans font-medium'>{course} - {username}</Link>
                 </div>
-                <div className='flex justify-end items-center gap-2'>
+                <div className='flex justify-end items-center space-x-2 space-y-2'>
                     <div className='bg-blue1 rounded-md px-2 py-1 text-white  text-xs flex justify-center items-center'>{new Date(fromDate).toLocaleString()}</div>
                     <div>-</div>
                     <div className='bg-blue1 rounded-md px-2 py-1 text-white  text-xs flex justify-center items-center'>{new Date(toDate).toLocaleString()}</div>
@@ -29,13 +29,13 @@ const CardCourseWork = ({ id_course,course, fromDate,judul, toDate, username, de
             </div>
             <div className='text-white bg-gradient-to-r from-blue1 to-cream1 w-max text-xs px-2 py-1 rounded-full font-sans font-semibold '>{splitJudul(judul)}</div>
             <div className='text-blue1 text-sm w-full font-sans ml-3 border-l-2 border-blue1 p-2'>{deskripsi}</div>
-            <div className='flex justify-start items-center gap-2'>
+            <div className='flex justify-start items-center space-x-1'>
                 <ScaleEffectMotion>
                     <div className='bg-blue1 p-2 rounded-md cursor-pointer' onClick={handleComment}>
                         <FaComment className='text-white' />
                     </div>
                 </ScaleEffectMotion>
-                <Button text='Open' color={'bg-blue1'} to={`../course/${2}`} />
+                <Button text='Open' color={'bg-blue1'} to={`../course/${id_course}/post/${id_post}`} />
             </div>
             
             <motion.div initial={{height:0}}  animate={commentIsOpen && {height:"max-content"}} exit={{height:0}} className={`${commentIsOpen ? 'block' : 'hidden'} px-5 bg-blue1 rounded-md w-full`}>
@@ -59,6 +59,7 @@ const CardCourseWork = ({ id_course,course, fromDate,judul, toDate, username, de
 CardCourseWork.propTypes = {
     course: PropTypes.string.isRequired,
     id_course: PropTypes.number.isRequired,
+    id_post: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
     judul: PropTypes.string.isRequired,
     fromDate: PropTypes.string.isRequired,

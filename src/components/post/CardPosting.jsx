@@ -31,6 +31,12 @@ const CardPosting = ({
     navigate(`tugas/${tugas[0].id_tugas}`);
   };
 
+  function removeHtml(input) {
+    const withoutTags = input.replace(/<[^>]*>/g, " ");
+    const cleanedText = withoutTags.replace(/\s+/g, " ").trim();
+    return cleanedText;
+  }
+
   return (
     <>
       {isDelete && (
@@ -48,20 +54,22 @@ const CardPosting = ({
         <div className="text-xs text-white font-sans bg-blue2 font-semibold px-3 py-1 rounded-full w-max">
           {typePost}
         </div>
-        <div className="text-sm mt-3 text-blue1 ">
+        <div className="text-sm mt-3 text-blue1 break-words">
           {typePost === "Kuis" && kuis[0].deskripsi}
-          { typePost === 'Tugas' && (
+          {typePost === "Tugas" && (
+            <TextTruncate text={removeHtml(deskripsi)} maxWords={50} />
+          )}
+          {typePost === "Pengumuman" && (
             <TextTruncate
-              text={`${deskripsi}`}
-              maxWords={100}
+              text={removeHtml(
+                pengumuman[0].konten ? pengumuman[0].konten : ""
+              )}
+              maxWords={50}
             />
           )}
-          {typePost === 'Pengumuman' && 
-          <div dangerouslySetInnerHTML={{ __html: pengumuman[0].konten }} />
-          }
         </div>
         {statusUser === "instruktur" && (
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <ButtonPure text={"Edit"} />
             {typePost === "Tugas" && (
               <ButtonPure
