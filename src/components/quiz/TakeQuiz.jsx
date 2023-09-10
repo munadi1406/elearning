@@ -116,16 +116,16 @@ export default function TakeQuiz() {
           </div>
         ))}
       </div>
-      <motion.div
+     {window.innerWidth < 600 &&  <motion.div
         animate={onClick?{width:"300px",height:"auto",borderRadius:"10px"}:{width:"50px",height:"50px",borderRadius:"50%"}}
         drag
         dragConstraints={constraintsRef}
-        className="bg-blue1/80 flex justify-center items-center absolute overflow-clip md:hidden "
+        className="bg-blue1/80 flex justify-center items-center absolute overflow-clip  "
         
       >
       {onClick ? (
         <div className="w-full grid grid-cols-3 p-2 ">
-        <div className="text-white text-xs border-2 flex-grow col-span-full p-2 rounded-md bg-blue1/50 font-semibold text-center" onClick={()=>setOnClick(!onClick)}>Close</div>
+        <div className="text-white text-xs border-2 flex-grow col-span-full cursor-pointer p-2 rounded-md bg-blue1/50 font-semibold text-center" onClick={()=>setOnClick(!onClick)}>Close</div>
         {data.kuis[0].question.map((e, i) => (
           <div
             key={i}
@@ -141,12 +141,12 @@ export default function TakeQuiz() {
         ))}
         </div>
       ):(
-      <div className="w-full text-2xl text-white flex justify-center items-center" onClick={()=>setOnClick(!onClick)}>
+      <div className="w-full text-2xl text-white flex justify-center items-center cursor-pointer" onClick={()=>setOnClick(!onClick)}>
         <BiMenu/>
       </div>
       )}
       </motion.div>
-
+}
       <div className="md:w-8/12 w-full border-2 rounded-md p-2">
         <div>
           {question.isLoading ? (
