@@ -1,6 +1,6 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { detailQuestion, takeAQuiz } from "../../api/quiz";
+import { addAnswer, detailQuestion, takeAQuiz } from "../../api/quiz";
 import { useState } from "react";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
@@ -32,7 +32,7 @@ export default function TakeQuiz() {
         const data = await detailQuestion(questionId);
         return data.data.data;
       },
-      staleTime: Infinity,
+      staleTime: 50000,
       enabled: !!questionId, // Enable the query when questionId is truthy
     }
   );
@@ -63,6 +63,12 @@ export default function TakeQuiz() {
   // Mengonversi waktu ke format menit dan detik
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
+  const handleChangeAnswer = useMutation({mutationFn:async(datas)=>{
+    const data = await addAnswer(datas)
+    return data
+  },onSuccess:(data)=>{
+    console.log(data)
+  },})
 
   if (isLoading) {
     return <>Memuat Soal...</>;
@@ -97,7 +103,7 @@ export default function TakeQuiz() {
     "z",
   ];
   return (
-    <motion.div ref={constraintsRef} className="flex p-2 gap-2 flex-wrap relative">
+    <motion.div ref={constraintsRef} className="flex justify-start  items-start w-full p-2 gap-2 flex-wrap relative">
       <div className="w-full bg-blue1 p-1 rounded-md text-white text-center capitalize">
         time Left {`${minutes}:${seconds}`}
       </div>
@@ -116,11 +122,11 @@ export default function TakeQuiz() {
           </div>
         ))}
       </div>
-     {window.innerWidth < 600 &&  <motion.div
+     {window.innerWidth < 500 &&  <motion.div
         animate={onClick?{width:"300px",height:"auto",borderRadius:"10px"}:{width:"50px",height:"50px",borderRadius:"50%"}}
         drag
         dragConstraints={constraintsRef}
-        className="bg-blue1/80 flex justify-center items-center absolute overflow-clip  "
+        className="bg-blue1/80 flex justify-center items-center absolute overflow-clip z-50 "
         
       >
       {onClick ? (
@@ -147,7 +153,7 @@ export default function TakeQuiz() {
       )}
       </motion.div>
 }
-      <div className="md:w-8/12 w-full border-2 rounded-md p-2">
+      <div className="flex-grow border-2 rounded-md p-2 h-max">
         <div>
           {question.isLoading ? (
             <>Memuat Soal...</>
@@ -161,7 +167,14 @@ export default function TakeQuiz() {
                       key={e.id_answer_option}
                       type="radio"
                       id={e.id_answer_option}
+                      value={e.id_answer_option}
                       name={`question_${question.data.id_question}`}
+                      defaultChecked={question.data.answer && question.data.answer[0]?.id_answer_option === e.id_answer_option ? true : false}
+                      onChange={()=> handleChangeAnswer.mutate({
+                        id_quiz:idQuiz,
+                        id_question:questionId,
+                        id_answer_option:e.id_answer_option,
+                      })}
                     />
                   </div>
                   <label className="capitalize" htmlFor={e.id_answer_option}>
@@ -171,6 +184,7 @@ export default function TakeQuiz() {
               ))}
             </>
           )}
+                
         </div>
       </div>
     </motion.div>

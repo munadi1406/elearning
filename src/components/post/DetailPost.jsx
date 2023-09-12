@@ -73,7 +73,7 @@ export default function DetailPost() {
   return (
     <>
       <div className={`flex lg:flex-row flex-col w-full gap-2 p-2  `}>
-        <div className="flex  lg:w-4/6 w-full justify-center h-max items-start flex-col gap-2  ">
+        <div className={`flex ${data.typePost !== "Tugas" && 'col-span-full'} lg:w-4/6 w-full justify-center h-max items-start flex-col gap-2  `}>
           <div className="flex gap-2 text-blue1 font-semibold text-lg font-sans">
             {data.typePost !== "Kuis" && (
               <>
