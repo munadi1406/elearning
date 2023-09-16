@@ -16,6 +16,7 @@ export default function QuizFromFile({ handleInputChange, setSoalData, text }) {
   );
 
   const formatedSoal = async () => {
+    if(!text) return 
     const blocks = text.split("[soal]");
     if(blocks.length <= 1){
         setStatus(true)
@@ -79,6 +80,7 @@ export default function QuizFromFile({ handleInputChange, setSoalData, text }) {
 
   useEffect(() => {
     formatedSoal();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   return (
@@ -134,5 +136,5 @@ export default function QuizFromFile({ handleInputChange, setSoalData, text }) {
 QuizFromFile.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   setSoalData: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
 };

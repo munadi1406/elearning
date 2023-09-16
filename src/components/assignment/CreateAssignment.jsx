@@ -77,7 +77,7 @@ export default function CreateAssignment({ handleClose }) {
           </label>
           <TextEditor
             setValueData={setDeskripsi}
-            pleaceholder={"Ada Tugas Apa Nih ?"}
+            placeholder={"Ada Tugas Apa Nih ?"}
           />
         </div>
         <div className="w-full flex justify-center items-start flex-col gap-2">

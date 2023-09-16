@@ -1,0 +1,207 @@
+[soal] Apa yang dimaksud dengan "Object-Oriented Programming" (OOP) dalam pemrograman?
+[jawaban] Sebuah paradigma pemrograman yang berfokus pada objek-objek yang memiliki atribut dan metode. [true]
+[jawaban] Sebuah metode pemrograman untuk menghindari pengulangan kode.
+[jawaban] Sebuah pendekatan pemrograman yang hanya menggunakan fungsi-fungsi.
+[jawaban] Sebuah pendekatan pemrograman yang mengabaikan objek. 
+
+[soal] Apa itu "Abstraction" (abstraksi) dalam OOP?
+[jawaban] Proses mengubah data menjadi tipe data yang berbeda.
+[jawaban] Proses menyembunyikan rincian implementasi dan hanya menampilkan fungsionalitas yang relevan. [true]
+[jawaban] Proses menggabungkan dua objek menjadi satu.
+[jawaban] Proses mengelompokkan objek dalam hierarki.
+
+[soal] Apa yang dimaksud dengan "Encapsulation" (enkapsulasi) dalam OOP?
+[jawaban] Proses mengelompokkan objek dalam hierarki.
+[jawaban] Proses mengubah data menjadi tipe data yang berbeda.
+[jawaban] Proses menyembunyikan rincian implementasi dan hanya menampilkan fungsionalitas yang relevan. [true]
+[jawaban] Proses menggabungkan dua objek menjadi satu.
+
+[soal] Apa perbedaan antara "Static Binding" dan "Dynamic Binding" dalam OOP?
+[jawaban] Static Binding adalah proses menentukan tipe objek pada waktu kompilasi, sementara Dynamic Binding adalah proses menentukan tipe objek pada waktu runtime. [true]
+[jawaban] Static Binding adalah proses menentukan tipe objek pada waktu runtime, sementara Dynamic Binding adalah proses menentukan tipe objek pada waktu kompilasi.
+[jawaban] Static Binding dan Dynamic Binding adalah konsep yang sama dalam OOP.
+[jawaban] Static Binding dan Dynamic Binding tidak ada dalam OOP.
+
+[soal] Apa yang dimaksud dengan "Polymorphism" (polimorfisme) dalam OOP?
+[jawaban] Kemampuan untuk mengubah tipe data.
+[jawaban] Kemampuan untuk mengubah nilai variabel.
+[jawaban] Kemampuan untuk menghindari pengulangan kode.
+[jawaban] Kemampuan objek dari kelas yang berbeda untuk merespons metode dengan nama yang sama. [true]
+
+
+[soal] Apa yang dimaksud dengan "Operator Overloading" dalam OOP?
+[jawaban] Proses mengubah operator menjadi metode dalam kelas.
+[jawaban] Proses mengganti operator dengan tanda kurung.
+[jawaban] Proses mengganti operator dengan komentar.
+[jawaban] Proses memberikan makna yang berbeda kepada operator tergantung pada jenis operand yang digunakan. [true]
+
+[soal] Apa itu "Inheritance" (pewarisan) dalam OOP?
+[jawaban] Proses menambahkan metode ke dalam kelas.
+[jawaban] Proses menggabungkan dua kelas menjadi satu.
+[jawaban] Proses menggandakan objek dari kelas yang sudah ada.
+[jawaban] Proses mewariskan atribut dan metode dari kelas yang sudah ada ke kelas baru. [true]
+
+[soal] Apa yang dimaksud dengan "Abstract Class" dalam OOP?
+[jawaban] Sebuah kelas yang tidak dapat diinstansiasi dan hanya berfungsi sebagai dasar untuk kelas-kelas turunannya. [true]
+[jawaban] Sebuah kelas yang hanya berisi metode-metode abstrak.
+[jawaban] Sebuah kelas yang hanya berisi metode-metode statis.
+[jawaban] Sebuah kelas yang hanya berisi atribut tanpa metode.
+
+[soal] Apa itu "Interface" dalam OOP?
+[jawaban] Sebuah kelas yang tidak dapat diinstansiasi dan hanya berfungsi sebagai dasar untuk kelas-kelas turunannya.
+[jawaban] Sebuah kelas yang hanya berisi metode-metode abstrak.
+[jawaban] Sebuah kelas yang hanya berisi metode-metode statis.
+[jawaban] Sebuah kontrak yang mendefinisikan metode-metode yang harus diimplementasikan oleh kelas-kelas lain. [true]
+
+
+[soal] Bagaimana Anda menghindari "Diamond Problem" dalam multiple inheritance?
+[jawaban] Dengan menghindari penggunaan multiple inheritance sepenuhnya.
+[jawaban] Dengan menggunakan multiple inheritance hanya pada satu tingkat kelas.
+[jawaban] Dengan menggunakan mekanisme seperti virtual inheritance untuk mengatasi konflik yang timbul. [true]
+[jawaban] Diamond Problem tidak ada dalam pemrograman berorientasi objek.
+
+[soal] Apa yang dimaksud dengan "Garbage Collection" dalam pemrograman?
+[jawaban] Proses membersihkan sampah di lingkungan yang ramah lingkungan.
+[jawaban] Proses mengganti kode lama dengan kode yang lebih baru.
+[jawaban] Proses menghitung jumlah objek yang digunakan dalam program.
+[jawaban] Proses otomatis mengidentifikasi dan menghapus objek yang tidak lagi digunakan oleh program untuk menghindari kebocoran memori. [true]
+
+[soal] Apa itu "Singleton Pattern" dalam desain perangkat lunak?
+[jawaban] Pola desain yang menerapkan banyak objek dalam satu kelas.
+[jawaban] Pola desain yang menghindari penggunaan objek dalam program.
+[jawaban] Pola desain yang membatasi pembuatan objek dari kelas tertentu menjadi hanya satu instance. [true]
+[jawaban] Pola desain yang memaksa setiap objek dalam program untuk menjadi unik.
+
+[soal] Apa yang dimaksud dengan "Design Patterns" dalam pemrograman berorientasi objek?
+[jawaban] Solusi unik untuk masalah yang hanya muncul sekali.
+[jawaban] Konsep abstrak yang tidak terkait dengan pemrograman.
+[jawaban] Solusi umum untuk masalah yang sering muncul dalam pengembangan perangkat lunak. [true]
+[jawaban] Pola yang hanya digunakan dalam pemrograman web.
+
+
+[soal] Apa itu "Dependency Injection" dalam pemrograman berorientasi objek?
+[jawaban] Proses menggantikan semua variabel dalam program dengan variabel yang lebih besar.
+[jawaban] Proses memindahkan semua dependensi ke dalam sebuah kelas.
+[jawaban] Proses menghindari penggunaan objek dalam program.
+[jawaban] Proses memberikan objek yang dibutuhkan oleh sebuah kelas melalui konstruktor atau metode. [true]
+
+[soal] Apa yang dimaksud dengan "Big O notation" dalam analisis kinerja algoritma?
+[jawaban] Sebuah notasi yang digunakan untuk mengevaluasi ukuran memori.
+[jawaban] Sebuah notasi yang digunakan untuk menilai kualitas kode.
+[jawaban] Sebuah notasi yang digunakan untuk mengukur waktu eksekusi sebuah algoritma terhadap ukuran masukannya. [true]
+[jawaban] Sebuah notasi yang hanya digunakan dalam pemrograman berbasis teks.
+
+[soal] Apa yang dimaksud dengan "Recursion" (rekursi) dalam pemrograman?
+[jawaban] Sebuah metode untuk mengganti perulangan (loop) dalam kode.
+[jawaban] Sebuah pendekatan untuk menghindari penggunaan fungsi.
+[jawaban] Sebuah proses di mana sebuah fungsi memanggil dirinya sendiri untuk menyelesaikan tugas. [true]
+[jawaban] Sebuah proses yang melibatkan dua atau lebih fungsi dalam sebuah program.
+
+[soal] Apa yang dimaksud dengan "Functional Programming" (pemrograman fungsional)?
+[jawaban] Sebuah paradigma pemrograman yang berfokus pada objek-objek.
+[jawaban] Sebuah paradigma pemrograman yang berfokus pada fungsi-fungsi dan menghindari perubahan data.
+[jawaban] Sebuah paradigma pemrograman yang menggantikan perulangan dengan fungsi-fungsi.
+[jawaban] Sebuah paradigma pemrograman yang hanya menggunakan loop. [true]
+
+
+[soal] Apa yang dimaksud dengan "Concurrency" dalam pemrograman?
+[jawaban] Proses menggabungkan dua program menjadi satu.
+[jawaban] Proses menghindari penggunaan objek dalam program.
+[jawaban] Proses menjalankan dua atau lebih tugas secara bersamaan tanpa harus menunggu satu tugas selesai sebelum tugas lainnya dimulai. [true]
+[jawaban] Proses mengubah kode sumber menjadi bahasa mesin.
+
+[soal] Apa yang dimaksud dengan "Race Condition" dalam pemrograman konkurensi?
+[jawaban] Proses menjalankan dua atau lebih tugas secara bersamaan tanpa harus menunggu satu tugas selesai sebelum tugas lainnya dimulai.
+[jawaban] Proses menggabungkan dua program menjadi satu.
+[jawaban] Proses menghindari penggunaan objek dalam program.
+[jawaban] Situasi di mana hasil dari sebuah program bergantung pada urutan atau kecepatan eksekusi tugas-tugas konkuren. [true]
+
+[soal] Apa yang dimaksud dengan "Caching" dalam konteks pengembangan web?
+[jawaban] Proses menggantikan data dalam memori dengan data yang lebih lama.
+[jawaban] Proses mengganti data dengan kode baru.
+[jawaban] Proses menghindari penggunaan data dalam program.
+[jawaban] Proses menyimpan data yang sering diakses dalam memori atau penyimpanan cepat untuk mengurangi waktu akses data. [true]
+
+[soal] Apa yang dimaksud dengan "Closure" dalam JavaScript?
+[jawaban] Sebuah fungsi yang tidak memiliki akses ke variabel-variabel di luar cakupannya, kecuali jika variabel-variabel tersebut dideklarasikan sebagai variabel global. [true]
+[jawaban] Sebuah fungsi yang selalu mengembalikan nilai boolean.
+[jawaban] Sebuah metode untuk mengubah tipe data dalam JavaScript.
+[jawaban] Sebuah tipe data yang digunakan untuk menyimpan daftar nilai.
+
+[soal] Apa itu "Hoisting" dalam JavaScript?
+[jawaban] Proses mengangkat (membawa) deklarasi variabel dan fungsi ke atas cakupan (scope) fungsinya. [true]
+[jawaban] Proses mengubah kode JavaScript menjadi kode mesin.
+[jawaban] Proses mengganti variabel dengan nilai default.
+[jawaban] Sebuah cara untuk menambahkan animasi pada halaman web.
+
+[soal] Apa yang dimaksud dengan "Event Bubbling" dalam JavaScript?
+[jawaban] Sebuah proses di mana event di elemen terdalam (anak) terlebih dahulu diproses, kemudian event di elemen terluar (induk) diproses. [true]
+[jawaban] Sebuah teknik untuk menggabungkan dua atau lebih objek menjadi satu.
+[jawaban] Sebuah teknik untuk menggabungkan dua atau lebih fungsi menjadi satu.
+[jawaban] Sebuah cara untuk menggabungkan HTML dan CSS.
+
+[soal] Apa yang dimaksud dengan "Callback Hell" dalam JavaScript?
+[jawaban] Sebuah situasi di mana terdapat banyak callback nested (bertingkat) dalam kode, sehingga sulit untuk dibaca dan dipahami. [true]
+[jawaban] Sebuah teknik untuk menggabungkan dua atau lebih fungsi menjadi satu.
+[jawaban] Sebuah cara untuk mengganti variabel dengan nilai default.
+[jawaban] Sebuah metode untuk mengganti operator dengan tanda kurung.
+
+[soal] Apa itu "Promise" dalam JavaScript?
+[jawaban] Sebuah objek yang digunakan untuk melakukan tindakan asinkron dan mengelola responsnya. [true]
+[jawaban] Sebuah tipe data untuk menggantikan variabel biasa.
+[jawaban] Sebuah metode untuk menunda eksekusi kode.
+[jawaban] Sebuah tipe data yang digunakan untuk menyimpan daftar nilai.
+
+[soal] Apa yang dimaksud dengan "Arrow Function" dalam JavaScript?
+[jawaban] Sebuah fungsi anonim yang singkat ditulis dengan menggunakan sintaksis panah (=>) dan tidak memiliki konteks this sendiri. [true]
+[jawaban] Sebuah teknik untuk menghindari penggunaan fungsi.
+[jawaban] Sebuah metode untuk mengganti operator dengan tanda kurung.
+[jawaban] Sebuah cara untuk menambahkan animasi pada halaman web.
+
+[soal] Bagaimana Anda mendeklarasikan variabel dalam JavaScript menggunakan "let"?
+[jawaban] Dengan menggunakan kata kunci "let" diikuti oleh nama variabel yang ingin Anda deklarasikan. Contoh: let namaVariabel; [true]
+[jawaban] Dengan menggunakan kata kunci "const" diikuti oleh nama variabel yang ingin Anda deklarasikan. Contoh: const namaVariabel;
+[jawaban] Dengan menggunakan kata kunci "var" diikuti oleh nama variabel yang ingin Anda deklarasikan. Contoh: var namaVariabel;
+[jawaban] Dengan menambahkan tanda kurung di awal variabel. Contoh: (namaVariabel);
+
+[soal] Apa yang dimaksud dengan "Destructuring Assignment" dalam JavaScript?
+[jawaban] Sebuah metode untuk mengekstrak nilai dari objek atau array dan menginisialisasi variabel dengan nilai-nilai tersebut. [true]
+[jawaban] Sebuah teknik untuk menghancurkan objek dalam bahasa pemrograman JavaScript.
+[jawaban] Sebuah metode untuk memberikan nilai default pada parameter fungsi.
+[jawaban] Sebuah metode untuk menghapus variabel dalam lingkup tertentu.
+
+[soal] Apa itu "Async/Await" dalam JavaScript?
+[jawaban] Sebuah fitur dalam JavaScript yang digunakan untuk menangani operasi asinkron dengan cara yang lebih bersih dan mudah dibaca dengan menggunakan kata kunci "async" dan "await". [true]
+[jawaban] Sebuah teknik untuk menggabungkan dua atau lebih fungsi menjadi satu.
+[jawaban] Sebuah teknik untuk membuat animasi halaman web.
+[jawaban] Sebuah cara untuk mengganti variabel dengan nilai default.
+
+[soal] Apa yang dimaksud dengan "DOM" dalam JavaScript?
+[jawaban] Sebuah teknik untuk menggabungkan dua atau lebih variabel. 
+[jawaban] Representasi struktur halaman web yang dapat diakses dan dimanipulasi menggunakan JavaScript. [true]
+[jawaban] Sebuah metode untuk mengganti tipe data dalam JavaScript. 
+[jawaban] Sebuah cara untuk mengubah jenis font pada teks HTML. 
+
+[soal] Apa perbedaan antara "null" dan "undefined" dalam JavaScript?
+[jawaban] Tidak ada perbedaan, keduanya dapat digunakan secara bergantian. 
+[jawaban] "null" adalah nilai yang sengaja diberikan untuk menunjukkan bahwa sebuah variabel tidak memiliki nilai atau objek, sedangkan "undefined" menunjukkan bahwa variabel belum diinisialisasi. [true]
+[jawaban] "null" digunakan untuk menghapus variabel, sedangkan "undefined" digunakan untuk menginisialisasi variabel dengan nilai awal. 
+[jawaban] "null" hanya digunakan dalam operasi matematika, sementara "undefined" digunakan dalam operasi logika. 
+
+[soal] Apa yang dimaksud dengan "Scope" dalam JavaScript?
+[jawaban] Sebuah teknik untuk menggabungkan dua atau lebih fungsi menjadi satu. 
+[jawaban] Lingkup atau ruang lingkup yang menentukan bagian kode di mana sebuah variabel dapat diakses. [true]
+[jawaban] Sebuah metode untuk mengganti nilai dari variabel global. 
+[jawaban] Sebuah cara untuk mengatur tampilan elemen HTML. 
+
+[soal] Bagaimana cara menghindari "callback hell" dalam JavaScript?
+[jawaban] Tidak mungkin menghindari "callback hell" karena itu adalah bagian alami dari pengembangan JavaScript. 
+[jawaban] Dengan menggunakan metode "async/await" untuk mengatasi callback bersarang (nested callback). [true]
+[jawaban] Dengan menambahkan lebih banyak callback ke dalam kode untuk menjadikannya lebih terstruktur. 
+[jawaban] Dengan mengabaikan callback dan menggunakan fungsi konvensional. 
+
+[soal] Apa yang dimaksud dengan "IIFE" dalam JavaScript?
+[jawaban] Sebuah metode untuk mengganti variabel dengan nilai default. 
+[jawaban] Sebuah cara untuk membuat fungsi yang dieksekusi secara otomatis setelah dideklarasikan. [true]
+[jawaban] Sebuah tipe data yang digunakan untuk menyimpan daftar nilai. 
+[jawaban] Sebuah teknik untuk mengatur urutan eksekusi kode. 

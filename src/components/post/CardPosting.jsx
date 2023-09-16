@@ -55,7 +55,9 @@ const CardPosting = ({
           {typePost}
         </div>
         <div className="text-sm mt-3 text-blue1 break-words">
-          {typePost === "Kuis" && kuis[0].deskripsi}
+          {typePost === "Kuis" && (
+            <TextTruncate text={removeHtml(kuis[0].deskripsi)} maxWords={50} />
+          )}
           {typePost === "Tugas" && (
             <TextTruncate text={removeHtml(deskripsi)} maxWords={50} />
           )}

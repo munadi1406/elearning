@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, Suspense, lazy } from "react";
 import InputText from "../InputText";
-import TextArea from "../TextArea";
 import ButtonPure from "../ButtonPure";
 import DateTimeRange from "../DateTimeRange";
 import { useMutation } from "react-query";
@@ -10,7 +9,7 @@ import { useNotification } from "../../store/strore";
 import PropTypes from "prop-types";
 import QuizFromFile from "./QuizFromFile";
 import QuizManual from "./QuizManual";
-
+const TextEditor = lazy(() => import("../TextEditor"));
 
 export default function CreateQuiz({ handleClose }) {
   const [jumlahSoal, setJumlahSoal] = useState(0);
@@ -97,12 +96,12 @@ export default function CreateQuiz({ handleClose }) {
   const [text, setText] = useState();
   const handleChangePdf = async (e) => {
     const file = e.target.files[0];
-    const textt = await readFileContents(file)
-    if(textt){
-      setText(textt)
+    const textt = await readFileContents(file);
+    if (textt) {
+      setText(textt);
     }
-    setIsFromFile(true)
-  }
+    setIsFromFile(true);
+  };
 
   const readFileContents = (file) => {
     return new Promise((resolve, reject) => {
@@ -122,7 +121,7 @@ export default function CreateQuiz({ handleClose }) {
   };
 
   return (
-    <form className="grid grid-cols-1 gap-2" onSubmit={mutate}>
+    <form className="grid grid-cols-1 gap-2" onSubmit={mutate} autoComplete="none">
       <div className="flex justify-center items-center gap-2 w-full flex-col">
         <InputText
           label={"Nama Quiz"}
@@ -130,12 +129,20 @@ export default function CreateQuiz({ handleClose }) {
           required={true}
           onChange={(e) => setJudul(e.target.value)}
         />
-        <TextArea
-          label={"Deskripsi Quiz"}
-          placeholder={"Masukkan Deskripsi Quiz"}
-          required={true}
-          onChange={(e) => setDeskripsi(e.target.value)}
-        />
+        <Suspense fallback={<>Loading...</>}>
+        <div className="w-full">
+          <label
+            htmlFor={"Deskripsi Quiz"}
+            className="text-sm font-semibold text-blue1"
+          >
+            Deskripsi Quiz
+          </label>
+          <TextEditor
+            setValueData={setDeskripsi}
+            placeholder="Deskripsi Quiz..."
+          />
+        </div>
+        </Suspense>
         <InputText
           type={"number"}
           label={"Lama Pengerjaan Quiz"}
@@ -148,14 +155,29 @@ export default function CreateQuiz({ handleClose }) {
             <DateTimeRange dateFrom={setStartQuiz} dateTo={setEndQuiz} />
           </div>
           <div className="w-full text-xs col-span-2 text-blue1">
-            <div>Jika Soal Quiz Anda Relatif Banyak, Anda Bisa Membuat Nya Dari Sebuah File Dengan Format .txt</div>
-            <div>Silahkan Baca Dokumentasi Terlebih Dahulu Untuk Menggunakan Opsi Soal Dari File .text <span className="font-semibold cursor-pointer underline">Klik Disini</span></div>
+            <div>
+              Jika Soal Quiz Anda Relatif Banyak, Anda Bisa Membuat Nya Dari
+              Sebuah File Dengan Format .txt
+            </div>
+            <div>
+              Silahkan Baca Dokumentasi Terlebih Dahulu Untuk Menggunakan Opsi
+              Soal Dari File .text{" "}
+              <span className="font-semibold cursor-pointer underline">
+                Klik Disini
+              </span>
+            </div>
             <div className="flex gap-2">
-              <span onClick={() => setIsFromFile(!isFromFile)} className="cursor-pointer font-semibold underline">
+              <span
+                onClick={() => setIsFromFile(!isFromFile)}
+                className="cursor-pointer font-semibold underline"
+              >
                 Klik Disini
               </span>
               <div className="font-semibold">
-                {isFromFile ? 'Jika Anda Ingin Membuat Soal Langsung Dari Sini' : 'Jika Anda Ingin Membuat Soal Dari File .txt'}</div>
+                {isFromFile
+                  ? "Jika Anda Ingin Membuat Soal Langsung Dari Sini"
+                  : "Jika Anda Ingin Membuat Soal Dari File .txt"}
+              </div>
             </div>
           </div>
           {!isFromFile ? (
@@ -177,15 +199,29 @@ export default function CreateQuiz({ handleClose }) {
             </>
           ) : (
             <div className="col-span-2">
-              <InputText label={"File Pdf"} accept=".txt" type={"file"} onChange={handleChangePdf} style={"col-span-2"} />
+              <InputText
+                label={"File Pdf"}
+                accept=".txt"
+                type={"file"}
+                onChange={handleChangePdf}
+                style={"col-span-2"}
+              />
             </div>
           )}
         </div>
       </div>
       {!isFromFile ? (
-        <QuizManual opsiJawabanArray={opsiJawabanArray} handleInputChange={handleInputChange} soalArray={soalArray} />
+        <QuizManual
+          opsiJawabanArray={opsiJawabanArray}
+          handleInputChange={handleInputChange}
+          soalArray={soalArray}
+        />
       ) : (
-        <QuizFromFile handleInputChange={handleInputChange} text={text} setSoalData={setSoalData} />
+        <QuizFromFile
+          handleInputChange={handleInputChange}
+          text={text}
+          setSoalData={setSoalData}
+        />
       )}
       {/* <div>{handleCreate()}</div> */}
       <div className="flex w-full">

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-export default function TextEditor({ setValueData,title }) {
+export default function TextEditor({ setValueData,placeholder }) {
   const [value, setValue] = useState("");
 
   const modules = {
@@ -48,12 +48,12 @@ export default function TextEditor({ setValueData,title }) {
         modules={modules}
         formats={formats}
         style={{maxHeight:"90vh",width:"100%"}}
-        placeholder={title}
+        placeholder={placeholder}
       />
     </div>
   );
 }
 TextEditor.propTypes = {
   setValueData: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
 };

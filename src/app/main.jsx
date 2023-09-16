@@ -13,7 +13,7 @@ import JwtDecodedRf from "../utils/JwtDecodedRf";
 import Notification from "../components/Notification";
 
 const Main = () => {
-  const refreshToken = sessionStorage.getItem("rt");
+  const refreshToken = sessionStorage.getItem("at");
   const { setUsername, setIdUsers, setRole,setImage } = useDataUser();
   const navigate = useNavigate();
   useEffect(() => {

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { useQuery } from "react-query";
 import { getEvaluateQuiz, getScore } from "../../api/quiz";
+import RenderHtml from "./../../utils/RenderHtml";
 export default function BeforeSubmit({ judul, kuis, users }) {
   const navigate = useNavigate();
   const handleTakeQuiz = (idQuiz) => {
@@ -13,9 +14,13 @@ export default function BeforeSubmit({ judul, kuis, users }) {
   const { data, isLoading } = useQuery(`score-${judul}`, {
     queryFn: async () => {
       const dataScore = await getScore(kuis[0].id_quiz);
-      const dataEvaluate = await getEvaluateQuiz(kuis[0].id_quiz)
-      return { dataScore: dataScore.data.data, dataEvaluate: dataEvaluate.data.data };
+      const dataEvaluate = await getEvaluateQuiz(kuis[0].id_quiz);
+      return {
+        dataScore: dataScore.data.data,
+        dataEvaluate: dataEvaluate.data.data,
+      };
     },
+    staleTime: 10000,
   });
 
   if (isLoading) {
@@ -34,8 +39,11 @@ export default function BeforeSubmit({ judul, kuis, users }) {
               {new Date(e.start_quiz).toLocaleString()} -{" "}
               {new Date(e.end_quiz).toLocaleString()}
             </h3>
+            <p className="text-blue1 font-sans font-normal text-md text-center">
+              {`${e.duration} Menit`}
+            </p>
             <h1 className="text-blue1 font-sans font-normal text-md text-center">
-              {e.deskripsi}
+              <RenderHtml text={e.deskripsi} />
             </h1>
           </div>
           <div className="flex">
@@ -47,33 +55,66 @@ export default function BeforeSubmit({ judul, kuis, users }) {
         </React.Fragment>
       ))}
       <div className="w-full flex justify-start items-center flex-col bg-white min-h-[400px] rounded-sm shadow-sm shadow-gray-600  p-2">
-        <div className="flex gap-2 w-full bg-blue1/80 rounded-sm p-2 text-white justify-start items-center text-lg font-sans font-semibold ">
-          <h1>Score Quiz :</h1>
-          <h1>
-            {data.dataScore.message ? data.dataScore.message : data.dataScore.score}
-          </h1>
+        <div className="flex flex-col gap-2 w-full bg-white shadow-sm shadow-gray-600 rounded-sm p-2 text-blue1 justify-center items-start text-lg font-sans font-semibold ">
+          <div className="w-full flex gap-2">
+            <h1>Score Quiz :</h1>
+            <h1>
+              {data.dataScore.message
+                ? data.dataScore.message
+                : data.dataScore.score}
+            </h1>
+          </div>
+          {data.dataScore.score && (
+            <div className="ml-3 border-l-2 border-white p-2 w-full font-normal text-xs flex flex-col gap-2">
+              <p>Jumlah Soal : {data.dataScore?.soal}</p>
+              <p>Soal Terjawab : {data.dataScore?.terjawab}</p>
+            </div>
+          )}
         </div>
-        <div className="rounded-sm p-2 text-blue1 w-full flex flex-col justify-center items-center gap-2">
-          <h1 className="text-2xl font-semibold font-sans">Evaluasi Quiz</h1>
-          <table className="border-collapse table-auto border-slate-500 w-full rounded-md ">
-            <thead>
-              <tr>
-                <th className="border text-white font-semibold text-base bg-blue2">Soal</th>
-                <th className="border text-white font-semibold text-base bg-blue2">Jawaban Anda</th>
-                <th className="border text-white font-semibold text-base bg-blue2">Jawaban Yang Benar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.dataEvaluate.map((e, i) => (
-                <tr key={i}>
-                  <td className=" p-2">{e.question.question}</td>
-                  <td className={` text-center ${e.answerOption.answer_is_true ? 'bg-green-300' : 'bg-red-300'}`}>{e.answerOption.answer_option}</td>
-                  <td className={` text-center ${e.question.answerOption[0].answer_is_true && 'bg-green-300'}`}>{e.question.answerOption[0].answer_option}</td>
+        {data.dataScore.score && (
+          <div className="rounded-sm p-2 text-blue1 w-full flex flex-col justify-center items-center gap-2">
+            <h1 className="text-2xl font-semibold font-sans">Evaluasi Quiz</h1>
+            <table className="border-collapse table-auto border-slate-500 w-full rounded-md ">
+              <thead>
+                <tr>
+                  <th className="border text-white font-semibold text-base bg-blue2">
+                    Soal
+                  </th>
+                  <th className="border text-white font-semibold text-base bg-blue2">
+                    Jawaban Anda
+                  </th>
+                  <th className="border text-white font-semibold text-base bg-blue2">
+                    Jawaban Yang Benar
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {data.dataEvaluate.map((e, i) => (
+                  <tr key={i}>
+                    <td className=" p-2">{e.question.question}</td>
+                    <td
+                      className={` text-center ${
+                        e.answerOption.answer_is_true
+                          ? "bg-green-300"
+                          : "bg-red-300"
+                      }`}
+                    >
+                      {e.answerOption.answer_option}
+                    </td>
+                    <td
+                      className={` text-center ${
+                        e.question.answerOption[0].answer_is_true &&
+                        "bg-green-300"
+                      }`}
+                    >
+                      {e.question.answerOption[0].answer_option}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
