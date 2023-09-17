@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import Landing2 from "../../assets/landing2.jpg";
+import { lazy, Suspense } from "react";
 import Button from "../../components/Button";
 import { FaLocationArrow, FaQrcode, FaCode } from "react-icons/fa";
 import Landing from "../../assets/landing1.jpg";
-import Particle from "../Particle";
+const Particle = lazy(() => import("../Particle"));
 
 export default function Content() {
   const style = {
@@ -14,7 +15,9 @@ export default function Content() {
       id="about"
       className="h-max w-full flex justify-center items-center relative"
     >
-      <Particle />
+      <Suspense>
+        <Particle />
+      </Suspense>
       <div className="h-max w-full py-2 flex justify-center items-center flex-col relative z-10">
         <motion.div
           initial={{ scale: 0.4 }}
