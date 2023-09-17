@@ -29,18 +29,18 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ width: 0, }}
-      animate={{ width: "100%",  }}
-      transition={{ ease: "easeInOut", duration: 1.5 }}
+      initial={{  rotate:30,top:400, }}
+      animate={{top:0,rotate:0}}
+      transition={{ ease: "linear", duration:1}}
       className={` ${
-        isScrolled ? "md:bg-blue2/60 bg-gradient-to-r ease-in from-blue1 to-blue2 " : 'md:text-white md:bg-transparent md:backdrop-blur-none'
-      } rounded-md  backdrop-blur-sm flex h-16 justify-between items-center  md:px-4 px-1 py-4 overflow-clip relative z-60 text-white`}
+        isScrolled ? "md:bg-blue2/60 bg-gradient-to-r ease-in from-blue1 to-blue2" : 'md:text-white bg-blue2 md:backdrop-blur-none '
+      } backdrop-blur-sm flex w-full rounded-md  justify-between items-center  md:px-4 px-1 py-2 overflow-clip relative z-60 text-white`}
     >
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        transition={{ ease: "easeInOut", duration: 0.6, delay: 0.6 }}
-        className="flex justify-center items-center gap-2 "
+        transition={{ ease: "easeInOut", duration: 0.6 }}
+        className="flex justify-center items-center gap-2"
       >
         <img className="w-8" alt="Group" src={Logo} />
         <h1 className="font-sans text-lg  font-bold">E-verse</h1>

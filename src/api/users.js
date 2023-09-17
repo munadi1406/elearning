@@ -21,3 +21,14 @@ export const getUsersById = async ()=>{
   const data = await axiosJwt.get(`${endpoint}/users`)
   return data
 }
+
+
+export const changeUsername = async (payload)=>{
+  const data = await axiosJwt.post(`${endpoint}/users/changeUsername`,payload)
+  return data
+}
+
+export const changePassword = async (payload)=>{
+  const data = await axiosJwt.post(`${endpoint}/users/changePassword`,payload)
+  return data
+}

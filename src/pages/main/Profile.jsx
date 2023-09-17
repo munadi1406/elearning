@@ -1,18 +1,26 @@
 import { useState, lazy, Suspense } from "react";
-import ButtonPure from "../../components/ButtonPure";
 import UploadImage from "../../components/UploadImage";
 import { useDataUser } from "../../store/auth";
-import { useQuery } from "react-query";
-import { getUsersById } from "../../api/users";
+import { useMutation, useQuery } from "react-query";
+import { changePassword, changeUsername, getUsersById } from "../../api/users";
+import { useNotification } from "../../store/strore";
+const ChangePassword = lazy(() =>
+  import("../../components/profile/ChangePassword")
+);
+const ProfileData = lazy(() => import("../../components/profile/ProfileData"));
 const BannerProfile = lazy(() =>
   import("../../components/profile/BannerProfile")
 );
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [subMenuActive, setSubMenuActive] = useState(0);
+  const {setUsername} = useDataUser()
+  const {setStatus,setStatusType,setMsgNotification} = useNotification()
   const [isUploadImage, setIsUploadImage] = useState(false);
   const { idUsers } = useDataUser((state) => state);
   const { setImage } = useDataUser();
+  const navigate = useNavigate()
   const style = {
     input:
       "w-full outline-none border-blue1 rounded-md p-2 border-2 text-sm text-blue1",
@@ -36,6 +44,41 @@ const Profile = () => {
       );
     },
   });
+  let username = '';
+  const handleChangeUsername  = useMutation({mutationFn:async(payload)=>{
+    const data = await changeUsername(payload)
+    username=payload.username
+    return data
+  },
+  onSuccess:(data)=>{
+    setUsername(username)
+    setStatus(true)
+    setStatusType(true)
+    setMsgNotification(data.data.message)
+  },onError:(error)=>{
+    setStatus(true)
+    setStatusType(true)
+    setMsgNotification(error.response.data.message)
+  }
+})
+
+  const handleChangePassword  = useMutation({mutationFn:async(payload)=>{
+    const data = await changePassword(payload)
+    return data
+  },
+  onSuccess:(data)=>{
+    setStatus(true)
+    setStatusType(true)
+    setMsgNotification(data.data.message)
+    sessionStorage.setItem('rt',null)
+    sessionStorage.setItem('at',null)
+    navigate('/login')
+  },onError:(error)=>{
+    setStatus(true)
+    setStatusType(false)
+    setMsgNotification(error.response.data.message)
+  }
+})
 
   return isLoading ? (
     <>Loading...</>
@@ -67,71 +110,10 @@ const Profile = () => {
           </div>
         </div>
         <div className="md:w-2/3 w-full  grid grid-cols-1 gap-2">
-          {subMenuActive === 0 && (
-            <>
-              <div className="flex justify-center items-start flex-col w-full gap-2">
-                <label htmlFor="username" className={style.label}>
-                  Username
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  defaultValue={data.username}
-                  className={`${style.input}`}
-                />
-              </div>
-              <div className="flex justify-center items-start flex-col w-full gap-2">
-                <label htmlFor="email" className={style.label}>
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  defaultValue={data.email}
-                  className={`${style.input} bg-cream1/50 cursor-not-allowed`}
-                  readOnly
-                />
-              </div>
-              <div className="flex justify-center items-start flex-col w-full gap-2">
-                <label htmlFor="phoneNumber" className={style.label}>
-                  Phone Number
-                </label>
-                <input
-                  type="text"
-                  id="phoneNumber"
-                  defaultValue={data.phoneNumber}
-                  className={`${style.input} bg-cream1/50 cursor-not-allowed`}
-                  readOnly
-                />
-              </div>
-              <div className="w-full flex">
-                <ButtonPure text={"save"} />
-              </div>
-            </>
-          )}
-          {subMenuActive === 1 && (
-            <>
-              <div className="flex justify-center items-start flex-col w-full gap-2">
-                <label htmlFor="password" className={style.label}>
-                  New Password
-                </label>
-                <input type="password" id="password" className={style.input} />
-              </div>
-              <div className="flex justify-center items-start flex-col w-full gap-2">
-                <label htmlFor="confirmPassword" className={style.label}>
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  className={style.input}
-                />
-              </div>
-              <div className="w-full flex">
-                <ButtonPure text={"save"} />
-              </div>
-            </>
-          )}
+        <Suspense fallback={<>Loading...</>}>
+          {subMenuActive === 0 && <ProfileData data={data} style={style} handleChangeUsername={handleChangeUsername}/>}
+          {subMenuActive === 1 && <ChangePassword style={style} handleChangePassword={handleChangePassword}/>}
+        </Suspense>
         </div>
       </div>
     </>

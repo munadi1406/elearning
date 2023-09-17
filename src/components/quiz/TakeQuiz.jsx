@@ -73,6 +73,13 @@ export default function TakeQuiz() {
     setTimeLeft(sessionStorage.getItem("timeLeft"));
   }, [isFetched]);
 
+  useEffect(()=>{
+    if(quizFinished){
+      navigate('../')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[quizFinished])
+
   const [onClick, setOnClick] = useState(false);
   const constraintsRef = useRef(null);
 
@@ -85,7 +92,9 @@ export default function TakeQuiz() {
       const data = await addAnswer(datas);
       return data;
     },
-    onSuccess: () => {},
+    onSuccess: () => {
+      answerIsTaked(soalArray[currentIndex].id_question)
+    },
   });
 
   const handleChangeQuestionId = useCallback(() => {
@@ -113,13 +122,13 @@ export default function TakeQuiz() {
   const isAnswerLeter = () => {
     const storedData = localStorage.getItem(`answerLeter-${idQuiz}-${idUsers}`);
     const dataArray = storedData ? JSON.parse(storedData) : [];
-    const currentIndexIndex = dataArray.indexOf(currentIndex);
+    const currentIndexIndex = dataArray.indexOf(soalArray[currentIndex].id_question);
 
     if (currentIndexIndex !== -1) {
       dataArray.splice(currentIndexIndex, 1);
     } else {
       // Jika currentIndex tidak ada dalam array, tambahkan ke dalam array
-      dataArray.push(currentIndex);
+      dataArray.push(soalArray[currentIndex].id_question);
     }
 
     // Simpan array yang telah diperbarui kembali ke localStorage
@@ -128,10 +137,35 @@ export default function TakeQuiz() {
       JSON.stringify(dataArray)
     );
   };
+
+  const answerIsTaked = async (idQuestion) => {
+    const storedData = localStorage.getItem(`answerIsTaked-${idQuiz}-${idUsers}`);
+    const dataArray = storedData ? JSON.parse(storedData) : [];
+    const currentIndexIndex = dataArray.indexOf(idQuestion);
+
+    if (currentIndexIndex !== -1) {
+      dataArray.splice(currentIndexIndex, 1);
+    } else {
+      // Jika currentIndex tidak ada dalam array, tambahkan ke dalam array
+      dataArray.push(idQuestion);
+    }
+
+    // Simpan array yang telah diperbarui kembali ke localStorage
+    localStorage.setItem(
+      `answerIsTaked-${idQuiz}-${idUsers}`,
+      JSON.stringify(dataArray)
+    );
+  };
   
 
   const currentIndexNavIsInLocalStorage = (index) => {
     const storedData = localStorage.getItem(`answerLeter-${idQuiz}-${idUsers}`);
+    const dataArray = storedData ? JSON.parse(storedData) : [];
+    return dataArray.includes(index);
+  };
+
+  const checkAnswerIsTaked = (index) => {
+    const storedData = localStorage.getItem(`answerIsTaked-${idQuiz}-${idUsers}`);
     const dataArray = storedData ? JSON.parse(storedData) : [];
     return dataArray.includes(index);
   };
@@ -193,8 +227,8 @@ export default function TakeQuiz() {
                       ? " text-blue1 underline-offset-4 underline font-bold"
                       : "text-blue1"
                   } ${
-                    currentIndexNavIsInLocalStorage(i) ? "bg-cream1" : ""
-                  }  border-blue1 p-2 cursor-pointer border flex justify-center items-center   font-sans text-xs `}
+                    currentIndexNavIsInLocalStorage(e.id_question) ? "bg-cream1" : ""
+                  } ${checkAnswerIsTaked(e.id_question) ? 'bg-green-400 text-white':''} border-blue1 p-2 cursor-pointer border flex justify-center items-center   font-sans text-xs `}
                 >
                   {i + 1}
                 </div>
@@ -214,7 +248,7 @@ export default function TakeQuiz() {
             className="bg-blue1/80 flex justify-center items-center absolute overflow-clip z-50 "
           >
             {onClick ? (
-              <div className="w-full grid grid-cols-3 p-2 ">
+              <div className="w-full grid grid-cols-3 p-2 gap-2">
                 <div
                   className="text-white text-xs border-2 flex-grow col-span-full cursor-pointer p-2 rounded-md bg-blue1/50 font-semibold text-center"
                   onClick={() => setOnClick(!onClick)}
@@ -227,7 +261,9 @@ export default function TakeQuiz() {
                     onClick={() => setQuestionId(e.id_question)}
                     className={` ${
                       questionId === e.id_question ? " border-b-2" : ""
-                    }  text-white font-semibold p-2 cursor-pointer flex justify-center items-center  font-sans text-xs `}
+                    } ${
+                    currentIndexNavIsInLocalStorage(e.id_question) ? "bg-cream1" : ""
+                  } ${checkAnswerIsTaked(e.id_question) ? 'bg-green-400 ':''} text-white font-semibold p-2 cursor-pointer flex justify-center items-center  font-sans text-xs `}
                   >
                     {i + 1}
                   </div>
@@ -287,13 +323,14 @@ export default function TakeQuiz() {
                   <ButtonPure
                     onClick={goToPrev}
                     disabled={currentIndex === 0}
+                    style={`${currentIndex === 0 && 'hidden'} `}
                     text={"Prev"}
                   />
                   <label>
                     <input
                       type="checkbox"
                       onChange={isAnswerLeter}
-                      checked={currentIndexNavIsInLocalStorage(currentIndex)}
+                      checked={currentIndexNavIsInLocalStorage(questionId)}
                     />
                     Tandai (Jawab Nanti)
                   </label>
@@ -302,6 +339,7 @@ export default function TakeQuiz() {
                     onClick={goToNext}
                     disabled={currentIndex === soalArray.length - 1}
                     color={"green-600"}
+                    style={`${currentIndex === soalArray.length - 1 && 'hidden'} `}
                   />
                 </div>
               </>
