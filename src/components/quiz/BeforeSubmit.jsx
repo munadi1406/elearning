@@ -5,6 +5,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { getEvaluateQuiz, getScore } from "../../api/quiz";
 import RenderHtml from "./../../utils/RenderHtml";
+import { calculateTimeRemaining } from "../../utils/CalculateTime";
 export default function BeforeSubmit({ judul, kuis, users }) {
   const navigate = useNavigate();
   const handleTakeQuiz = (idQuiz) => {
@@ -39,6 +40,7 @@ export default function BeforeSubmit({ judul, kuis, users }) {
               {new Date(e.start_quiz).toLocaleString()} -{" "}
               {new Date(e.end_quiz).toLocaleString()}
             </h3>
+            <p className="text-blue1 font-sas font-semibold text-xs">{calculateTimeRemaining(e.end_quiz)}</p>
             <p className="text-blue1 font-sans font-normal text-md text-center">
               {`${e.duration} Menit`}
             </p>

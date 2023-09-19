@@ -8,6 +8,7 @@ import ModalDeletePost from "./ModalDeletePost";
 import { useNavigate } from "react-router-dom";
 import splitJudul from "../../utils/splitJudul";
 import TextTruncate from "../../utils/TextTruncate";
+import {calculateTimeAgo} from '../../utils/CalculateTime'
 
 const CardPosting = ({
   id_post,
@@ -17,6 +18,7 @@ const CardPosting = ({
   statusUser,
   typePost,
   kuis,
+  createdAt
 }) => {
   const deskripsi = tugas[0] && tugas[0].deskripsi;
 
@@ -53,6 +55,9 @@ const CardPosting = ({
         </div>
         <div className="text-xs text-white font-sans bg-blue2 font-semibold px-3 py-1 rounded-full w-max">
           {typePost}
+        </div>
+        <div className="text-xs text-blue1 font-sans  font-semibold w-max">
+          {calculateTimeAgo(createdAt)}
         </div>
         <div className="text-sm mt-3 text-blue1 break-words">
           {typePost === "Kuis" && (
@@ -100,5 +105,6 @@ CardPosting.propTypes = {
   statusUser: PropTypes.string.isRequired,
   typePost: PropTypes.string.isRequired,
   kuis: PropTypes.array,
+  createdAt: PropTypes.string.isRequired,
 };
 export default WithMotionWhileView(CardPosting);

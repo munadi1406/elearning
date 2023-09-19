@@ -3,10 +3,10 @@ import ScaleEffectMotion from "../../utils/ScaleEffectMotion";
 import { useMutation } from "react-query";
 import { createComment } from "../../api/comments";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect ,lazy,Suspense} from "react";
 import { useNotification } from "../../store/strore";
-import { useEffect } from "react";
-import useWebSocket from "react-use-websocket";
+const CommentsCard = lazy(()=>import( "./CommentsCard"));
+import { Fragment } from "react";
 
 export default function Comments() {
   const { idPost } = useParams();
@@ -36,56 +36,73 @@ export default function Comments() {
   });
   const socketUrl = "wss://elearning.fathullahmunadi.repl.co";
   const [messageHistory, setMessageHistory] = useState([]);
-
-  const { lastJsonMessage, readyState, sendJsonMessage } =
-    useWebSocket(socketUrl);
+  const wss = new WebSocket(socketUrl);
 
   useEffect(() => {
-    if (lastJsonMessage?.action === "comments") {
-      setMessageHistory(lastJsonMessage.data);
-    } else if (lastJsonMessage?.action === "update") {
-      const newData = lastJsonMessage.data;
-      setMessageHistory(messageHistory.concat(newData));
-    }
+    const sendGetCommentsMessage = () => {
+      const msg = {
+        action: "getComments",
+        id_post: idPost,
+        token: `bearer ${sessionStorage.getItem("at")}`,
+      };
+      wss.send(JSON.stringify(msg));
+    };
+
+    const handleWebSocketMessage = (e) => {
+      const data = e.data;
+      if (data !== "web socket connected") {
+        const datas = JSON.parse(data);
+        if (datas.action === "comments") {
+          // Simpan data komentar pertama kali diterima
+          setMessageHistory(datas.data);
+        } else if (datas.action === "update") {
+          setMessageHistory((prevMessageHistory) => {
+            if (
+              !prevMessageHistory.some(
+                (msg) => msg.id_comments === datas.data.id_comments
+              )
+            ) {
+              return [...prevMessageHistory, datas.data];
+            }
+            return prevMessageHistory;
+          });
+        }
+      }
+    };
+
+    wss.addEventListener("open", sendGetCommentsMessage);
+    wss.addEventListener("message", handleWebSocketMessage);
+    return () => {
+      if (wss.readyState === WebSocket.OPEN) {
+        wss.close();
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastJsonMessage, setMessageHistory]);
-
-  useEffect(() => {
-    console.log("webscoket connected");
-    sendJsonMessage({
-      action: "getComments",
-      id_post: idPost,
-      token: `bearer ${sessionStorage.getItem("at")}`,
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [readyState]);
+  }, []);
 
   return (
     <div className={`px-5 w-full p-2`}>
-      <div className="flex flex-col gap-2 max-h-[400px] overflow-y-auto">
+      <div className="text-blue1 font-sans text-xs font-semibold mb-2">{`${messageHistory.length} Komentar`}</div>
+      <div className="flex flex-col gap-2 max-h-[400px] overflow-y-auto overflow-x-hidden">
+      <Suspense fallback={<>Loading...</>}>
         {messageHistory &&
           [...messageHistory.slice(0, showItems), ...additionalItems].map(
             (e, i) => (
-              <div key={i}>
-                <h1 className="w-max py-1 text-blue1 font-semibold text-sm rounded-md">
-                  {e?.["user.username"]}
-                </h1>
-                <div className="ml-3 border-l border-blue1 px-2">
-                  <div className="text-lg text-blue1 break-words">{e?.comment}</div>
-                  <div className="text-blue1 text-[10px]  font-semibold">
-                    {new Date(e?.createdAt).toLocaleString()}
-                  </div>
-                </div>
-              </div>
+              <Fragment key={i}>
+                <CommentsCard data={e} />
+              </Fragment>
             )
           )}
-          {messageHistory.length === 0 && (
-            <div className="text-blue1 text-center text-xs font-sans">
-              Jadilah Yang Pertama Mengomentari Postingan Ini
-            </div>
-          )}
+      </Suspense>
+        {messageHistory.length === 0 && (
+          <div className="text-blue1 text-center text-xs font-sans">
+            Jadilah Yang Pertama Mengomentari Postingan Ini
+          </div>
+        )}
         <button
-          className={`text-blue1 text-xs cursor-pointer ${messageHistory.length < showItems && 'hidden'}`}
+          className={`text-blue1 text-xs cursor-pointer ${
+            messageHistory.length < showItems && "hidden"
+          }`}
           onClick={() => {
             setShowItems((prevShowItems) => prevShowItems + 10); // Menambah 10 item lainnya
           }}

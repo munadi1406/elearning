@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, } from "react-router-dom";
 import { addAnswer, detailQuestion, takeAQuiz } from "../../api/quiz";
 import { useState, useEffect, Fragment } from "react";
 import { motion } from "framer-motion";
@@ -9,7 +9,6 @@ import { useNotification } from "../../store/strore";
 import ButtonPure from "../ButtonPure";
 import { useCallback } from "react";
 import { useDataUser } from "../../store/auth";
-
 export default function TakeQuiz() {
   const { idQuiz } = useParams();
   const [questionId, setQuestionId] = useState(0);
@@ -73,12 +72,12 @@ export default function TakeQuiz() {
     setTimeLeft(sessionStorage.getItem("timeLeft"));
   }, [isFetched]);
 
-  useEffect(()=>{
-    if(quizFinished){
-      navigate('../')
+  useEffect(() => {
+    if (quizFinished) {
+      navigate("../");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[quizFinished])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quizFinished]);
 
   const [onClick, setOnClick] = useState(false);
   const constraintsRef = useRef(null);
@@ -93,7 +92,7 @@ export default function TakeQuiz() {
       return data;
     },
     onSuccess: () => {
-      answerIsTaked(soalArray[currentIndex].id_question)
+      answerIsTaked(soalArray[currentIndex].id_question);
     },
   });
 
@@ -122,7 +121,9 @@ export default function TakeQuiz() {
   const isAnswerLeter = () => {
     const storedData = localStorage.getItem(`answerLeter-${idQuiz}-${idUsers}`);
     const dataArray = storedData ? JSON.parse(storedData) : [];
-    const currentIndexIndex = dataArray.indexOf(soalArray[currentIndex].id_question);
+    const currentIndexIndex = dataArray.indexOf(
+      soalArray[currentIndex].id_question
+    );
 
     if (currentIndexIndex !== -1) {
       dataArray.splice(currentIndexIndex, 1);
@@ -139,7 +140,9 @@ export default function TakeQuiz() {
   };
 
   const answerIsTaked = async (idQuestion) => {
-    const storedData = localStorage.getItem(`answerIsTaked-${idQuiz}-${idUsers}`);
+    const storedData = localStorage.getItem(
+      `answerIsTaked-${idQuiz}-${idUsers}`
+    );
     const dataArray = storedData ? JSON.parse(storedData) : [];
     const currentIndexIndex = dataArray.indexOf(idQuestion);
 
@@ -156,7 +159,6 @@ export default function TakeQuiz() {
       JSON.stringify(dataArray)
     );
   };
-  
 
   const currentIndexNavIsInLocalStorage = (index) => {
     const storedData = localStorage.getItem(`answerLeter-${idQuiz}-${idUsers}`);
@@ -165,7 +167,9 @@ export default function TakeQuiz() {
   };
 
   const checkAnswerIsTaked = (index) => {
-    const storedData = localStorage.getItem(`answerIsTaked-${idQuiz}-${idUsers}`);
+    const storedData = localStorage.getItem(
+      `answerIsTaked-${idQuiz}-${idUsers}`
+    );
     const dataArray = storedData ? JSON.parse(storedData) : [];
     return dataArray.includes(index);
   };
@@ -203,6 +207,13 @@ export default function TakeQuiz() {
     "z",
   ];
 
+  const handleFinish = () => {
+    sessionStorage.setItem("timeLeft", null);
+    localStorage.setItem(`answerIsTaked-${idQuiz}-${idUsers}`, null);
+    localStorage.setItem(`answerLeter-${idQuiz}-${idUsers}`, null);
+    navigate(-1)
+  };
+
   return (
     <motion.div
       ref={constraintsRef}
@@ -227,8 +238,14 @@ export default function TakeQuiz() {
                       ? " text-blue1 underline-offset-4 underline font-bold"
                       : "text-blue1"
                   } ${
-                    currentIndexNavIsInLocalStorage(e.id_question) ? "bg-cream1" : ""
-                  } ${checkAnswerIsTaked(e.id_question) ? 'bg-green-400 text-white':''} border-blue1 p-2 cursor-pointer border flex justify-center items-center   font-sans text-xs `}
+                    currentIndexNavIsInLocalStorage(e.id_question)
+                      ? "bg-cream1"
+                      : ""
+                  } ${
+                    checkAnswerIsTaked(e.id_question)
+                      ? "bg-green-400 text-white"
+                      : ""
+                  } border-blue1 p-2 cursor-pointer border flex justify-center items-center   font-sans text-xs `}
                 >
                   {i + 1}
                 </div>
@@ -262,8 +279,12 @@ export default function TakeQuiz() {
                     className={` ${
                       questionId === e.id_question ? " border-b-2" : ""
                     } ${
-                    currentIndexNavIsInLocalStorage(e.id_question) ? "bg-cream1" : ""
-                  } ${checkAnswerIsTaked(e.id_question) ? 'bg-green-400 ':''} text-white font-semibold p-2 cursor-pointer flex justify-center items-center  font-sans text-xs `}
+                      currentIndexNavIsInLocalStorage(e.id_question)
+                        ? "bg-cream1"
+                        : ""
+                    } ${
+                      checkAnswerIsTaked(e.id_question) ? "bg-green-400 " : ""
+                    } text-white font-semibold p-2 cursor-pointer flex justify-center items-center  font-sans text-xs `}
                   >
                     {i + 1}
                   </div>
@@ -319,11 +340,11 @@ export default function TakeQuiz() {
                     </label>
                   </div>
                 ))}
-                <div className="flex justify-between mt-4">
+                <div className="flex justify-center gap-10 w-full items-center mt-4">
                   <ButtonPure
                     onClick={goToPrev}
                     disabled={currentIndex === 0}
-                    style={`${currentIndex === 0 && 'hidden'} `}
+                    style={`${currentIndex === 0 && "hidden"} `}
                     text={"Prev"}
                   />
                   <label>
@@ -339,7 +360,17 @@ export default function TakeQuiz() {
                     onClick={goToNext}
                     disabled={currentIndex === soalArray.length - 1}
                     color={"green-600"}
-                    style={`${currentIndex === soalArray.length - 1 && 'hidden'} `}
+                    style={`${
+                      currentIndex === soalArray.length - 1 && "hidden"
+                    } `}
+                  />
+                  <ButtonPure
+                    text={"Selesai"}
+                    onClick={handleFinish}
+                    color={"green-600"}
+                    style={`${
+                      currentIndex === soalArray.length - 1 ? "" : "hidden"
+                    } `}
                   />
                 </div>
               </>

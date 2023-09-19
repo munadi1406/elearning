@@ -10,10 +10,11 @@ export default function ListPosting({ courseId, handleShowModalTugas,statusUser 
     useInfiniteQuery(`postCourse${courseId}`, {
       queryFn: async ({ pageParam }) => {
         const data = await post(courseId, pageParam || 0);
+       
         return data.data;
       },
       getNextPageParam: (lastPage) => lastPage.data.lastIdPost,
-      refetchInterval: 5000,
+      staleTime: 5000,
     });
   if (isLoading) {
     return <SkeletonPosting />;

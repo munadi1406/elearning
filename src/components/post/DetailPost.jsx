@@ -13,6 +13,7 @@ import { cancaleSubmit } from "../../api/tugas";
 import IsSubmit from "../assignment/IsSubmit";
 const BeforeSubmit = lazy(() => import("../quiz/BeforeSubmit"));
 
+
 export default function DetailPost() {
   const [file, setFile] = useState([]);
   const { idPost, courseId } = useParams();

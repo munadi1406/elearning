@@ -9,7 +9,7 @@ export default function Hero() {
   return (
     <div
       id="home"
-      className="p-2 rounded-md bg-white/60 backdrop-blur-sm md:w-11/12 m-auto w-full overflow-clip mt-2 h-screen flex justify-center items-center relative "
+      className="p-2 md:w-11/12 m-auto w-full overflow-clip mt-2 h-screen flex justify-center items-center relative "
     >
       <div className="flex px-10 flex-col gap-4 justify-center w-full md:py-0 py-10 items-center font-sans text-blue2 space-y-2 relative z-10">
         <div className="flex justify-center items-center  text-blue1 flex-col gap-1">
